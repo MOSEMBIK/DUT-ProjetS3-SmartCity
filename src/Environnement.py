@@ -2,6 +2,7 @@ import tkinter
 from tkinter import *
 from tkinter import ttk
 from random import *
+from Case import Case
 
 # Create Tkinter Object
 root = Tk()
@@ -16,13 +17,13 @@ root = Tk()
 # ensuite, au lieu de faire w.createRectangle, tout simplement créer un nouvel objet case à chaque
 # case qu'on veut créer
 
-w = Canvas(root, height = 480, width = 480)
-square = w.create_rectangle(5, 5, 20, 20, fill = 'blue')
-w.pack()
+cv = Canvas(root, height = 480, width = 480)
+cv.pack()
 root.update_idletasks()
-for i in range(0, w.winfo_height(), 10):
-    for j in range(0, w.winfo_width(), 10):
-        w.create_rectangle(i,j,i+10,j+10, fill = 'red')
+
+for i in range(0, cv.winfo_height(), 10):
+    for j in range(0, cv.winfo_width(), 10):
+        c = Case(cv, i, j)
 
 
 root.mainloop()
@@ -35,6 +36,8 @@ class Environnement:
         self.dimension = 48
         self.contenu = contenu
         self.nbBatiments = nbBatiments
+
+
 
 
 
