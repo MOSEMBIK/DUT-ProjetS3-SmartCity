@@ -1,3 +1,6 @@
+import asyncio
+import math
+
 class Lieu:
 
     def __init__(self, idLieu, nom):

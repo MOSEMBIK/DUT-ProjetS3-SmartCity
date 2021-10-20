@@ -1,21 +1,28 @@
+import asyncio
+import math
+
+import tkinter
 from tkinter import *
 from tkinter import ttk
 from random import *
-from src.Lieu import Lieu
+from src.Lieu import *
 # Create Tkinter Object
 root = Tk()
-min_room_size = 6
-max_room_size = 20
-max_rooms = 10
-min_rooms = 3
-max_iters = 3
-palette = ["#927371", "#0a5a78"]
+palette = ["#927371", "#065d75"]
+# Set Geometry
 
+# Frame 1
+
+# Je l'ai fait en dehors de la classe pour tester, mais elle sera sûrement dedans
+# le truc c'est que les w.createRectangle c'est des cases, et on a une classe case,
+# donc je pense que il faut d'abord implémenter la classe case pour
+# ensuite, au lieu de faire w.createRectangle, tout simplement créer un nouvel objet case à chaque
+# case qu'on veut créer
 
 
 class Environnement:
 
-    def __init__(self, nom):
+    def __init__(self, nom, nbBatiments):
         self.nom = nom
         self.canvas = Environnement.init_map(self)
         self.contenu = {}
