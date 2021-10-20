@@ -1,468 +1,434 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>5</zoom_level>
+  <zoom_level>20</zoom_level>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>365</x>
-      <y>120</y>
-      <w>550</w>
-      <h>590</h>
+      <x>0</x>
+      <y>0</y>
+      <w>3020</w>
+      <h>2660</h>
     </coordinates>
     <panel_attributes>DOCUMENTATION
-bg=none
+bg=pink
 layer=-999</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>455</y>
-      <w>10</w>
-      <h>10</h>
+      <x>980</x>
+      <y>1220</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>455</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1020</x>
+      <y>1220</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>455</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1060</x>
+      <y>1220</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>465</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1060</x>
+      <y>1260</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>460</x>
-      <y>465</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1100</x>
+      <y>1260</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>475</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1060</x>
+      <y>1300</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>475</y>
-      <w>10</w>
-      <h>10</h>
+      <x>980</x>
+      <y>1300</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>460</x>
-      <y>485</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1100</x>
+      <y>1340</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>475</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1020</x>
+      <y>1300</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>485</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1060</x>
+      <y>1340</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
-      <y>475</y>
-      <w>10</w>
-      <h>10</h>
+      <x>900</x>
+      <y>1300</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>470</x>
-      <y>465</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1140</x>
+      <y>1260</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>485</y>
-      <w>10</w>
-      <h>10</h>
+      <x>980</x>
+      <y>1340</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>400</x>
-      <y>475</y>
-      <w>10</w>
-      <h>10</h>
+      <x>860</x>
+      <y>1300</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>410</x>
-      <y>465</y>
-      <w>10</w>
-      <h>10</h>
+      <x>900</x>
+      <y>1260</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>420</x>
-      <y>475</y>
-      <w>10</w>
-      <h>10</h>
+      <x>940</x>
+      <y>1300</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>480</x>
-      <y>465</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1180</x>
+      <y>1260</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>480</x>
-      <y>475</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1180</x>
+      <y>1300</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>490</x>
-      <y>475</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1220</x>
+      <y>1300</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>510</y>
-      <w>10</w>
-      <h>10</h>
+      <x>980</x>
+      <y>1440</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>510</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1020</x>
+      <y>1440</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>510</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1060</x>
+      <y>1440</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>460</x>
-      <y>510</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1100</x>
+      <y>1440</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>470</x>
-      <y>510</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1140</x>
+      <y>1440</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>470</x>
-      <y>520</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1140</x>
+      <y>1480</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>460</x>
-      <y>520</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1100</x>
+      <y>1480</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>520</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1060</x>
+      <y>1480</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>520</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1020</x>
+      <y>1480</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>520</y>
-      <w>10</w>
-      <h>10</h>
+      <x>980</x>
+      <y>1480</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>430</x>
-      <y>530</y>
-      <w>10</w>
-      <h>10</h>
+      <x>980</x>
+      <y>1520</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>440</x>
-      <y>530</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1020</x>
+      <y>1520</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>450</x>
-      <y>530</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1060</x>
+      <y>1520</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>460</x>
-      <y>530</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1100</x>
+      <y>1520</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>470</x>
-      <y>530</y>
-      <w>10</w>
-      <h>10</h>
+      <x>1140</x>
+      <y>1520</y>
+      <w>40</w>
+      <h>40</h>
     </coordinates>
     <panel_attributes>
-layer=1000000
-group=1</panel_attributes>
+layer=1000000</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>385</x>
-      <y>365</y>
-      <w>155</w>
-      <h>180</h>
+      <x>800</x>
+      <y>860</y>
+      <w>620</w>
+      <h>920</h>
     </coordinates>
     <panel_attributes>Lieu
 --
@@ -484,40 +450,112 @@ une zone de recharge, une route, ...
    
    Un exemple de lieu de type batiment :
 
-bg=orange
-group=1</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>600</x>
-      <y>450</y>
-      <w>155</w>
-      <h>180</h>
-    </coordinates>
-    <panel_attributes>Case
+
+
+
+
 --
 
-  Un objet Interface
+  Les types de lieu : 
+         "route"     =  0
+         "batiment"  =  1
 
-bg=pink</panel_attributes>
+bg=blue</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>390</x>
-      <y>145</y>
-      <w>155</w>
-      <h>180</h>
+      <x>800</x>
+      <y>80</y>
+      <w>620</w>
+      <h>720</h>
+    </coordinates>
+    <panel_attributes>Environnement
+--
+
+  Un objet Environnement
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>100</x>
+      <y>860</y>
+      <w>620</w>
+      <h>720</h>
     </coordinates>
     <panel_attributes>Interface
 --
 
   Un objet Interface
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>800</x>
+      <y>1840</y>
+      <w>620</w>
+      <h>720</h>
+    </coordinates>
+    <panel_attributes>Case
+--
 
-bg=pink</panel_attributes>
+  Un objet Case
+
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1500</x>
+      <y>860</y>
+      <w>620</w>
+      <h>720</h>
+    </coordinates>
+    <panel_attributes>Tache
+--
+
+  Un objet Tache
+
+bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2200</x>
+      <y>80</y>
+      <w>620</w>
+      <h>720</h>
+    </coordinates>
+    <panel_attributes>Equipe
+--
+
+  Un objet Equipe
+
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>2200</x>
+      <y>860</y>
+      <w>620</w>
+      <h>1500</h>
+    </coordinates>
+    <panel_attributes>Agent
+--
+
+  Un objet Agent
+
+bg=red</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>

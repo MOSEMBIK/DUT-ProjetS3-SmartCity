@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>546</y>
-      <w>147</w>
-      <h>77</h>
+      <x>612</x>
+      <y>264</y>
+      <w>156</w>
+      <h>66</h>
     </coordinates>
     <panel_attributes>Environnement
 --
 - nom : string
 - dimensions : int
-- lieux : list &lt;Lieu&gt;
+- lieux : dict {&lt;Lieu.id&gt;, &lt;Lieu&gt;}
 --
 
 
@@ -24,10 +24,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>749</x>
-      <y>637</y>
-      <w>147</w>
-      <h>231</h>
+      <x>1182</x>
+      <y>354</y>
+      <w>156</w>
+      <h>198</h>
     </coordinates>
     <panel_attributes>Agent
 --
@@ -55,12 +55,12 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>525</x>
-      <y>546</y>
-      <w>147</w>
-      <h>175</h>
+      <x>894</x>
+      <y>264</y>
+      <w>162</w>
+      <h>150</h>
     </coordinates>
-    <panel_attributes>Tâche 
+    <panel_attributes>Tache 
 --
 - idTache : int
 - type : int
@@ -83,10 +83,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>749</x>
-      <y>539</y>
-      <w>147</w>
-      <h>84</h>
+      <x>1182</x>
+      <y>270</y>
+      <w>156</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Equipe
 --
@@ -100,41 +100,44 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>637</y>
-      <w>147</w>
-      <h>105</h>
+      <x>612</x>
+      <y>342</y>
+      <w>156</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>Lieu
 --
 - idLieu : int
 - nom : string
 - TypeLieu : string
-- pattern : list &lt;Case&gt;
+- pattern : dict {&lt;Case.num&gt;, &lt;Case&gt;}
 --
-+ getTpLieu() : string
-+ getCoordonees() : array &lt;int&gt;
-+ accessible() : bool</panel_attributes>
++ getCoordoneesLieu() : list &lt;int&gt;
++ getCoordoneesLoc() : list &lt;int&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>301</x>
-      <y>756</y>
-      <w>147</w>
-      <h>105</h>
+      <x>612</x>
+      <y>444</y>
+      <w>156</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>Case
 --
+- num : int
+- dimension : int
+
 - coordX : int
 - coorxY : int
-- color
+
+- color : string
 - accessible : bool
 
 - cv : Canvas
 --
-+ getCoordonees(): array &lt;int&gt;
++ getCoordonees(): list &lt;int&gt;
 
 </panel_attributes>
     <additional_attributes/>
@@ -142,10 +145,10 @@
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>525</x>
-      <y>154</y>
-      <w>84</w>
-      <h>28</h>
+      <x>228</x>
+      <y>294</y>
+      <w>72</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>Environement
 group=1</panel_attributes>
@@ -154,10 +157,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>651</x>
-      <y>154</y>
-      <w>84</w>
-      <h>28</h>
+      <x>336</x>
+      <y>294</y>
+      <w>72</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>Lieu
 group=1</panel_attributes>
@@ -166,10 +169,10 @@ group=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>602</x>
-      <y>161</y>
-      <w>63</w>
-      <h>21</h>
+      <x>294</x>
+      <y>300</y>
+      <w>54</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 group=1</panel_attributes>
@@ -178,10 +181,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>427</x>
-      <y>203</y>
-      <w>84</w>
-      <h>28</h>
+      <x>144</x>
+      <y>336</y>
+      <w>72</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>Interface
 group=1</panel_attributes>
@@ -190,10 +193,10 @@ group=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>483</x>
-      <y>161</y>
-      <w>56</w>
-      <h>56</h>
+      <x>192</x>
+      <y>300</y>
+      <w>48</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 group=1</panel_attributes>
@@ -202,10 +205,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>574</x>
-      <y>203</y>
-      <w>84</w>
-      <h>28</h>
+      <x>270</x>
+      <y>336</y>
+      <w>72</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>Tache
 group=1</panel_attributes>
@@ -214,10 +217,10 @@ group=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>504</x>
-      <y>210</y>
-      <w>84</w>
-      <h>21</h>
+      <x>210</x>
+      <y>342</y>
+      <w>72</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 group=1</panel_attributes>
@@ -226,10 +229,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>777</x>
-      <y>154</y>
-      <w>84</w>
-      <h>28</h>
+      <x>444</x>
+      <y>294</y>
+      <w>72</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>Case
 group=1</panel_attributes>
@@ -238,10 +241,10 @@ group=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>728</x>
-      <y>161</y>
-      <w>63</w>
-      <h>21</h>
+      <x>402</x>
+      <y>300</y>
+      <w>54</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 group=1</panel_attributes>
@@ -250,10 +253,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>525</x>
-      <y>252</y>
-      <w>84</w>
-      <h>28</h>
+      <x>228</x>
+      <y>378</y>
+      <w>72</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>Equipe
 group=1</panel_attributes>
@@ -262,10 +265,10 @@ group=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>483</x>
-      <y>224</y>
-      <w>56</w>
-      <h>56</h>
+      <x>192</x>
+      <y>354</y>
+      <w>48</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 group=1</panel_attributes>
@@ -274,10 +277,10 @@ group=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>602</x>
-      <y>259</y>
-      <w>63</w>
-      <h>21</h>
+      <x>294</x>
+      <y>384</y>
+      <w>54</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 group=1</panel_attributes>
@@ -286,10 +289,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>651</x>
-      <y>252</y>
-      <w>84</w>
-      <h>28</h>
+      <x>336</x>
+      <y>378</y>
+      <w>72</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>Agent
 group=1</panel_attributes>
@@ -298,10 +301,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>308</x>
-      <y>203</y>
-      <w>84</w>
-      <h>28</h>
+      <x>42</x>
+      <y>336</y>
+      <w>72</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>Main
 group=1</panel_attributes>
@@ -310,10 +313,10 @@ group=1</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>385</x>
-      <y>210</y>
-      <w>56</w>
-      <h>21</h>
+      <x>108</x>
+      <y>342</y>
+      <w>48</w>
+      <h>18</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 group=1</panel_attributes>
@@ -322,10 +325,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>259</x>
-      <y>350</y>
-      <w>679</w>
-      <h>546</h>
+      <x>588</x>
+      <y>96</y>
+      <w>774</w>
+      <h>642</h>
     </coordinates>
     <panel_attributes>DESCRIPTION DES CLASSES
 bg=pink
@@ -337,10 +340,10 @@ layer=-999
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>259</x>
-      <y>70</y>
-      <w>679</w>
-      <h>273</h>
+      <x>0</x>
+      <y>222</y>
+      <w>582</w>
+      <h>234</h>
     </coordinates>
     <panel_attributes>RELATIONS ENTRE CLASSES
 bg=green
@@ -352,16 +355,18 @@ group=1</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>448</x>
-      <y>385</y>
-      <w>301</w>
-      <h>98</h>
+      <x>828</x>
+      <y>120</y>
+      <w>318</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Interface
 --
 - Environnement : Environnement
 - Equipes : list &lt;Equipe&gt;
-- Taches :  dict {&lt;Tache&gt;, &lt; ( Environement.Lieu.getCoord() ) &gt;}
+- Taches : list &lt;Tache&gt;
+- Agents : dict {&lt;Equipe.Agent.id&gt;, &lt; ( Environement.Lieu.Case.getCoord() ) &gt; }
+- locTaches :  dict {&lt;Tache.id&gt;, &lt; ( Environement.Lieu.Case.getCoord() ) &gt;}
 --
 + newTache()
 + addTache(&lt; ( Environement.Lieu.getCoord() ) &gt;)
@@ -375,10 +380,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>490</x>
-      <y>525</y>
-      <w>217</w>
-      <h>357</h>
+      <x>882</x>
+      <y>246</y>
+      <w>186</w>
+      <h>354</h>
     </coordinates>
     <panel_attributes>bg=white</panel_attributes>
     <additional_attributes/>
@@ -386,10 +391,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>714</x>
-      <y>525</y>
-      <w>210</w>
-      <h>357</h>
+      <x>1170</x>
+      <y>252</y>
+      <w>180</w>
+      <h>354</h>
     </coordinates>
     <panel_attributes>bg=red</panel_attributes>
     <additional_attributes/>
@@ -397,10 +402,10 @@ group=1</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>273</x>
-      <y>525</y>
-      <w>210</w>
-      <h>357</h>
+      <x>600</x>
+      <y>246</y>
+      <w>180</w>
+      <h>354</h>
     </coordinates>
     <panel_attributes>bg=blue</panel_attributes>
     <additional_attributes/>
