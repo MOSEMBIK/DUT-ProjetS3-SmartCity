@@ -1,7 +1,10 @@
-import src.Agent
-import src.Case
-import src.Environnement
-import src.Equipe
-import src.Tache
-import src.Tache_Enchere
-import src.Tache_Simple
+from src.Environnement import Environnement
+from src.Case import *
+from src.Lieu import Lieu
+
+Env = Environnement("Map")
+for i in range(3):
+    Env.init_rooms(i)
+print(Env.getContenu()[2].getLocation())
+Env.main_loop()
+
