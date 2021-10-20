@@ -1,6 +1,3 @@
-import asyncio
-import math
-
 import Tache
 
 class Tache_Simple(Tache):

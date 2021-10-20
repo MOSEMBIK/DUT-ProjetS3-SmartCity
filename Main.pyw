@@ -1,6 +1,3 @@
-import asyncio
-import math
-
 from src.Environnement import Environnement
 from src.Case import *
 from src.Lieu import Lieu

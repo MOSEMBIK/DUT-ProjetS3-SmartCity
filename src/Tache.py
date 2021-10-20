@@ -1,6 +1,3 @@
-import asyncio
-import math
-
 class Tache:
 
     def __init__(self):
