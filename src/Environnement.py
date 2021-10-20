@@ -19,8 +19,9 @@ class Environnement:
         self.contenu = {}
         self.canvas = Environnement.init_map(self)
 
-    def init_map(self):
-        cv = Canvas(root, height=600, width=600)
+    def  init_map(self):
+        root.title(self.nom)
+        cv = Canvas(root, height = 600, width = 600)
         cv.pack()
         root.update_idletasks()
         cv.update()
