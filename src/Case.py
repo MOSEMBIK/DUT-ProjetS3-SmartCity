@@ -1,7 +1,3 @@
-import asyncio
-import math
-
-import tkinter
 from tkinter import *
 from tkinter import ttk
 from random import *

@@ -28,9 +28,11 @@ class Environnement:
         self.contenu = {}
 
     def  init_map(self):
+        root.title(self.nom)
         cv = Canvas(root, height = 600, width = 600)
         cv.pack()
         root.update_idletasks()
+        cv.update()
         for x in range(0, cv.winfo_height(), 20):
             for y in range(0, cv.winfo_width(), 20):
                 cv.create_rectangle(x, y, x + 20, y + 20, fill=palette[0], outline="#8d6e6d")
