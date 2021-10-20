@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>546</y>
+      <w>147</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>Environnement
+--
+- nom : string
+- dimensions : int
+- lieux : list &lt;Lieu&gt;
+--
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>749</x>
+      <y>637</y>
+      <w>147</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>Agent
+--
+- id : int
+- type : int
+- location : Case
+
+- speed : int
+- autonomie : float
+- volumeMax : int
+
+- tache : ?Tâche
+--
++ initTrajet(Case) : list &lt;Case&gt;
++ move(Case)
++ getCoord() : list
+
++ setBatterie(float)
++ faireTache() : float
++ checkCharge()
++ setTache(Tâche)
++ getEquipe() : Equipe</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>525</x>
+      <y>546</y>
+      <w>147</w>
+      <h>175</h>
+    </coordinates>
+    <panel_attributes>Tâche 
+--
+- idTache : int
+- type : int
+- durée : int
+- récompense : int
+
+- etat : int
+--
++ demandeTache()
+
++ startEnchere()
++ setRecompense(int)
+
++ getType() : string
++ txtType() : string
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>749</x>
+      <y>539</y>
+      <w>147</w>
+      <h>84</h>
+    </coordinates>
+    <panel_attributes>Equipe
+--
+- id : int
+- nom : string
+- agents : list &lt;Agent&gt;
+--
++ getAgents() : list &lt;Agent&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>637</y>
+      <w>147</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Lieu
+--
+- idLieu : int
+- nom : string
+- TypeLieu : string
+- pattern : list &lt;Case&gt;
+--
++ getTpLieu() : string
++ getCoordonees() : array &lt;int&gt;
++ accessible() : bool</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>301</x>
+      <y>756</y>
+      <w>147</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Case
+--
+- coordX : int
+- coorxY : int
+- color
+- accessible : bool
+
+- cv : Canvas
+--
++ getCoordonees(): array &lt;int&gt;
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>525</x>
+      <y>154</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Environement
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>651</x>
+      <y>154</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Lieu
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>602</x>
+      <y>161</y>
+      <w>63</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+group=1</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>427</x>
+      <y>203</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Interface
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>483</x>
+      <y>161</y>
+      <w>56</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+group=1</panel_attributes>
+    <additional_attributes>10.0;60.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>574</x>
+      <y>203</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Tache
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>504</x>
+      <y>210</y>
+      <w>84</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+group=1</panel_attributes>
+    <additional_attributes>10.0;10.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>777</x>
+      <y>154</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Case
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>728</x>
+      <y>161</y>
+      <w>63</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+group=1</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>525</x>
+      <y>252</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Equipe
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>483</x>
+      <y>224</y>
+      <w>56</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+group=1</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>602</x>
+      <y>259</y>
+      <w>63</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+group=1</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>651</x>
+      <y>252</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Agent
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>308</x>
+      <y>203</y>
+      <w>84</w>
+      <h>28</h>
+    </coordinates>
+    <panel_attributes>Main
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>385</x>
+      <y>210</y>
+      <w>56</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+group=1</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>259</x>
+      <y>350</y>
+      <w>679</w>
+      <h>546</h>
+    </coordinates>
+    <panel_attributes>DESCRIPTION DES CLASSES
+bg=pink
+
+layer=-999
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>259</x>
+      <y>70</y>
+      <w>679</w>
+      <h>273</h>
+    </coordinates>
+    <panel_attributes>RELATIONS ENTRE CLASSES
+bg=green
+
+layer=-999
+group=1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>448</x>
+      <y>385</y>
+      <w>301</w>
+      <h>98</h>
+    </coordinates>
+    <panel_attributes>Interface
+--
+- Environnement : Environnement
+- Equipes : list &lt;Equipe&gt;
+- Taches :  dict {&lt;Tache&gt;, &lt; ( Environement.Lieu.getCoord() ) &gt;}
+--
++ newTache()
++ addTache(&lt; ( Environement.Lieu.getCoord() ) &gt;)
++ delTache()
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>490</x>
+      <y>525</y>
+      <w>217</w>
+      <h>357</h>
+    </coordinates>
+    <panel_attributes>bg=white</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>714</x>
+      <y>525</y>
+      <w>210</w>
+      <h>357</h>
+    </coordinates>
+    <panel_attributes>bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>273</x>
+      <y>525</y>
+      <w>210</w>
+      <h>357</h>
+    </coordinates>
+    <panel_attributes>bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
