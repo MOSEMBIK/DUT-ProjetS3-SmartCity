@@ -6,8 +6,7 @@ from src.Case import *
 from src.Lieu import Lieu
 
 Env = Environnement("Map", 0)
-for i in range(3):
-    Env.init_rooms(i)
-print(Env.getContenu()[2].getLocation())
+for i in range(2):
+    Env.init_rooms(2)
 Env.main_loop()
 
