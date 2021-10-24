@@ -64,7 +64,9 @@ class Environnement:
         self.canvas.addtag_above("oui", 1012)
         print(self.canvas.type(1011))
 
+
     # def check_for_overlap(self, x, y):
+
 
 
 
