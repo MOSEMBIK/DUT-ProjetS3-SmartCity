@@ -10,6 +10,7 @@ class Lieu:
     def getLocation(self):
         return self.location
     # J'en ai aussi besoin dans environnement
+
     def setLocation(self, coord_array):
         self.location = coord_array
 

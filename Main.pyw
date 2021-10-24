@@ -8,12 +8,17 @@ from src.Lieu import Lieu
 
 def main ():
 
-    Env = Environnement("Map", 0)
-    for i in (1, 5):
-        Env.init_rooms(i)
+    Env = Environnement("Map", 600)
+
+    idLieu = 0
+    while idLieu < 2:
+        if Env.init_rooms(idLieu):
+            idLieu += 1
     Env.test_image()
+    #Env.connect_rooms()
     Env.main_loop()
-    
+
+
     global tour
     global lastTour
     tour = 0
@@ -29,7 +34,6 @@ def main ():
         time.sleep(5)
         lastTour = tour
         tour+=1
-
     return None
 
 main()
