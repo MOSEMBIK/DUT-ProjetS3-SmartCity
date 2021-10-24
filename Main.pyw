@@ -11,6 +11,7 @@ def main ():
     Env = Environnement("Map", 0)
     for i in (1, 5):
         Env.init_rooms(i)
+    Env.test_image()
     Env.main_loop()
     
     global tour

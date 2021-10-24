@@ -1,12 +1,18 @@
 import asyncio
 import math
+import tkinter
 from tkinter import *
 from random import *
 from src.Lieu import *
+from src.Case import *
+import os
+from PIL import ImageTk, Image
 
 # Create Tkinter Object
 root = Tk()
-
+print(os.getcwd())
+print(os.listdir())
+img = ImageTk.PhotoImage(file="img/war.png")
 palette = ["#927371", "#065d75"]
 # Set Geometry
 
@@ -27,7 +33,7 @@ class Environnement:
         cv.update()
         for x in range(0, cv.winfo_height(), 20):
             for y in range(0, cv.winfo_width(), 20):
-                cv.create_rectangle(x, y, x + 20, y + 20, fill=palette[0], outline="#8d6e6d")
+                Case(cv, x, y, palette[0])
         return cv
 
     def init_rooms(self, id):
@@ -41,7 +47,7 @@ class Environnement:
         # De X jusqu'a la taille max de la room
         for i in range(x, x+100, 20):
             for j in range(y, y+100, 20):
-                c = self.canvas.create_rectangle(i, j, i + 20, j + 20, fill=palette[1])
+                Case(self.canvas, i, j, palette[1])
                 array_coords.append((i,j))
         # Ajoute a la location du lieu les coordonnées de chaque case
         self.contenu[id].setLocation(array_coords)
@@ -53,12 +59,13 @@ class Environnement:
     def getContenu(self):
         return self.contenu
 
-    # def check_for_overlap(self, x, y):
-    #    for i in range(x, x+100, 20):
-   #         for j in range(y, y+100, 20):
-  #              for lieu in self.contenu:
- #                   for coords in lieu.getLocation()
-#                    if i == lieu.getLocation()[0] || y == lieu.getLocation()[1])
+    def test_image(self):
+        print(self.canvas.create_image(20, 20, image=img))
+        self.canvas.addtag_above("oui", 1012)
+        print(self.canvas.type(1011))
+
+    def check_for_overlap(self, x, y):
+
 
 
 
