@@ -1,5 +1,6 @@
 from tkinter import *
 from random import *
+palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
 
 
 class Case:
@@ -11,10 +12,10 @@ class Case:
         else:
             self.coordX = coordX
             self.coordY = coordY
-        if color != "#927371":
-            self.id = cv.create_rectangle(coordX, coordY, coordX+20, coordY+20, fill = color)
+        if color in palette:
+            cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
         else:
-            self.id = cv.create_rectangle(coordX, coordY, coordX+20, coordY+20, fill = color, outline = "#8d6e6d")
+            cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#967979')
 
 
     def getCoordonnees(self):

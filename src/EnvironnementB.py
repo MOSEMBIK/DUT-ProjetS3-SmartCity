@@ -8,7 +8,7 @@ root = Tk()
 im = Image.open('../img/srcMAP.png', 'r').convert('RGB')
 #
 w_image, h_image = im.size
-cv = Canvas(root, height=960, width=960)
+cv = Canvas(root, height=h_image*20, width=w_image*20)
 cv.pack()
 root.update_idletasks()
 cv.update()
@@ -16,8 +16,8 @@ value_list = list(im.getdata())
 px = im.load()
 
 
-palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
 print('route: ', '#{:02x}{:02x}{:02x}'.format(*px[36,8]), ' / vide : ', '#{:02x}{:02x}{:02x}'.format(*px[0,0]))
+palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
 
 print('#{:02x}{:02x}{:02x}'.format(*px[5,24]), ' / vide : ', '#{:02x}{:02x}{:02x}'.format(*px[5,25]))
 pal = ['#efe4c6', '#b17578']
