@@ -5,38 +5,43 @@ import struct
 import math
 
 root = Tk()
-im = Image.open('./img/map.png', 'r')
+im = Image.open('../img/srcMAP.png', 'r').convert('RGB')
 #
 w_image, h_image = im.size
-cv = Canvas(root, height=h_image, width=w_image)
+cv = Canvas(root, height=960, width=960)
 cv.pack()
 root.update_idletasks()
 cv.update()
 value_list = list(im.getdata())
-
-test = True
-i = 0
-nb_px_box = 0
-while test and i < 300:
-
-    if value_list[i] == value_list[i-1] or i == 0:
-        nb_px_box += 1
-    else:
-        test = False
-    i += 1
-print(nb_px_box)
-mid = math.floor(nb_px_box/2)
-print(mid)
-
-
-
 px = im.load()
 
-for i in range(mid, w_image, nb_px_box+1):
-    for j in range(mid, h_image, nb_px_box+1):
+
+palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
+print('route: ', '#{:02x}{:02x}{:02x}'.format(*px[36,8]), ' / vide : ', '#{:02x}{:02x}{:02x}'.format(*px[0,0]))
+
+print('#{:02x}{:02x}{:02x}'.format(*px[5,24]), ' / vide : ', '#{:02x}{:02x}{:02x}'.format(*px[5,25]))
+pal = ['#efe4c6', '#b17578']
+i = 0
+j = 0
+ix = 0
+iy = 0
+while i < h_image:
+    j = 0
+    ix = 0
+    while j < w_image:
         x = px[i, j]
         col = '#{:02x}{:02x}{:02x}'.format(*x)
-        cv.create_rectangle(i-mid, j-mid, i+25, j+25, fill=col, width=1)
+        if col in palette:
+            cv.create_rectangle(iy, ix, iy+20, ix+20, fill=col, width=1, outline='#0b181c')
+        else:
+            cv.create_rectangle(iy, ix, iy+20, ix+20, fill=col, width=1, outline='#967979')
+
+        j += 1
+        ix += 20
+    i += 1
+    iy += 20
+
+
 
 cv.mainloop()
 
@@ -75,7 +80,7 @@ def va_te_faire_foutre():
 
     cv.mainloop()
 
-va_te_faire_foutre()
+#va_te_faire_foutre()
 
 
 
