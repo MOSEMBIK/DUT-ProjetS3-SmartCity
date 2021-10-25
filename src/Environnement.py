@@ -5,7 +5,7 @@ from tkinter import *
 from src.Lieu import *
 from src.Case import *
 import os
-from PIL import ImageTk, Image
+from PIL import Image as ImageTk
 import random
 
 # Create Tkinter Object

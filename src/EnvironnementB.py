@@ -5,7 +5,7 @@ import struct
 import math
 
 root = Tk()
-im = Image.open('../img/map.png', 'r')
+im = Image.open('./img/map.png', 'r')
 #
 w_image, h_image = im.size
 cv = Canvas(root, height=h_image, width=w_image)

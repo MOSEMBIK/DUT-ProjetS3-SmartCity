@@ -1,7 +1,7 @@
 import asyncio
 import time
 
-from src.Environnement import Environnement
+from src.EnvironnementB import Environnement
 from src.Case import *
 from src.Lieu import Lieu
 
