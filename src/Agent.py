@@ -1,12 +1,9 @@
-import asyncio
-
-from src.Case import *
+from src.Environnement import *
 
 class Agent:
 
-    def __init__(self, id: int, type: int) -> None:
+    def __init__(self, id: int, type: int):
         self.id = id
-
         # Test de la validité du type
         try :
             if (self.type in (0, 2)) :
@@ -14,24 +11,21 @@ class Agent:
         except :
             raise Exception("Invalid Agent.type parameter given.")
 
-        self.location = None
 
         # Parametrage de la vitesse selon le type
         if (self.type == 0) :
-            self.speed = 1.5
+            self.speed = 4
         elif (self.type == 1) :
-            self.speed = 0.75
+            self.speed = 2
         elif (self.type == 2) :
-            self.speed = 0.50
-        
+            self.speed = 1
         # Parametrage de l'autonomie selon le type
         if (self.type == 0) :
-            self.autonomie = 1500
+            self.autonomie = 2500
         elif (self.type == 1) :
-            self.autonomie = 900
+            self.autonomie = 5000
         elif (self.type == 2) :
             self.autonomie = 8000
-        
         # Parametrage du volumeMax selon le type
         if (self.type == 0) :
             self.volumeMax = 15
@@ -40,7 +34,9 @@ class Agent:
         elif (self.type == 2) :
             self.volumeMax = 150
 
-        self.tache = None
+
+        self.score = 0
+
 
     def initTrajet(self, destination: Case) -> list:
         Trajet = []
