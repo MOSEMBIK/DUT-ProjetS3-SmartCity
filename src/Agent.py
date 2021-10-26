@@ -1,3 +1,4 @@
+from _typeshed import NoneType
 from src.Environnement import *
 
 class Agent:
@@ -11,6 +12,7 @@ class Agent:
         except :
             raise Exception("Invalid Agent.type parameter given.")
 
+        self.visibility = True
 
         # Parametrage de la vitesse selon le type
         if (self.type == 0) :
@@ -34,17 +36,27 @@ class Agent:
         elif (self.type == 2) :
             self.volumeMax = 150
 
+        self.caseOfTrajet = 0
+        self.trajet = []
 
         self.score = 0
 
 
-    def initTrajet(self, destination: Case) -> list:
-        Trajet = []
-        # To do
+    def initTrajet(self, environnement: Environnement, positionL: Lieu, position: int, destinationL: Lieu, destination: int) -> None:
+        if destinationL.getPattern()[destination] and positionL.getPattern()[position] :
+            for i in environnement.getLieux()
+        else :
+            raise Exception ("Error")
 
-        return Trajet
+        return None
 
-    async def move(self, trajet: list) -> None:
-        while (self.location != trajet[-1].getCoord) :
-            if ():
-                return None
+    def move(self) -> Case:
+        if self.caseOfTrajet + 1 < len(self.trajet):
+            nextCase = self.trajet[self.caseOfTrajet + 1]
+            self.caseOfTrajet += 1
+        elif self.caseOfTrajet + 1 >= len(self.trajet):
+            self.caseOfTrajet = 0
+            self.trajet = [self.caseOfTrajet]
+            nextCase = self.trajet[self.caseOfTrajet]
+
+        return nextCase
