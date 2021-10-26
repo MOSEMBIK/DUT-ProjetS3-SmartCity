@@ -31,31 +31,42 @@ class Environnement:
         self.img = 0
 
     def init_map(self):
+        # On initialise le canvas
         root.title(self.nom)
         cv = Canvas(root, height = h_image*20, width = w_image*20)
         cv.pack()
         root.update_idletasks()
         cv.update()
 
-        i = 0
-        j = 0
+        # i,j boucle sur les pixels
+
+        # ix, iy boucle sur la taille ajustée des cases
         ix = 0
         iy = 0
-        while i < h_image:
-            j = 0
+        for i in range(h_image):
             ix = 0
-            while j < w_image:
+            for j in range(w_image):
                 x = px[i, j]
                 col = '#{:02x}{:02x}{:02x}'.format(*x)
                 c = Case(cv, iy, ix, col)
-                j += 1
                 ix += 20
-            i += 1
             iy += 20
         return cv
 
-    def main_loop(self):
-        root.mainloop()
+
+  #  def init_lieu():
+    #    i = 0
+     #   while i <  h_image:
+      #      j = 0
+       #     while j < w_image:
+
+   # def get_taille_lieu(self, x, y):
+   #     i = x
+   #     j = y
+    #    while px[i,j] == px[i+1, j]:
+
+
+
     """
 
     def getContenu(self):
@@ -63,13 +74,20 @@ class Environnement:
         
     """
 
-    def ok(self):
+    def deplacement(self):
         def key_right(event):
-            self.canvas.move(self.img, 20, 0)
+            print(self.canvas.coords(self.img)[0])
+            if self.canvas.coords(self.img)[0] > w_image*20:
+                self.canvas.move(self.img, -w_image * 20 , 0)
+            else:
+                self.canvas.move(self.img, 20, 0)
+
 
         def key_left(event):
-            self.canvas.move(self.img, -20, 0)
-        root.bind('<d>', key_right)
+            if self.canvas.coords(self.img)[0] <= 0:
+                self.canvas.move(self.img, w_image*20 - 20, 0)
+            else:
+                self.canvas.move(self.img, -20, 0)
 
         def key_up(event):
             self.canvas.move(self.img, 0, -20)
@@ -80,11 +98,11 @@ class Environnement:
         root.bind('<a>', key_left)
         root.bind('<w>', key_up)
         root.bind('<s>', key_down)
+        root.bind('<d>', key_right)
 
 
-
-
-
+    def main_loop(self):
+        root.mainloop()
 
 
     def test_image(self):

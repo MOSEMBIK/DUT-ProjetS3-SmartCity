@@ -11,7 +11,7 @@ def main ():
 
     Env = Environnement("Map")
     Env.test_image()
-    Env.ok()
+    Env.deplacement()
 
     Env.main_loop()
 
