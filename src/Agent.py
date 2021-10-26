@@ -1,5 +1,6 @@
 from _typeshed import NoneType
 from src.Environnement import *
+from math import *
 
 class Agent:
 
@@ -43,11 +44,23 @@ class Agent:
 
 
     def initTrajet(self, environnement: Environnement, positionL: Lieu, position: int, destinationL: Lieu, destination: int) -> None:
+        size = environnement.getDimensions()
+        lieux = environnement.getLieux()
+        
+        # Calcul vecteur Position->Destination
+        def calcVec(p1 ,p2):
+            dist = sqrt( (p1.getCoordonnes[0] - p2.getCoordonnes[0])**2 + (p1.getCoordonnes[1] - p2.getCoordonnes[1])**2 )
+            return dist
+
+        vec = calcVec(destinationL.getPattern()[destination], positionL.getPattern()[position])
+
         if destinationL.getPattern()[destination] and positionL.getPattern()[position] :
-            for i in environnement.getLieux()
+            for i in range(4):
+                # En reflexion
+                i = 0
+
         else :
             raise Exception ("Error")
-
         return None
 
     def move(self) -> Case:
