@@ -1,14 +1,15 @@
 class Tache:
-    "Définition d'une tâche du projet"
 
-    def __init__(self, idTache, temps, reward):
-        self.id=idTache
-        self.duree=temps
-        self.recompense=reward
-
+    def __init__(self):
+        self.idTache = 'id'
+        self.duree = 0
+        self.recompense = 0
+        self.enCours = False
+    
     def demandeTache():
-            
-
-
-    def setRecompense(self, nouvelle):
-        self.recompense=nouvelle
+        # Corps à completer
+        return None
+    
+    def setRecompense(self, newRecompense):
+        self.recompense = newRecompense
+        return None

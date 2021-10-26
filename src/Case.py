@@ -1,20 +1,26 @@
-import tkinter
 from tkinter import *
-from tkinter import ttk
 from random import *
+palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
 
 
 class Case:
-    def __init__(self, cv, coordX, coordY):
+    def __init__(self, cv, coordX, coordY, color):
         self.cv = cv
+        self.id = 0
         if coordX < 0 or coordY < 0 or coordX > cv.winfo_width() or coordY > cv.winfo_width():
-            print(cv.winfo_width())
             raise ValueError
         else:
             self.coordX = coordX
             self.coordY = coordY
+        if color in palette:
+            cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
+        else:
+            cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#967979')
 
-            cv.create_rectangle(coordX, coordY, coordX+10, coordY+10, fill = 'blue')
 
     def getCoordonnees(self):
         return [self.coordX, self.coordY]
+
+    def getCanvasId(self):
+        return self.id
+
