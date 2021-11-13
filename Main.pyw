@@ -12,7 +12,10 @@ def main():
     env = Environnement("Map")
     env.test_image()
     env.deplacement()
-    env.getSpots('road')
+    case = env.getCase(23, 36)
+    env.nearRoads(case)
+
+
     env.main_loop()
 
     global tour

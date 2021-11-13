@@ -13,9 +13,9 @@ import random
 # Create Tkinter Object
 root = Tk()
 root1 = tkinter.Tk()
-im = Image.open('img/srcMAP.png', 'r').convert('RGB')
+im = Image.open('img/newMap.png', 'r').convert('RGB')
 px = im.load()
-img = Image.open('img/war2.png')
+img = Image.open('img/war.png')
 img = ImageTk.PhotoImage(img)
 palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
 w_image, h_image = im.size
@@ -39,11 +39,9 @@ class Environnement:
         root.update_idletasks()
         cv.update()
 
-
-        # i,j boucle sur les pixels
-
         # ix, iy boucle sur la taille ajustée des cases
         iy = 0
+        print(h_image, w_image)
         for i in range(h_image):
             ix = 0
             for j in range(w_image):
@@ -97,18 +95,35 @@ tenu
     def test_image(self):
         self.img = self.canvas.create_image(10 * 20, 7 * 20, image=img, anchor=NW)
 
-    def getRoads(self):
+    def getLieu(self, lieu):
         tab = []
         for case in self.contenu:
-            if case.getType() == 'road':
+            if case.getType() == lieu:
                 tab.append(case)
+        print(tab)
         return tab
 
-    def getSpots(self, type):
+    def getCase(self, coordX, coordY):
+        for case in self.contenu:
+            try:
+                if case.getCoords() == [coordX, coordY]:
+                    return case
+            except:
+                raise Exception("Invalid coords, case not found")
+
+    def nearRoads(self, case):
         tab = []
-        tab = self.canvas.find_withtag('road')
-        for t in tab:
-            print(t)
+        cases = []
+        coords = case.getCoords()
+        for i in range(-1, 2, 2):
+            cases.append(self.getCase(coords[0] + i, coords[1]))
+            cases.append(self.getCase(coords[0], coords[1] + i))
+        for case in cases:
+            if case.getType() == 'road':
+                tab.append(case.getCoords())
+        print(tab)
+        return tab
+
 
 
 
