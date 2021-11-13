@@ -65,7 +65,7 @@ class Agent:
         Génère un trajet aléatoire de 0 à 99 déplacements.
         """
         if self.trajet == [] :
-            self.trajet.append(random.choice(environnement.getRoads()))
+            self.trajet.append(random.choice(environnement.getLieu()))
         else :
             self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0
@@ -73,6 +73,40 @@ class Agent:
         for i in range(randint(100)) :
             self.trajet.append(random.choice(self.trajet[i].nearRoads()))
         
+        return None
+
+
+    def NON_initTrajet_aStar(self, environnement: Environnement, destinationId : int, destination: Case) -> None:
+        """
+        Génère le trajet le plus court vers
+        une Case donnée en utilisant la methode
+        type de l'algorithme a*.
+        """
+        lastPos = self.trajet[self.caseOfTrajet]
+
+        startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
+        endXY = destination.getCoordonnees()
+        manhattanDist = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+        
+        done = 0
+        toDo = manhattanDist
+
+        # Génération plus court chemin
+        while toDo != 0 :
+            dist = []
+            nearRoads = self.trajet[self.caseOfTrajet].nearRoads()
+            nearRoads.remove(self.trajet[done])
+            for nC in nearRoads :
+                nCXY = nC.getCoordonnees()
+                dist.append(abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1]))
+        
+            self.trajet.append( nearRoads[dist.index(min(dist))] )
+
+            # Modification de la distance
+            startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
+            toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+            done += 1
+
         return None
 
 
@@ -94,9 +128,8 @@ class Agent:
         # Génération plus court chemin
         while toDo != 0 :
             dist = []
-            lastPos = self.trajet[done]
             nearRoads = self.trajet[self.caseOfTrajet].nearRoads()
-            nearRoads.remove(lastPos)
+            nearRoads.remove(self.trajet[done])
             for nC in nearRoads :
                 nCXY = nC.getCoordonnees()
                 dist.append(abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1]))
@@ -116,7 +149,7 @@ class Agent:
         Génère le trajet le plus court vers
         une Case donnée.
         """
-        roads = environnement.getRoads()
+        roads = environnement.getLieu('road')
         
         # Génération plus court chemin
 
