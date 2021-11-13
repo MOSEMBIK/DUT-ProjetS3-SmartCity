@@ -8,7 +8,7 @@ class Agent:
         self.id = id
         # Test de la validité du type
         try :
-            if (self.type in (0, 2)) :
+            if (type in (0, 2)) :
                 self.type = type
         except :
             raise Exception("Invalid Agent.type parameter given.")
