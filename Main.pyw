@@ -7,13 +7,13 @@ from src.Case import *
 from src.Lieu import Lieu
 
 
-def main ():
+def main():
 
-    Env = Environnement("Map")
-    Env.test_image()
-    Env.deplacement()
-
-    Env.main_loop()
+    env = Environnement("Map")
+    env.test_image()
+    env.deplacement()
+    env.getSpots('road')
+    env.main_loop()
 
     global tour
     global lastTour

@@ -1,7 +1,8 @@
 from tkinter import *
 from random import *
-palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
 
+palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
+route = ''
 
 class Case:
     def __init__(self, cv, coordX, coordY, color):
@@ -14,9 +15,17 @@ class Case:
             self.coordX = coordX
             self.coordY = coordY
         if color in palette:
-            cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
+            c = cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
+            self.type = 'lieu'
+            for color in palette:
+                self.cv.addtag_withtag(color, c)
+        elif color == '#efe4c6':
+            c = cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#967979')
+            self.type = 'road'
         else:
-            cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#967979')
+            c = cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#967979')
+            self.type = 'decor'
+
 
     def getCoordonnees(self):
         return [self.coordX, self.coordY]
@@ -27,9 +36,10 @@ class Case:
     def getColor(self):
         return self.color
 
-
     def isReachable(self):
-        if self.color == 'e1c183':
-            return True
-        return False
+        return self.color == 'e1c183'
+
+    def getType(self):
+        return self.type
+
 

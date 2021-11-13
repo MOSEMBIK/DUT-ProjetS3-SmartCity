@@ -7,32 +7,32 @@ class Agent:
     def __init__(self, id: int, type: int):
         self.id = id
         # Test de la validité du type
-        try :
-            if (self.type in (0, 2)) :
+        try:
+            if type in (0, 2):
                 self.type = type
-        except :
+        except:
             raise Exception("Invalid Agent.type parameter given.")
 
         self.visibility = True
 
         # Parametrage de la vitesse selon le type
-        if (self.type == 0) :
+        if self.type == 0:
             self.speed = 4
-        elif (self.type == 1) :
+        elif self.type == 1:
             self.speed = 2
-        elif (self.type == 2) :
+        elif self.type == 2:
             self.speed = 1
         # Parametrage de l'autonomie selon le type
-        if (self.type == 0) :
+        if self.type == 0:
             self.autonomie = 2500
-        elif (self.type == 1) :
+        elif self.type == 1:
             self.autonomie = 5000
-        elif (self.type == 2) :
+        elif self.type == 2:
             self.autonomie = 8000
         # Parametrage du volumeMax selon le type
-        if (self.type == 0) :
+        if self.type == 0:
             self.volumeMax = 15
-        elif (self.type == 1) :
+        elif self.type == 1:
             self.volumeMax = 55
         elif (self.type == 2) :
             self.volumeMax = 150
@@ -77,7 +77,7 @@ class Agent:
         for i in range(randint(100)) :
             nextId, nextCase = random.choice(self.trajet[i].nearRoads())
             self.trajet.append(nextCase)
-        
+
         return None
 
 
@@ -92,7 +92,7 @@ class Agent:
         startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
         endXY = destination.getCoordonnees()
         manhattanDist = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
-        
+
         done = 0
         toDo = manhattanDist
 
@@ -105,7 +105,7 @@ class Agent:
             for nC in nearRoads :
                 nCXY = nC.getCoordonnees()
                 dist.append(abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1]))
-        
+
             self.trajet.append( nearRoads[dist.index(min(dist))] )
 
             # Modification de la distance
@@ -122,7 +122,7 @@ class Agent:
         une Case donnée.
         """
         roads = environnement.getRoads()
-        
+
         # Génération plus court chemin
 
         return None
