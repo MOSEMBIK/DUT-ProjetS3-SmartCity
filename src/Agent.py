@@ -2,6 +2,7 @@ from _typeshed import NoneType
 from src.Environnement import *
 from math import *
 
+
 class Agent:
 
     def __init__(self, id: int, type: int):
@@ -34,7 +35,7 @@ class Agent:
             self.volumeMax = 15
         elif self.type == 1:
             self.volumeMax = 55
-        elif (self.type == 2) :
+        elif (self.type == 2):
             self.volumeMax = 150
 
         self.caseOfTrajet = 0
@@ -66,22 +67,21 @@ class Agent:
         """
         roads = environnement.getRoads()
 
-        if self.trajet == [] :
+        if self.trajet == []:
             startId, startCase = random.choice(list(roads.items()))
             self.trajet.append(startCase)
-        else :
+        else:
             onCase = self.trajet[self.caseOfTrajet]
             self.trajet = [onCase]
             self.caseOfTrajet = 0
 
-        for i in range(randint(100)) :
+        for i in range(randint(100)):
             nextId, nextCase = random.choice(self.trajet[i].nearRoads())
             self.trajet.append(nextCase)
 
         return None
 
-
-    def initTrajet_aStar(self, environnement: Environnement, destinationId : int, destination: Case) -> None:
+    def initTrajet_aStar(self, environnement: Environnement, destinationId: int, destination: Case) -> None:
         """
         Génère le trajet le plus court vers
         une Case donnée en utilisant la methode
@@ -91,32 +91,31 @@ class Agent:
 
         startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
         endXY = destination.getCoordonnees()
-        manhattanDist = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+        manhattanDist = abs(endXY[0] - startXY[0]) + abs(endXY[1] - startXY[1])
 
         done = 0
         toDo = manhattanDist
 
         # Génération plus court chemin
-        while toDo != 0 :
+        while toDo != 0:
             dist = []
             lastPos = self.trajet[done]
             nearRoads = self.trajet[self.caseOfTrajet].nearRoads()
             nearRoads.remove(lastPos)
-            for nC in nearRoads :
+            for nC in nearRoads:
                 nCXY = nC.getCoordonnees()
-                dist.append(abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1]))
+                dist.append(abs(endXY[0] - nCXY[0]) + abs(endXY[1] - nCXY[1]))
 
-            self.trajet.append( nearRoads[dist.index(min(dist))] )
+            self.trajet.append(nearRoads[dist.index(min(dist))])
 
             # Modification de la distance
             startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
-            toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+            toDo = abs(endXY[0] - startXY[0]) + abs(endXY[1] - startXY[1])
             done += 1
 
         return None
 
-
-    def initTrajet_dijkstra(self, environnement: Environnement, destinationId : int, destination: Case) -> None:
+    def initTrajet_dijkstra(self, environnement: Environnement, destinationId: int, destination: Case) -> None:
         """
         Génère le trajet le plus court vers
         une Case donnée.
