@@ -64,19 +64,14 @@ class Agent:
         """
         Génère un trajet aléatoire de 0 à 99 déplacements.
         """
-        roads = environnement.getRoads()
-
         if self.trajet == [] :
-            startId, startCase = random.choice(list(roads.items()))
-            self.trajet.append(startCase)
+            self.trajet.append(random.choice(environnement.getRoads()))
         else :
-            onCase = self.trajet[self.caseOfTrajet]
-            self.trajet = [onCase]
+            self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0
 
         for i in range(randint(100)) :
-            nextId, nextCase = random.choice(self.trajet[i].nearRoads())
-            self.trajet.append(nextCase)
+            self.trajet.append(random.choice(self.trajet[i].nearRoads()))
         
         return None
 
