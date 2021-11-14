@@ -118,9 +118,9 @@ tenu
         for i in range(-1, 2, 2):
             cases.append(self.getCase(coords[0] + i, coords[1]))
             cases.append(self.getCase(coords[0], coords[1] + i))
-        for case in cases:
-            if case.getType() == 'road':
-                tab.append(case.getCoords())
+        for k in cases:
+            if k.getType() == 'road':
+                tab.append(k)
         print(tab)
         return tab
 
