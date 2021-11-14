@@ -1,6 +1,4 @@
-from src.Environnement import *
-from src.Case import *
-from math import *
+from src.Equipe import *
 
 class Agent:
 
