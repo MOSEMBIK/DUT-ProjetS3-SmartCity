@@ -20,12 +20,25 @@ w_image, h_image = im.size
 class Environnement:
 
     def __init__(self, nom):
+        """
+        Constructeur
+        self.nom : Nom de la fenêtre
+        self.contenu : Liste de toutes les cases créées.
+        self.canvas : Canvas, objet tkinter, appelle la fonction init_map pour initialiser
+        self.img : ID TKINTER (voir doc canvas tkinter) de l'image
+        :param nom: Nom de la fenetre
+        """
         self.nom = nom
         self.contenu = []
         self.canvas = Environnement.init_map(self)
         self.img = 0
 
     def init_map(self):
+        """
+        Initialisation de la map,
+        création d'une case à chaque couleur du canvas et l'ajoute à self.contenu
+        :return: canvas crée
+        """
         # On initialise le canvas
         root.title(self.nom)
         cv = Canvas(root, height=h_image * 20, width=w_image * 20)
@@ -47,16 +60,11 @@ class Environnement:
             iy += 20
         return cv
 
-    """
-
-    def getContenu(self):
-        return self.con        getRoads():
-
-tenu
-        
-    """
-
     def deplacement(self):
+        """
+        Fonction useless pour deplacer l'image car c'est rigolo
+        :return:
+        """
         def key_right(event):
             print(self.canvas.coords(self.img)[0])
             if self.canvas.coords(self.img)[0] > w_image * 20:
@@ -84,20 +92,38 @@ tenu
 
     @staticmethod
     def main_loop():
+        """
+        Fonction tkinter qui garde la fenêtre active
+        :return: void
+        """
         root.mainloop()
 
     def test_image(self):
+        """
+        Initialisation de l'image sur le canvas et association de self.img
+        :return:
+        """
         self.img = self.canvas.create_image(10 * 20, 7 * 20, image=img, anchor=NW)
 
     def getLieu(self, lieu):
+        """
+        Fonction qui recupère l'ensemble des cases ayant le type donné en paramètre
+        :param lieu: lieu recherché (epicerie, magasin, charge, spawn)
+        :return: liste de case appartenant a ce lieu
+        """
         tab = []
         for case in self.contenu:
             if case.getType() == lieu:
                 tab.append(case)
-        print(tab)
         return tab
 
     def getCase(self, coordX, coordY):
+        """
+        Fonction qui récupère la case de coordonnées X,Y (en pixel)
+        :param coordX:  Coordonnés X en pixel de la case recherchée
+        :param coordY: Coordonnées Y en pixel de la case recherchée
+        :return: Case de coordonnée X,Y
+        """
         for case in self.contenu:
             try:
                 if case.getCoords() == [coordX, coordY]:
@@ -106,6 +132,11 @@ tenu
                 raise Exception("Invalid coords, case not found")
 
     def nearRoads(self, case : Case):
+        """
+        Récupère les routes adjacentes à la case donnée en paramètre
+        :param case: Case dont on cherche les routes adjacentes
+        :return: Liste de case adjacentes à la case donnée en paramètre
+        """
         tab = [Case]
         cases = []
         coords = case.getCoords()
@@ -115,7 +146,6 @@ tenu
         for k in cases:
             if k.getType() == 'road':
                 tab.append(k)
-        print(tab)
         return tab
 
 
