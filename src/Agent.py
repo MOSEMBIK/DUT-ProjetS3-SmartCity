@@ -43,7 +43,7 @@ class Agent:
 
         # Setup de la position à Null
         self.caseOfTrajet = 0
-        self.trajet = []
+        self.trajet = [Case]
 
         # Setup du score à 0
         self.score = 0
