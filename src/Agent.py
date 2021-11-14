@@ -1,8 +1,10 @@
-from src.Equipe import *
+from src.Case import *
+from src.Environnement import *
+from math import *
 
 class Agent:
 
-    def __init__(self, id: int, type: int):
+    def __init__(self, id: int, type: int = 0):
         self.id = id
         # Test de la validité du type
         try :
@@ -65,63 +67,6 @@ class Agent:
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # ~~~~~~~~~~~~      METHODES      ~~~~~~~~~~~~~~
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-    # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
-
-    def moveSimple(self) -> None:
-        """
-        Change la position de l'Agent sur la
-        prochaine Case de son trajet.
-        """
-        if self.caseOfTrajet + 1 < len(self.trajet):
-            self.caseOfTrajet += 1
-
-        elif self.caseOfTrajet + 1 >= len(self.trajet):
-            self.trajet = [self.trajet[self.caseOfTrajet]]
-            self.caseOfTrajet = 0
-
-        return None
-
-
-    def move(self, environnement: Environnement) -> None:
-        """
-        Change la position de l'Agent sur la
-        prochaine Case de son trajet.
-
-        Gère la charge de l'Agent.
-        """
-        # Verification du niveau de charge
-        needCharge = self.checkNeedCharge(environnement)
-
-        if needCharge :
-            if self.caseOfTrajet + self.speed < len(self.trajet):
-                self.charge -= 50 * self.speed
-                self.caseOfTrajet += self.speed
-
-            elif self.caseOfTrajet + self.speed >= len(self.trajet):
-                self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
-                self.trajet = [self.trajet[self.caseOfTrajet]]
-                self.caseOfTrajet = 0
-
-        else :
-            self.initTrajet_aStar(environnement, environnement.getLieu('charge'))
-
-        return None
-
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -253,3 +198,61 @@ class Agent:
                 return True
         else :
             return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
+
+    def moveSimple(self) -> None:
+        """
+        Change la position de l'Agent sur la
+        prochaine Case de son trajet.
+        """
+        if self.caseOfTrajet + 1 < len(self.trajet):
+            self.caseOfTrajet += 1
+
+        elif self.caseOfTrajet + 1 >= len(self.trajet):
+            self.trajet = [self.trajet[self.caseOfTrajet]]
+            self.caseOfTrajet = 0
+
+        return None
+
+
+    def move(self, environnement: Environnement) -> None:
+        """
+        Change la position de l'Agent sur la
+        prochaine Case de son trajet.
+
+        Gère la charge de l'Agent.
+        """
+        # Verification du niveau de charge
+        needCharge = self.checkNeedCharge(environnement)
+
+        if needCharge :
+            if self.caseOfTrajet + self.speed < len(self.trajet):
+                self.charge -= 50 * self.speed
+                self.caseOfTrajet += self.speed
+
+            elif self.caseOfTrajet + self.speed >= len(self.trajet):
+                self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
+                self.trajet = [self.trajet[self.caseOfTrajet]]
+                self.caseOfTrajet = 0
+
+        else :
+            self.initTrajet_aStar(environnement, environnement.getLieu('charge'))
+
+        return None
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

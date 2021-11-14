@@ -1,19 +1,21 @@
 from src.Environnement import *
 from src.Case import *
-from math import *
 from src.Agent import *
 
-class equipe:
+class Equipe:
 
-    def __init__(self, id: int, nom: str, agents: list):
+    def __init__(self, id: int, nom: str = ""):
         self.id = id
         self.nom = nom
-        self.agents = [Agent]
+        self.agents = {}
     
     def getAgents(self) -> list:
         return self.agents
     
-    def addAgents(self, id : int, type : int = 0, n : int = 1) -> None:
-        for i in range(n) :
-            self.agents.append(Agent(id, type))
+    def addAgents(self, id : int, type : int = 0) -> None:
+        self.agents[id] = Agent(id, type)
+        return None
+    
+    def moveAgent(self, id : int) -> None:
+
         return None
