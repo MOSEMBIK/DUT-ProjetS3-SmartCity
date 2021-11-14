@@ -249,7 +249,7 @@ class Agent:
         percentDone = ((len(self.trajet) - self.caseOfTrajet) * 100 ) / len(self.trajet)
 
         if ( ( (self.charge * 100) / self.autonomie ) <= 0.25 ) :
-            if percentDone >= 0.9 :
+            if percentDone >= 0.8 :
                 return False
             else :
                 return True
