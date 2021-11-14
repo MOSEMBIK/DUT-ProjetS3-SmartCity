@@ -48,6 +48,12 @@ class Agent:
         # Setup du score à 0
         self.score = 0
 
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
 
 
 
@@ -67,7 +73,7 @@ class Agent:
 
     # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
 
-    def move(self) -> None:
+    def moveSimple(self) -> None:
         """
         Change la position de l'Agent sur la
         prochaine Case de son trajet.
@@ -80,9 +86,9 @@ class Agent:
             self.caseOfTrajet = 0
 
         return None
-        
 
-    def move_complete(self, environnement: Environnement) -> None:
+
+    def move(self, environnement: Environnement) -> None:
         """
         Change la position de l'Agent sur la
         prochaine Case de son trajet.
@@ -106,6 +112,16 @@ class Agent:
             self.initTrajet_aStar(environnement, environnement.getLieu('charge'))
 
         return None
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
 
 
 
@@ -206,6 +222,17 @@ class Agent:
         # Génération plus court chemin
 
         return trajet
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
 
 
 
