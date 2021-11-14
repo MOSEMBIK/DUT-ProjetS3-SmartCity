@@ -106,7 +106,7 @@ tenu
                 raise Exception("Invalid coords, case not found")
 
     def nearRoads(self, case : Case):
-        tab = []
+        tab = [Case]
         cases = []
         coords = case.getCoords()
         for i in range(-1, 2, 2):
