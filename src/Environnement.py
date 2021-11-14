@@ -1,14 +1,8 @@
-import asyncio
-import math
 import tkinter
 from tkinter import *
-import PIL.Image
 
-from src.Lieu import *
 from src.Case import *
-import os
 from PIL import ImageTk, Image
-import random
 
 # Create Tkinter Object
 root = Tk()
@@ -111,16 +105,16 @@ tenu
             except:
                 raise Exception("Invalid coords, case not found")
 
-    def nearRoads(self, case):
+    def nearRoads(self, case : Case):
         tab = []
         cases = []
         coords = case.getCoords()
         for i in range(-1, 2, 2):
             cases.append(self.getCase(coords[0] + i, coords[1]))
-                cases.append(self.getCase(coords[0], coords[1] + i))
-            for k in cases:
-                if k.getType() == 'road':
-                    tab.append(k)
+            cases.append(self.getCase(coords[0], coords[1] + i))
+        for k in cases:
+            if k.getType() == 'road':
+                tab.append(k)
         print(tab)
         return tab
 

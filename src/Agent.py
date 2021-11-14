@@ -1,5 +1,5 @@
-from _typeshed import NoneType
 from src.Environnement import *
+from src.Case import *
 from math import *
 
 class Agent:
@@ -22,6 +22,7 @@ class Agent:
             self.speed = 2
         elif (self.type == 2) :
             self.speed = 1
+
         # Parametrage de l'autonomie selon le type
         if (self.type == 0) :
             self.autonomie = 2500
@@ -29,6 +30,9 @@ class Agent:
             self.autonomie = 5000
         elif (self.type == 2) :
             self.autonomie = 8000
+        # Setup de la charge à autonomie
+        self.charge = self.autonomie
+
         # Parametrage du volumeMax selon le type
         if (self.type == 0) :
             self.volumeMax = 15
@@ -37,16 +41,39 @@ class Agent:
         elif (self.type == 2) :
             self.volumeMax = 150
 
+        # Setup de la position à Null
         self.caseOfTrajet = 0
-        self.trajet = []
+        self.trajet = [Case]
 
+        # Setup du score à 0
         self.score = 0
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # ~~~~~~~~~~~~      METHODES      ~~~~~~~~~~~~~~
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    def move(self) -> None:
+
+
+
+    # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
+
+    def moveSimple(self) -> None:
         """
         Change la position de l'Agent sur la
         prochaine Case de son trajet.
@@ -60,96 +87,171 @@ class Agent:
 
         return None
 
-    def randomTrajet(self, environnement: Environnement) -> None:
+
+    def move(self, environnement: Environnement) -> None:
+        """
+        Change la position de l'Agent sur la
+        prochaine Case de son trajet.
+
+        Gère la charge de l'Agent.
+        """
+        # Verification du niveau de charge
+        needCharge = self.checkNeedCharge(environnement)
+
+        if needCharge :
+            if self.caseOfTrajet + self.speed < len(self.trajet):
+                self.charge -= 50 * self.speed
+                self.caseOfTrajet += self.speed
+
+            elif self.caseOfTrajet + self.speed >= len(self.trajet):
+                self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
+                self.trajet = [self.trajet[self.caseOfTrajet]]
+                self.caseOfTrajet = 0
+
+        else :
+            self.initTrajet_aStar(environnement, environnement.getLieu('charge'))
+
+        return None
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ~~~~~~~~~~~~~      TRAJET      ~~~~~~~~~~~~~~~
+
+    def setRandomTrajet(self, environnement: Environnement) -> None:
         """
         Génère un trajet aléatoire de 0 à 99 déplacements.
         """
         if self.trajet == []:
-            self.trajet.append(random.choice(environnement.getLieu()))
+            self.trajet.append(random.choice(environnement.getLieu('road')))
         else:
             self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0
 
         for i in range(randint(100)):
-            self.trajet.append(random.choice(self.trajet[i].nearRoads()))
+            self.trajet.append(random.choice(environnement.nearRoads(self.trajet[i])))
 
         return None
 
 
-    def NON_initTrajet_aStar(self, environnement: Environnement, destinationId : int, destination: Case) -> None:
+    def setTrajet(self, trajet : list) -> None:
+        self.trajet = trajet
+        self.caseOfTrajet = 0
+
+        return None
+
+
+    def getTrajet_aStar(self, environnement: Environnement, destination: Case) -> list:
         """
         Génère le trajet le plus court vers
         une Case donnée en utilisant la methode
         type de l'algorithme a*.
         """
-        lastPos = self.trajet[self.caseOfTrajet]
-
-        startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
-        endXY = destination.getCoordonnees()
-        manhattanDist = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
-
+        trajet = [self.trajet[self.caseOfTrajet]]
         done = 0
-        toDo = manhattanDist
+
+        # Case de départ
+        startXY = self.trajet[self.caseOfTrajet].getCoords()
+        # Case d'arrivée
+        endXY = destination.getCoords()
+
+        # Distances départ->arrivé
+        manhattanDist = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+        pytagoreDist = sqrt(abs(endXY[0]-startXY[0])**2 + abs(endXY[1]-startXY[1])**2)
+        toDo = manhattanDist + pytagoreDist
 
         # Génération plus court chemin
         while toDo != 0 :
             dist = []
-            nearRoads = self.trajet[self.caseOfTrajet].nearRoads()
-            nearRoads.remove(self.trajet[done])
-            for nC in nearRoads :
-                nCXY = nC.getCoordonnees()
-                dist.append(abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1]))
+            nearRoads = environnement.nearRoads(trajet[done])
+            nearLieu = environnement.nearLieux(trajet[done])
 
-            self.trajet.append( nearRoads[dist.index(min(dist))] )
+            # Test si destination accessible
+            if destination in nearLieu :
+                # Prochaine case = destination
+                trajet.append(destination)
+                # Distance réstante = 0
+                toDo = 0
 
-            # Modification de la distance
-            startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
-            toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
-            done += 1
-        return None
+            else :
+                # On empèche le retour en arrière
+                nearRoads.remove(trajet[done])
 
+                # Pour chaque Route
+                for nC in nearRoads :
+                    nCXY = nC.getCoords()
 
-    def initTrajet_aStar(self, environnement: Environnement, destinationId : int, destination: Case) -> None:
-        """
-        Génère le trajet le plus court vers
-        une Case donnée en utilisant la methode
-        type de l'algorithme a*.
-        """
-        lastPos = self.trajet[self.caseOfTrajet]
+                    # Calcul des distances
+                    manhattanDist = abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1])
+                    pytagoreDist = sqrt(abs(endXY[0]-nCXY[0])**2 + abs(endXY[1]-nCXY[1])**2)
+                    dist.append(manhattanDist + pytagoreDist)
 
-        startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
-        endXY = destination.getCoordonnees()
-        manhattanDist = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+                # Ajout au trajet de la case minimisant la distance réstante
+                trajet.append( nearRoads[dist.index(min(dist))] )
+                done += 1
+
+                # Modification de la distance réstante
+                startXY = trajet[done].getCoords()
+                toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
         
-        done = 0
-        toDo = manhattanDist
-
-        # Génération plus court chemin
-        while toDo != 0 :
-            dist = []
-            lastPos = self.trajet[done]
-            nearRoads = self.trajet[self.caseOfTrajet].nearRoads()
-            nearRoads.remove(self.trajet[done])
-            for nC in nearRoads:
-                nCXY = nC.getCoordonnees()
-                dist.append(abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1]))
-        
-            self.trajet.append( nearRoads[dist.index(min(dist))] )
-
-            # Modification de la distance
-            startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
-            toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
-            done += 1
-
-        return None
+        return trajet
 
 
-    def initTrajet_dijkstra(self, environnement: Environnement, destinationId : int, destination: Case) -> None:
+    def getTrajet_dijkstra(self, environnement: Environnement, destination: Case) -> list:
         """
         Génère le trajet le plus court vers
         une Case donnée.
         """
+        trajet = [self.trajet[self.caseOfTrajet]]
+        done = 0
+
         roads = environnement.getLieu('road')
         # Génération plus court chemin
 
-        return None
+        return trajet
+
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
+
+    def checkNeedCharge(self, environnement : Environnement) -> bool:
+        """
+        Vérifie le pourcentage de batterie réstant
+        et rétourne True ou False en fonction de la charge.
+        """
+        percentDone = ((len(self.trajet) - self.caseOfTrajet) * 100 ) / len(self.trajet)
+
+        if ( ( (self.charge * 100) / self.autonomie ) <= 0.25 ) :
+            if percentDone >= 0.8 :
+                return False
+            else :
+                return True
+        else :
+            return False
