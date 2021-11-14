@@ -1,13 +1,8 @@
-import asyncio
-import math
 import tkinter
 from tkinter import *
-import PIL.Image
 
 from src.Case import *
-import os
 from PIL import ImageTk, Image
-import random
 
 # Create Tkinter Object
 root = Tk()
