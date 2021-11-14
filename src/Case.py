@@ -60,10 +60,3 @@ class Case:
 
     def getType(self):
         return self.type
-
-    def nearRoad(self):
-
-        self.getCoords()
-        for i in range(-1, 1, 2):
-            for j in range(-1, 1, 2):
-                print(i, j)

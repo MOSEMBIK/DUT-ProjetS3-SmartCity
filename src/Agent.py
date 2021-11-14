@@ -1,5 +1,6 @@
 from _typeshed import NoneType
 from src.Environnement import *
+from src.Case import *
 from math import *
 
 class Agent:
@@ -71,7 +72,7 @@ class Agent:
             self.caseOfTrajet = 0
 
         for i in range(randint(100)):
-            self.trajet.append(random.choice(self.trajet[i].nearRoads()))
+            self.trajet.append(random.choice(environnement.nearRoads(self.trajet[i])))
 
         return None
 
@@ -83,9 +84,9 @@ class Agent:
         type de l'algorithme a*.
         """
         # Case de départ
-        startXY = self.trajet[self.caseOfTrajet].getCoordonnees()
+        startXY = self.trajet[self.caseOfTrajet].getCoords()
         # Case d'arrivée
-        endXY = destination.getCoordonnees()
+        endXY = destination.getCoords()
         
         # Clear du dernier trajet
         self.trajet = [self.trajet[self.caseOfTrajet]]
@@ -102,8 +103,8 @@ class Agent:
         # Génération plus court chemin
         while toDo != 0 :
             dist = []
-            nearRoads = self.trajet[self.caseOfTrajet].nearRoads()
-            nearLieu = self.trajet[self.caseOfTrajet].nearLieu()
+            nearRoads = environnement.nearRoads(self.trajet[self.caseOfTrajet])
+            nearLieu = environnement.nearLieux(self.trajet[self.caseOfTrajet])
 
             # Test si destination accessible
             if destination in nearLieu :
@@ -118,7 +119,7 @@ class Agent:
 
                 # Pour chaque Route
                 for nC in nearRoads :
-                    nCXY = nC.getCoordonnees()
+                    nCXY = nC.getCoords()
 
                     # Calcul des distances
                     manhattanDist = abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1])
@@ -130,7 +131,7 @@ class Agent:
                 done += 1
 
                 # Modification de la distance réstante
-                startXY = self.trajet[done].getCoordonnees()
+                startXY = self.trajet[done].getCoords()
                 toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
         
         return None
