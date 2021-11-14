@@ -4,7 +4,6 @@ import tkinter
 from tkinter import *
 import PIL.Image
 
-from src.Lieu import *
 from src.Case import *
 import os
 from PIL import ImageTk, Image

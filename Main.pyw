@@ -4,7 +4,6 @@ import time
 
 from src.Environnement import Environnement
 from src.Case import *
-from src.Lieu import Lieu
 
 
 def main():

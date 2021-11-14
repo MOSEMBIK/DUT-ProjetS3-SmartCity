@@ -1,4 +1,3 @@
-from _typeshed import NoneType
 from src.Environnement import *
 from src.Case import *
 from math import *
