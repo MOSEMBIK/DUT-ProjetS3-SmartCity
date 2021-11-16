@@ -17,7 +17,7 @@ w_image, h_image = im.size
 
 # Frame 1
 
-class Environnement:
+class Plateau:
 
     def __init__(self, nom):
         """

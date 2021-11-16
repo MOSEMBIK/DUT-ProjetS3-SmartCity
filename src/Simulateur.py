@@ -1,6 +1,6 @@
 from src.Equipe import *
 from src.Agent import *
-from src.Environnement import *
+from src.Plateau import *
 from src.Case import *
 
 class Interface:

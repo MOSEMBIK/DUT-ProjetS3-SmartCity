@@ -1,5 +1,5 @@
 from src.Agent import *
-from src.Environnement import *
+from src.Plateau import *
 from src.Case import *
 
 class Equipe:
@@ -16,7 +16,7 @@ class Equipe:
         self.agents[id] = Agent(id, type)
         return None
     
-    def agentMove(self, id : int, env : Environnement) -> None:
+    def agentMove(self, id : int, env : Plateau) -> None:
         self.agents.get(id).move(env)
         return None
     
