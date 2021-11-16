@@ -14,7 +14,8 @@ palette['boulangerie'] = '#ed00c5'
 palette['coiffeur'] = '#ec1c1a'
 palette['pharmacie'] = '#6da6b7'
 palette['spawn'] = '#ee8438'
-'#ec1c1a'
+
+palette['route'] = '#efe4c6'
 
 
 # palette = ['#b07678', '#00edd9', '#1e736e', '#8e00ed', '#5741b0', '#ec1c1a', '#5bc944', '#ffe900', '#ed00c5',
