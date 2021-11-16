@@ -1,6 +1,7 @@
 from src.Case import *
 from src.Environnement import *
 from math import *
+import random as rdm
 
 class Agent:
 
@@ -79,13 +80,13 @@ class Agent:
         Génère un trajet aléatoire de 0 à 99 déplacements.
         """
         if self.trajet == []:
-            self.trajet.append(random.choice(environnement.getLieu('road')))
+            self.trajet.append(rdm.choice(environnement.getLieu('road')))
         else:
             self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0
 
         for i in range(randint(100)):
-            self.trajet.append(random.choice(environnement.nearRoads(self.trajet[i])))
+            self.trajet.append(rdm.choice(environnement.nearRoads(self.trajet[i])))
 
         return None
 
