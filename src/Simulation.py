@@ -3,7 +3,7 @@ from src.Agent import *
 from src.Plateau import *
 from src.Case import *
 
-class Simulateur:
+class Simulation :
 
     def __init__(self, name: str, nbEquipe : int = 1, nameEquipe : int = None, nbAgent : int = 1, typeAgent : int = None, envName : str = None):
         self.name = name
