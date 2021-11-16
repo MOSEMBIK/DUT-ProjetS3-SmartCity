@@ -84,3 +84,6 @@ class Case:
         :return:str, type de la case
         """
         return self.type
+
+    def setPorte(self) -> None:
+        return None
