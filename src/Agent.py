@@ -252,7 +252,7 @@ class Agent:
                 self.caseOfTrajet = 0
 
         else :
-            self.initTrajet_aStar(environnement, environnement.getLieu('charge'))
+            self.setTrajet(self.getTrajet_aStar(environnement, environnement.getLieu('charge')))
 
         return None
 

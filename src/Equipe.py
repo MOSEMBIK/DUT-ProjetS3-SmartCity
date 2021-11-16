@@ -7,15 +7,19 @@ class Equipe:
     def __init__(self, id: int, nom: str = ""):
         self.id = id
         self.nom = nom
-        self.agents = {}
+        self.agents = {int:Agent}
     
-    def getAgents(self) -> list:
+    def getAgents(self) -> dict:
         return self.agents
     
     def addAgents(self, id : int, type : int = 0) -> None:
         self.agents[id] = Agent(id, type)
         return None
     
-    def moveAgent(self, id : int) -> None:
+    def agentMove(self, id : int, env : Environnement) -> None:
+        self.agents.get(id).move(env)
+        return None
+    
+    def agentGoTo(self, id : int) -> None:
 
         return None
