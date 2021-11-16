@@ -1,5 +1,5 @@
 from src.Case import *
-from src.Environnement import *
+from src.Plateau import *
 from math import *
 import random as rdm
 
@@ -75,18 +75,18 @@ class Agent:
 
     # ~~~~~~~~~~~~~      TRAJET      ~~~~~~~~~~~~~~~
 
-    def setRandomTrajet(self, environnement: Environnement) -> None:
+    def setRandomTrajet(self, plateau: Plateau) -> None:
         """
         Génère un trajet aléatoire de 0 à 99 déplacements.
         """
         if self.trajet == []:
-            self.trajet.append(rdm.choice(environnement.getLieu('road')))
+            self.trajet.append(rdm.choice(plateau.getLieu('road')))
         else:
             self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0
 
         for i in range(randint(100)):
-            self.trajet.append(rdm.choice(environnement.nearRoads(self.trajet[i])))
+            self.trajet.append(rdm.choice(plateau.nearRoads(self.trajet[i])))
 
         return None
 
@@ -98,7 +98,7 @@ class Agent:
         return None
 
 
-    def getTrajet_aStar(self, environnement: Environnement, destination: Case) -> list:
+    def getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
         """
         Génère le trajet le plus court vers
         une Case donnée en utilisant la methode
@@ -120,8 +120,8 @@ class Agent:
         # Génération plus court chemin
         while toDo != 0 :
             dist = []
-            nearRoads = environnement.nearRoads(trajet[done])
-            nearLieu = environnement.nearLieux(trajet[done])
+            nearRoads = plateau.nearRoads(trajet[done])
+            nearLieu = plateau.nearLieux(trajet[done])
 
             # Test si destination accessible
             if destination in nearLieu :
@@ -154,7 +154,7 @@ class Agent:
         return trajet
 
 
-    def getTrajet_dijkstra(self, environnement: Environnement, destination: Case) -> list:
+    def getTrajet_dijkstra(self, plateau: Plateau, destination: Case) -> list:
         """
         Génère le trajet le plus court vers
         une Case donnée.
@@ -162,7 +162,7 @@ class Agent:
         trajet = [self.trajet[self.caseOfTrajet]]
         done = 0
 
-        roads = environnement.getLieu('road')
+        roads = plateau.getLieu('road')
         # Génération plus court chemin
 
         return trajet
@@ -185,7 +185,7 @@ class Agent:
 
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
 
-    def checkNeedCharge(self, environnement : Environnement) -> bool:
+    def checkNeedCharge(self, plateau : Plateau) -> bool:
         """
         Vérifie le pourcentage de batterie réstant
         et rétourne True ou False en fonction de la charge.
@@ -231,7 +231,7 @@ class Agent:
         return None
 
 
-    def move(self, environnement: Environnement) -> None:
+    def move(self, plateau: Plateau) -> None:
         """
         Change la position de l'Agent sur la
         prochaine Case de son trajet.
@@ -239,7 +239,7 @@ class Agent:
         Gère la charge de l'Agent.
         """
         # Verification du niveau de charge
-        needCharge = self.checkNeedCharge(environnement)
+        needCharge = self.checkNeedCharge(plateau)
 
         if needCharge :
             if self.caseOfTrajet + self.speed < len(self.trajet):
@@ -252,7 +252,7 @@ class Agent:
                 self.caseOfTrajet = 0
 
         else :
-            self.setTrajet(self.getTrajet_aStar(environnement, environnement.getLieu('charge')))
+            self.setTrajet(self.getTrajet_aStar(plateau, plateau.getLieu('charge')))
 
         return None
 

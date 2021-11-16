@@ -16,8 +16,8 @@ class Equipe:
         self.agents[id] = Agent(id, type)
         return None
     
-    def agentMove(self, id : int, env : Plateau) -> None:
-        self.agents.get(id).move(env)
+    def agentMove(self, id : int, plt : Plateau) -> None:
+        self.agents.get(id).move(plt)
         return None
     
     def agentGoTo(self, id : int) -> None:

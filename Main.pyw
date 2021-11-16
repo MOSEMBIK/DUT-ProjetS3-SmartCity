@@ -2,13 +2,13 @@ import asyncio
 import time
 
 
-from src.Environnement import Environnement
+from src.Plateau import Plateau
 from src.Case import *
 
 
 def main():
 
-    env = Environnement("Map")
+    env = Plateau("Map")
     env.test_image()
     env.deplacement()
     case = env.getCase(23, 36)
