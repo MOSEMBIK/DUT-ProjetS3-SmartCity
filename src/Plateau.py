@@ -30,7 +30,7 @@ class Plateau:
         """
         self.nom = nom
         self.contenu = []
-        self.canvas = Environnement.init_map(self)
+        self.canvas = Plateau.init_map(self)
         self.img = 0
 
     def init_map(self):
