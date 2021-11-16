@@ -15,8 +15,6 @@ palette['coiffeur'] = '#ec1c1a'
 palette['pharmacie'] = '#6da6b7'
 palette['spawn'] = '#ee8438'
 
-palette['route'] = '#efe4c6'
-
 
 # palette = ['#b07678', '#00edd9', '#1e736e', '#8e00ed', '#5741b0', '#ec1c1a', '#5bc944', '#ffe900', '#ed00c5',
 # '#1e736e','#6da6b7', '#ee8438']
@@ -48,7 +46,7 @@ class Case:
             # ajoute le tag
             self.type = ''.join(key)
         # Route
-        elif color == '#efe4c6' or color == '#ffdfbe':
+        elif color == '#efe4c6':
             cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#967979')
             self.type = 'road'
         # Decor
