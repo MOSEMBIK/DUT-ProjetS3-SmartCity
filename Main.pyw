@@ -1,8 +1,9 @@
 import asyncio
 import time
 
+from src.Simulateur import *
 
-from src.Plateau import Plateau
+from src.Plateau import *
 from src.Case import *
 
 
