@@ -1,6 +1,6 @@
+from src.Agent import *
 from src.Environnement import *
 from src.Case import *
-from src.Agent import *
 
 class Equipe:
 
