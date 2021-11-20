@@ -11,7 +11,7 @@ def main():
 
     env = Plateau("Map")
     env.test_image()
-    env.deplacement()
+    #env.deplacement()
     case = env.getCase(23, 36)
     env.nearRoads(case)
 

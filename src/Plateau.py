@@ -5,14 +5,13 @@ from src.Case import *
 from PIL import ImageTk, Image
 
 # Create Tkinter Object
-root = Tk()
-root1 = tkinter.Tk()
-im = Image.open('img/newMap.png', 'r').convert('RGB')
-px = im.load()
-img = Image.open('img/war.png')
-img = ImageTk.PhotoImage(img)
-palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
-w_image, h_image = im.size
+#root = Tk()
+#root1 = tkinter.Tk()
+#im = Image.open('img/newMap.png', 'r').convert('RGB')
+# px = im.load()
+#img = Image.open('img/war.png')
+#img = ImageTk.PhotoImage(img)
+#palette = ['#5741b0', '#6da6b7', '#ec1c1a', '#ee8438', '#a0be0e', '#1e736e', '#5bc944']
 
 
 # Frame 1
@@ -29,6 +28,8 @@ class Plateau:
         :param nom: Nom de la fenetre
         """
         self.nom = nom
+        self.itf = Interface('newMap.png')
+        print("OUE")
         self.contenu = []
         self.canvas = Plateau.init_map(self)
         self.img = 0
@@ -40,11 +41,10 @@ class Plateau:
         :return: canvas crée
         """
         # On initialise le canvas
-        root.title(self.nom)
-        cv = Canvas(root, height=h_image * 20, width=w_image * 20)
-        cv.pack()
-        root.update_idletasks()
-        cv.update()
+        self.itf.root.title(self.nom)
+        cv = self.itf.createCanvas()
+        px = self.itf.getPx()
+        w_image, h_image = self.itf.img.size
 
         # ix, iy boucle sur la taille ajustée des cases
         iy = 0
@@ -53,18 +53,21 @@ class Plateau:
             ix = 0
             for j in range(w_image):
                 x = px[j, i]
+                print(x)
                 col = '#{:02x}{:02x}{:02x}'.format(*x)
                 c = Case(cv, ix, iy, col)
                 self.contenu.append(c)
                 ix += 20
             iy += 20
         return cv
-
+    """
     def deplacement(self):
-        """
+        w_image, h_image = self.itf.img.size
+
+        
         Fonction useless pour deplacer l'image car c'est rigolo
         :return:
-        """
+        
         def key_right(event):
             print(self.canvas.coords(self.img)[0])
             if self.canvas.coords(self.img)[0] > w_image * 20:
@@ -85,25 +88,24 @@ class Plateau:
         def key_down(event):
             self.canvas.move(self.img, 0, 20)
 
-        root.bind('<a>', key_left)
-        root.bind('<w>', key_up)
-        root.bind('<s>', key_down)
-        root.bind('<d>', key_right)
+        self.itf.root.bind('<a>', key_left)
+        self.itf.root.bind('<w>', key_up)
+        self.itf.root.bind('<s>', key_down)
+        self.itf.root.bind('<d>', key_right)
+    """
 
-    @staticmethod
-    def main_loop():
-        """
-        Fonction tkinter qui garde la fenêtre active
-        :return: void
-        """
-        root.mainloop()
+    def main_loop(self):
+        self.itf.main_loop()
+
+    #def test_image(self):
+    #    """
+     #   Initialisation de l'image sur le canvas et association de self.img
+      #  :return:
+       # """
+        #self.img = self.canvas.create_image(10 * 20, 7 * 20, image=self.img, anchor=NW)
 
     def test_image(self):
-        """
-        Initialisation de l'image sur le canvas et association de self.img
-        :return:
-        """
-        self.img = self.canvas.create_image(10 * 20, 7 * 20, image=img, anchor=NW)
+        self.img = self.itf.createImg(self.canvas, 'war.png')
 
     def getLieu(self, lieu):
         """

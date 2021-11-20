@@ -1,5 +1,6 @@
 from tkinter import *
 from random import *
+from src.Interface import *
 
 palette = {}
 palette['epicerie'] = '#b07678'
@@ -40,18 +41,19 @@ class Case:
             self.coordY = coordY
         # Batiment
         if color in palette.values():
-            cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
+            Interface.createLieu(self.cv, self.coordX, self.coordY, color)
             # Recupere la key associe a la couleur
             key = [k for k, v in palette.items() if v == color]
             # ajoute le tag
             self.type = ''.join(key)
         # Route
         elif color == '#efe4c6':
-            cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#967979')
+            #cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#967979')
+            Interface.createRoad(self.cv, self.coordX, self.coordY)
             self.type = 'road'
         # Decor
         elif color == '#000000':
-            cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1)
+            Interface.createDecor(self.cv, self.coordX, self.coordY)
             self.type = 'decor'
         else:
             raise ValueError("La couleur n'existe pas dans le canvas")
