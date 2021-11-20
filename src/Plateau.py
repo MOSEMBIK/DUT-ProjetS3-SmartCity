@@ -1,3 +1,5 @@
+from src.Interface import *
+
 import tkinter
 from tkinter import *
 
@@ -30,7 +32,7 @@ class Plateau:
         self.nom = nom
         self.itf = Interface('newMap.png')
         print("OUE")
-        self.contenu = []
+        self.contenu = [Case]
         self.canvas = Plateau.init_map(self)
         self.img = 0
 
@@ -140,7 +142,7 @@ class Plateau:
         :return: Liste de case adjacentes à la case donnée en paramètre
         """
         tab = [Case]
-        cases = []
+        cases = [Case]
         coords = case.getCoords()
         for i in range(-1, 2, 2):
             cases.append(self.getCase(coords[0] + i, coords[1]))
