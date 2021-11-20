@@ -185,7 +185,7 @@ class Agent:
 
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
 
-    def checkNeedCharge(self, plateau : Plateau) -> bool:
+    def checkNeedCharge(self) -> bool:
         """
         Vérifie le pourcentage de batterie réstant
         et rétourne True ou False en fonction de la charge.
@@ -241,7 +241,7 @@ class Agent:
         # Verification du niveau de charge
         needCharge = self.checkNeedCharge(plateau)
 
-        if needCharge :
+        if not(needCharge) :
             if self.caseOfTrajet + self.speed < len(self.trajet):
                 self.charge -= 50 * self.speed
                 self.caseOfTrajet += self.speed
@@ -256,4 +256,17 @@ class Agent:
 
         return None
 
+    def goTo(self, plateau: Plateau, destination: Case) -> None:
+        """
+        Envoie un agent vers une direction.
+        """
+        self.setTrajet(self.getTrajet_aStar(plateau, destination))
+        return None
+
+    def goToRandom(self, plateau: Plateau) -> None:
+        """
+        Envoie un agent vers une direction.
+        """
+        self.setRandomTrajet(plateau)
+        return None
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

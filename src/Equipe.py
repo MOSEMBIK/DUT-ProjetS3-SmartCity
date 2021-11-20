@@ -16,10 +16,27 @@ class Equipe:
         self.agents[id] = Agent(id, type)
         return None
     
+    # Déplacement
+    def agentMoveSimple(self, id : int) -> None:
+        self.agents.get(id).moveSimple()
+        return None
+    
     def agentMove(self, id : int, plt : Plateau) -> None:
         self.agents.get(id).move(plt)
         return None
     
-    def agentGoTo(self, id : int) -> None:
+    # Destination
+    def agentGoToRandom(self, id : int, plt : Plateau) -> None:
+        self.agents.get(id).goToRandom(plt)
+        return None
+    
+    def agentGoTo(self, id : int, plt : Plateau, case : Case) -> None:
+        """
+        Requete qui parametre le déplacement d'un Agent vers une case.
 
+        :param id: Identifiant de l'Agent sur lequel porte la requete
+        :param plt: Plateau sur lequel l'Agent se situe
+        :param case: Case de destination
+        """
+        self.agents.get(id).goTo(plt, case)
         return None
