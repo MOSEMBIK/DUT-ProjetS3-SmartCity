@@ -52,12 +52,7 @@ class Simulation :
             for idA in range(len(self.equipe[idE].getAgents())) :
                 self.agentGoToRandom(idE, idA)
         return None
-    
 
     def agentGoTo(self, idE : int, idA : int, case : Case) -> None:
         self.equipe[idE].agentGoTo(idA, self.env, case)
-        return None
-    
-    def allGoTo(self) -> None:
-
         return None
