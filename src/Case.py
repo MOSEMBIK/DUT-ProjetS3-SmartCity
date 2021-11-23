@@ -1,20 +1,9 @@
-from tkinter import *
 from random import *
 from src.Interface import *
 
-palette = {}
-palette['epicerie'] = '#b07678'
-palette['magasin'] = '#00edd9'
-palette['charge'] = '#1e736e'
-palette['restaurant'] = '#8e00ed'
-palette['ecole'] = '#5741b0'
-palette['entrepot'] = '#a0be0e'
-palette['cimetiere'] = '#5bc944'
-palette['musee'] = '#ffe900'
-palette['boulangerie'] = '#ed00c5'
-palette['coiffeur'] = '#ec1c1a'
-palette['pharmacie'] = '#6da6b7'
-palette['spawn'] = '#ee8438'
+palette = {'epicerie': '#b07678', 'magasin': '#00edd9', 'charge': '#1e736e', 'restaurant': '#8e00ed',
+           'ecole': '#5741b0', 'entrepot': '#a0be0e', 'cimetiere': '#5bc944', 'musee': '#ffe900',
+           'boulangerie': '#ed00c5', 'coiffeur': '#ec1c1a', 'pharmacie': '#6da6b7', 'spawn': '#ee8438'}
 
 
 # palette = ['#b07678', '#00edd9', '#1e736e', '#8e00ed', '#5741b0', '#ec1c1a', '#5bc944', '#ffe900', '#ed00c5',
@@ -31,6 +20,7 @@ class Case:
         :param color: Couleur du rectangle
         """
         self.cv = cv
+        self.reachable = False
         """" Type de la case (spawn, route, epicerie, etc...)"""
         self.type = ''
         self.color = color
@@ -48,9 +38,9 @@ class Case:
             self.type = ''.join(key)
         # Route
         elif color == '#efe4c6':
-            #cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#967979')
             Interface.createRoad(self.cv, self.coordX, self.coordY)
             self.type = 'road'
+            self.reachable = True
         # Decor
         elif color == '#000000':
             Interface.createDecor(self.cv, self.coordX, self.coordY)
@@ -77,7 +67,10 @@ class Case:
         ! INCOMPLET !, vérifie seulement les routes
         :return: bool, true si la case est accessible, false sinon
         """
-        return self.color == '#e1c183' or self.color == '#ffdfbe'
+        return self.reachable
+
+    def setReachable(self, reachable: bool = True):
+        self.reachable = reachable
 
     def getType(self) -> str:
         """
@@ -86,5 +79,3 @@ class Case:
         """
         return self.type
 
-    def setPorte(self) -> None:
-        return None

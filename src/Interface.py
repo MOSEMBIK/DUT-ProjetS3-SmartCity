@@ -52,3 +52,21 @@ class Interface:
         self.root.update_idletasks()
         cv.update()
         return cv.create_image(10 * 20, 7 * 20, image = im, anchor = NW)
+
+    @staticmethod
+    def getPalette():
+        palette = {}
+        palette['epicerie'] = '#b07678'
+        palette['magasin'] = '#00edd9'
+        palette['charge'] = '#1e736e'
+        palette['restaurant'] = '#8e00ed'
+        palette['ecole'] = '#5741b0'
+        palette['entrepot'] = '#a0be0e'
+        palette['cimetiere'] = '#5bc944'
+        palette['musee'] = '#ffe900'
+        palette['boulangerie'] = '#ed00c5'
+        palette['coiffeur'] = '#ec1c1a'
+        palette['pharmacie'] = '#6da6b7'
+        palette['spawn'] = '#ee8438'
+
+        return palette
