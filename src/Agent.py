@@ -53,25 +53,8 @@ class Agent:
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # ~~~~~~~~~~~~      METHODES      ~~~~~~~~~~~~~~
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
 
     # ~~~~~~~~~~~~~      TRAJET      ~~~~~~~~~~~~~~~
 
@@ -98,101 +81,6 @@ class Agent:
         return None
 
 
-    def OLD_getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
-        """
-        Génère le trajet le plus court vers
-        une Case donnée en utilisant la methode
-        type de l'algorithme a*.
-        """
-        queue = collections.deque()
-
-        trajet = [self.trajet[self.caseOfTrajet]]
-        done = 0
-
-        bannedCase = []
-        crashCase = []
-
-        # Case de départ
-        startXY = self.trajet[self.caseOfTrajet].getCoords()
-        # Case d'arrivée
-        endXY = destination.getCoords()
-
-        # Distances départ->arrivé
-        manhattanDist = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
-        pytagoreDist = sqrt(abs(endXY[0]-startXY[0])**2 + abs(endXY[1]-startXY[1])**2)
-        toDo = manhattanDist + pytagoreDist
-
-        # Génération plus court chemin
-        while queue :
-            print("coord : ",trajet[done].getCoords())
-            dist = []
-            nearRoads = plateau.nearRoads(trajet[done])
-            nearLieu = plateau.nearLieu(trajet[done])
-
-            a = set()
-
-            try :
-                print("nearlieu : ",nearLieu)
-                for l in range(len(nearLieu)):
-                    print("coord nearlieu : ",nearLieu[l].getCoords())
-                    
-                bannedCase.append(trajet[done])
-
-                # Test si destination accessible
-                nearLieuCoo = []
-                for lu in nearLieu:
-                    nearLieuCoo.append(lu.getCoords())
-                if destination.getCoords() in nearLieuCoo :
-                    # Prochaine case = destination
-                    trajet.append(destination)
-                    # Distance réstante = 0
-                    toDo = 0
-
-                else :
-
-                    # On interdit les cases bannies                
-                    print("nearRcs : ", nearRoads)
-                    for rc in nearRoads:
-                        for bC in bannedCase:
-                            if plateau.isEqualCase(rc, bC):
-                                nearRoads.remove(rc)
-
-                    # Pour chaque Route
-                    for nC in nearRoads :
-                        nCXY = nC.getCoords()
-
-                        # Calcul des distances
-                        manhattanDist = abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1])
-                        pytagoreDist = sqrt(abs(endXY[0]-nCXY[0])**2 + abs(endXY[1]-nCXY[1])**2)
-                        dist.append(manhattanDist + pytagoreDist)
-
-                    # Ajout au trajet de la case minimisant la distance réstante
-                    trajet.append( nearRoads[dist.index(min(dist))] )
-                    done += 1
-
-                    # Modification de la distance réstante
-                    startXY = trajet[done].getCoords()
-                    toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
-                print("dist : ",toDo)
-            except :
-                crashCase.append(bannedCase[-1])
-
-                trajet = [self.trajet[self.caseOfTrajet]]
-                done = 0
-                startXY = self.trajet[self.caseOfTrajet].getCoords()
-                endXY = destination.getCoords()
-                manhattanDist = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
-                pytagoreDist = sqrt(abs(endXY[0]-startXY[0])**2 + abs(endXY[1]-startXY[1])**2)
-                toDo = manhattanDist + pytagoreDist
-
-                bannedCase = []
-                for c in crashCase:
-                    bannedCase.append(c)
-
-                pass
-        
-        return trajet
-
     def getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
         
         """
@@ -201,11 +89,6 @@ class Agent:
         type de l'algorithme a*.
         """
         queue : list[tuple(int, Case)] = [(0, self.trajet[self.caseOfTrajet])]
-
-        # Case de départ
-        startXY = self.trajet[self.caseOfTrajet].getCoords()
-        # Case d'arrivée
-        endXY = destination.getCoords()
 
         trajet = [self.trajet[self.caseOfTrajet]]
         done = 0
@@ -240,7 +123,7 @@ class Agent:
                 if next not in cout or nCout < cout[next] :
                     cout[next] = nCout
                     nCXY = current.getCoords()
-                    prio = nCout + abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1])
+                    prio = nCout + abs(destination.getCoords()[0]-nCXY[0]) + abs(destination.getCoords()[1]-nCXY[1])
                     queue.append((prio, next))
                     trajet.append(current)
 
@@ -260,22 +143,6 @@ class Agent:
 
         return trajet
 
-    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
 
     def checkNeedCharge(self) -> bool:
@@ -292,20 +159,6 @@ class Agent:
                 return True
         else :
             return False
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
 
