@@ -16,8 +16,9 @@ class Plateau:
         """
         self.nom = nom
         self.itf = Interface('newMap.png')
-        self.contenu : list[Case] = []
+        self.contenu: list[Case] = []
         self.canvas = Plateau.init_map(self)
+        self.setPortes()
         self.img = 0
 
     def init_map(self):
@@ -98,22 +99,21 @@ class Plateau:
         return tab
 
     def setPortes(self):
-        potentialPorte = []
         lieux = Interface.getPalette()
         lieux = [k for k, v in palette.items()]
         for lieu in lieux:
-            casinas = self.getLieu('cimetiere')
+            potentialPorte = []
+            casinas = self.getLieu(lieu)
             for case in casinas:
                 if self.nearRoads(case):
                     potentialPorte.append(case)
-        nouvellePorte = rd.choice(potentialPorte)
-        nouvellePorte.setReachable()
-        return nouvellePorte
+            nouvellePorte = rd.choice(potentialPorte)
+            nouvellePorte.setReachable()
 
     def nearLieu(self, case: Case):
         w_img, h_img = self.itf.img.size
         tablo = []
-        cases : list[Case] = []
+        cases: list[Case] = []
         coords = case.getCoords()
         for i in range(-1, 2, 2):
             if 0 <= coords[0] + i < w_img:
@@ -125,8 +125,6 @@ class Plateau:
                 tablo.append(k)
         return tablo
 
-    def isEqualCase(self, case1, case2) :
-        if case1.getCoords()[0] == case2.getCoords()[0] and case1.getCoords()[1] == case2.getCoords()[1] :
-            return True
-        else :
-            return False
+    @staticmethod
+    def isEqualCase(case1, case2) :
+        return case1.getCoords()[0] == case2.getCoords()[0] and case1.getCoords()[1] == case2.getCoords()[1]
