@@ -8,7 +8,7 @@ class Simulation :
     def __init__(self, name: str, nbEquipe : int = 1, nameEquipe : int = None, nbAgent : int = 1, typeAgent : int = None, envName : str = None):
         self.name = name
 
-        self.equipe = [Equipe]
+        self.equipe = []
         for i in range(nbEquipe):
             self.equipe.append(Equipe(i, nameEquipe))
             for j in range(nbAgent) :

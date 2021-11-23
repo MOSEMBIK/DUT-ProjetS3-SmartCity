@@ -32,7 +32,7 @@ class Plateau:
         self.nom = nom
         self.itf = Interface('newMap.png')
         print("OUE")
-        self.contenu = [Case]
+        self.contenu = []
         self.canvas = Plateau.init_map(self)
         self.img = 0
 
@@ -141,8 +141,8 @@ class Plateau:
         :param case: Case dont on cherche les routes adjacentes
         :return: Liste de case adjacentes à la case donnée en paramètre
         """
-        tab = [Case]
-        cases = [Case]
+        tab = []
+        cases = []
         coords = case.getCoords()
         for i in range(-1, 2, 2):
             cases.append(self.getCase(coords[0] + i, coords[1]))

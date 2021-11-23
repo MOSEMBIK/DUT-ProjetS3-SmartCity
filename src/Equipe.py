@@ -7,7 +7,7 @@ class Equipe:
     def __init__(self, id: int, nom: str = ""):
         self.id = id
         self.nom = nom
-        self.agents = {int:Agent}
+        self.agents = {}
     
     def getAgents(self) -> dict:
         return self.agents
