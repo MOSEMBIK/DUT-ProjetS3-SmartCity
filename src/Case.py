@@ -11,6 +11,9 @@ palette = {'epicerie': '#b07678', 'magasin': '#00edd9', 'charge': '#1e736e', 're
 
 
 class Case:
+    """
+    Element du Plateau.
+    """
     def __init__(self, cv, coordX, coordY, color):
         """
         Constructeur de la case, créer un objet rectangle sur le canvas

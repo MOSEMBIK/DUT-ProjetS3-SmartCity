@@ -5,6 +5,9 @@ import collections
 import random as rdm
 
 class Agent:
+    """
+    Agent intelligent et autonome.
+    """
 
     def __init__(self, id: int, type: int = 0):
         self.id = id
@@ -197,7 +200,7 @@ class Agent:
         une Case donnée en utilisant la methode
         type de l'algorithme a*.
         """
-        queue = []
+        queue : list[tuple(int, Case)] = [(0, self.trajet[self.caseOfTrajet])]
 
         # Case de départ
         startXY = self.trajet[self.caseOfTrajet].getCoords()
@@ -221,16 +224,25 @@ class Agent:
             edges[rCase] = nRC
         print("Graph : ",edges)
 
-        # Distances départ->arrivé (manhattanDist)
-        toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
-
         # Génération plus court chemin
         while queue :
-            print("Distance restante : ",toDo)
             print("Coordonnees : ",trajet[done].getCoords())
 
-            if 
-            toDo = 0
+            # current = queue[] w/ lowest priority and delete it
+            current = queue[-1][1]
+            queue.remove(queue[-1])
+
+            if plateau.isEqualCase(current, destination):
+                break
+            
+            for next in edges[current] :
+                nCout = cout[current] # + cout graph pondéré pour aller de current a next
+                if next not in cout or nCout < cout[next] :
+                    cout[next] = nCout
+                    nCXY = current.getCoords()
+                    prio = nCout + abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1])
+                    queue.append((prio, next))
+                    trajet.append(current)
 
         return trajet
 
