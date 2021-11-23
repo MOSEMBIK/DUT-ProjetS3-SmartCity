@@ -8,30 +8,23 @@ from src.Case import *
 
 
 def main():
-    env = Plateau("Map")
-    env.test_image()
-    case = env.getCase(46, 22)
-    env.nearRoads(case)
-    env.setPortes()
-    nl = env.nearLieu(case)
-    kase = env.getCase(46, 23)
+    sim = Simulation("", 1, "", 1, 1, "Map")
+    sim.plt.test_image()
 
-    env.main_loop()
+    sim.plt.start()
 
-    global tour
-    global lastTour
-    tour = 0
-    lastTour = 0
-
-    maxTour = 20
+    maxTour = 150
+    sim.allGoToRandom()
+    print(sim.equipe[0].getAgents()[0].trajet[sim.equipe[0].getAgents()[0].caseOfTrajet].getCoords())
+    sim.agentGoTo(0,0, sim.plt.getCase(46,23))
     for i in range(maxTour):
-        # Corps réel
-        # Création des taches, deplacements des agents, ...
+        sim.allMove()
+        for e in range(len(sim.equipe)):
+            for a in sim.equipe[e].getAgents() :
+                ag = sim.equipe[e].getAgents()[a]
+                if ag.id == 0 :
+                    print(sim.equipe[e].id, ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
 
-        # Passage au tour suivant
-        time.sleep(5)
-        lastTour = tour
-        tour += 1
     return None
 
 

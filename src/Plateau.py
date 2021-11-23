@@ -45,7 +45,7 @@ class Plateau:
             iy += 20
         return cv
 
-    def main_loop(self):
+    def start(self):
         self.itf.main_loop()
 
     def test_image(self):
@@ -124,3 +124,9 @@ class Plateau:
             if k.isReachable() and k.getType() != 'road':
                 tablo.append(k)
         return tablo
+
+    def isEqualCase(self, case1, case2) :
+        if case1.getCoords()[0] == case2.getCoords()[0] and case1.getCoords()[1] == case2.getCoords()[1] :
+            return True
+        else :
+            return False

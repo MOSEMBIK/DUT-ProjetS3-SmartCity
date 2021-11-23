@@ -5,7 +5,7 @@ from src.Case import *
 
 class Simulation :
 
-    def __init__(self, name: str, nbEquipe : int = 1, nameEquipe : int = None, nbAgent : int = 1, typeAgent : int = None, envName : str = None):
+    def __init__(self, name: str = "", nbEquipe : int = 1, nameEquipe : str = "", nbAgent : int = 1, typeAgent : int = 0, pltName : str = ""):
         self.name = name
 
         self.equipe = []
@@ -14,7 +14,7 @@ class Simulation :
             for j in range(nbAgent) :
                 self.equipe[i].addAgents(j, typeAgent)
 
-        self.env = Plateau(envName)
+        self.plt = Plateau(pltName)
     
 
     
@@ -24,7 +24,7 @@ class Simulation :
         return None
 
     def agentMove(self, idE : int, idA : int) -> None:
-        self.equipe[idE].agentMove(idA, self.env)
+        self.equipe[idE].agentMove(idA, self.plt)
         return None
     
     def allMove(self, mode : int = 0) -> None:
@@ -44,7 +44,7 @@ class Simulation :
 
     # Destination
     def agentGoToRandom(self, idE : int, idA : int,) -> None:
-        self.equipe[idE].agentGoToRandom(idA, self.env)
+        self.equipe[idE].agentGoToRandom(idA, self.plt)
         return None
     
     def allGoToRandom(self) -> None:
@@ -54,5 +54,5 @@ class Simulation :
         return None
 
     def agentGoTo(self, idE : int, idA : int, case : Case) -> None:
-        self.equipe[idE].agentGoTo(idA, self.env, case)
+        self.equipe[idE].agentGoTo(idA, self.plt, case)
         return None

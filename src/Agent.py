@@ -7,12 +7,8 @@ class Agent:
 
     def __init__(self, id: int, type: int = 0):
         self.id = id
-        # Test de la validité du type
-        try :
-            if (type in (0, 2)) :
-                self.type = type
-        except :
-            raise Exception("Invalid Agent.type parameter given.")
+        if (type in [0, 1, 2]) :
+            self.type = type
 
         self.visibility = True
 
@@ -85,7 +81,7 @@ class Agent:
             self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0
 
-        for i in range(randint(100)):
+        for i in range(randint(100, 250)):
             self.trajet.append(rdm.choice(plateau.nearRoads(self.trajet[i])))
 
         return None
@@ -107,6 +103,8 @@ class Agent:
         trajet = [self.trajet[self.caseOfTrajet]]
         done = 0
 
+        bannedCase = []
+
         # Case de départ
         startXY = self.trajet[self.caseOfTrajet].getCoords()
         # Case d'arrivée
@@ -119,20 +117,36 @@ class Agent:
 
         # Génération plus court chemin
         while toDo != 0 :
+            print("coord : ",trajet[done].getCoords())
             dist = []
             nearRoads = plateau.nearRoads(trajet[done])
-            nearLieu = plateau.nearLieux(trajet[done])
+            nearLieu = plateau.nearLieu(trajet[done])
+
+            print("nearlieu : ",nearLieu)
+            for l in range(len(nearLieu)):
+                print("coord nearlieu : ",nearLieu[l].getCoords())
+                
+            bannedCase.append(trajet[done])
+            print("banned : ", bannedCase)
 
             # Test si destination accessible
-            if destination in nearLieu :
+            nearLieuCoo = []
+            for lu in nearLieu:
+                nearLieuCoo.append(lu.getCoords())
+            if destination.getCoords() in nearLieuCoo :
                 # Prochaine case = destination
                 trajet.append(destination)
                 # Distance réstante = 0
                 toDo = 0
 
             else :
-                # On empèche le retour en arrière
-                nearRoads.remove(trajet[done])
+
+                # On empèche le retour en arrière                
+                print("nearRcs : ", nearRoads)
+                for rc in nearRoads:
+                    for bC in bannedCase:
+                        if plateau.isEqualCase(rc, bC):
+                            nearRoads.remove(rc)
 
                 # Pour chaque Route
                 for nC in nearRoads :
@@ -150,6 +164,7 @@ class Agent:
                 # Modification de la distance réstante
                 startXY = trajet[done].getCoords()
                 toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+            print("dist : ",toDo)
         
         return trajet
 
@@ -239,7 +254,7 @@ class Agent:
         Gère la charge de l'Agent.
         """
         # Verification du niveau de charge
-        needCharge = self.checkNeedCharge(plateau)
+        needCharge = self.checkNeedCharge()
 
         if not(needCharge) :
             if self.caseOfTrajet + self.speed < len(self.trajet):
@@ -252,7 +267,12 @@ class Agent:
                 self.caseOfTrajet = 0
 
         else :
-            self.setTrajet(self.getTrajet_aStar(plateau, plateau.getLieu('charge')))
+            crgr = plateau.getLieu('charge')
+            toGo = Case
+            for c in crgr :
+                if c.isReachable() :
+                    toGo = c
+            self.setTrajet(self.getTrajet_aStar(plateau, toGo))
 
         return None
 
