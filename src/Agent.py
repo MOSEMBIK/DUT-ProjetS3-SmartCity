@@ -1,6 +1,7 @@
 from src.Case import *
 from src.Plateau import *
 from math import *
+import collections
 import random as rdm
 
 class Agent:
@@ -10,7 +11,7 @@ class Agent:
         if (type in [0, 1, 2]) :
             self.type = type
 
-        self.visibility = True
+        self.visibility : bool = True
 
         # Parametrage de la vitesse selon le type
         if (self.type == 0) :
@@ -39,11 +40,11 @@ class Agent:
             self.volumeMax = 150
 
         # Setup de la position à Null
-        self.caseOfTrajet = 0
-        self.trajet = [] 
+        self.caseOfTrajet : int = 0
+        self.trajet : list[Case] = [] 
 
         # Setup du score à 0
-        self.score = 0
+        self.score : int = 0
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -94,16 +95,19 @@ class Agent:
         return None
 
 
-    def getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
+    def OLD_getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
         """
         Génère le trajet le plus court vers
         une Case donnée en utilisant la methode
         type de l'algorithme a*.
         """
+        queue = collections.deque()
+
         trajet = [self.trajet[self.caseOfTrajet]]
         done = 0
 
         bannedCase = []
+        crashCase = []
 
         # Case de départ
         startXY = self.trajet[self.caseOfTrajet].getCoords()
@@ -116,56 +120,118 @@ class Agent:
         toDo = manhattanDist + pytagoreDist
 
         # Génération plus court chemin
-        while toDo != 0 :
+        while queue :
             print("coord : ",trajet[done].getCoords())
             dist = []
             nearRoads = plateau.nearRoads(trajet[done])
             nearLieu = plateau.nearLieu(trajet[done])
 
-            print("nearlieu : ",nearLieu)
-            for l in range(len(nearLieu)):
-                print("coord nearlieu : ",nearLieu[l].getCoords())
-                
-            bannedCase.append(trajet[done])
-            print("banned : ", bannedCase)
+            a = set()
 
-            # Test si destination accessible
-            nearLieuCoo = []
-            for lu in nearLieu:
-                nearLieuCoo.append(lu.getCoords())
-            if destination.getCoords() in nearLieuCoo :
-                # Prochaine case = destination
-                trajet.append(destination)
-                # Distance réstante = 0
-                toDo = 0
+            try :
+                print("nearlieu : ",nearLieu)
+                for l in range(len(nearLieu)):
+                    print("coord nearlieu : ",nearLieu[l].getCoords())
+                    
+                bannedCase.append(trajet[done])
 
-            else :
+                # Test si destination accessible
+                nearLieuCoo = []
+                for lu in nearLieu:
+                    nearLieuCoo.append(lu.getCoords())
+                if destination.getCoords() in nearLieuCoo :
+                    # Prochaine case = destination
+                    trajet.append(destination)
+                    # Distance réstante = 0
+                    toDo = 0
 
-                # On empèche le retour en arrière                
-                print("nearRcs : ", nearRoads)
-                for rc in nearRoads:
-                    for bC in bannedCase:
-                        if plateau.isEqualCase(rc, bC):
-                            nearRoads.remove(rc)
+                else :
 
-                # Pour chaque Route
-                for nC in nearRoads :
-                    nCXY = nC.getCoords()
+                    # On interdit les cases bannies                
+                    print("nearRcs : ", nearRoads)
+                    for rc in nearRoads:
+                        for bC in bannedCase:
+                            if plateau.isEqualCase(rc, bC):
+                                nearRoads.remove(rc)
 
-                    # Calcul des distances
-                    manhattanDist = abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1])
-                    pytagoreDist = sqrt(abs(endXY[0]-nCXY[0])**2 + abs(endXY[1]-nCXY[1])**2)
-                    dist.append(manhattanDist + pytagoreDist)
+                    # Pour chaque Route
+                    for nC in nearRoads :
+                        nCXY = nC.getCoords()
 
-                # Ajout au trajet de la case minimisant la distance réstante
-                trajet.append( nearRoads[dist.index(min(dist))] )
-                done += 1
+                        # Calcul des distances
+                        manhattanDist = abs(endXY[0]-nCXY[0]) + abs(endXY[1]-nCXY[1])
+                        pytagoreDist = sqrt(abs(endXY[0]-nCXY[0])**2 + abs(endXY[1]-nCXY[1])**2)
+                        dist.append(manhattanDist + pytagoreDist)
 
-                # Modification de la distance réstante
-                startXY = trajet[done].getCoords()
-                toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
-            print("dist : ",toDo)
+                    # Ajout au trajet de la case minimisant la distance réstante
+                    trajet.append( nearRoads[dist.index(min(dist))] )
+                    done += 1
+
+                    # Modification de la distance réstante
+                    startXY = trajet[done].getCoords()
+                    toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+                print("dist : ",toDo)
+            except :
+                crashCase.append(bannedCase[-1])
+
+                trajet = [self.trajet[self.caseOfTrajet]]
+                done = 0
+                startXY = self.trajet[self.caseOfTrajet].getCoords()
+                endXY = destination.getCoords()
+                manhattanDist = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+                pytagoreDist = sqrt(abs(endXY[0]-startXY[0])**2 + abs(endXY[1]-startXY[1])**2)
+                toDo = manhattanDist + pytagoreDist
+
+                bannedCase = []
+                for c in crashCase:
+                    bannedCase.append(c)
+
+                pass
         
+        return trajet
+
+    def getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
+        
+        """
+        Génère le trajet le plus court vers
+        une Case donnée en utilisant la methode
+        type de l'algorithme a*.
+        """
+        queue = []
+
+        # Case de départ
+        startXY = self.trajet[self.caseOfTrajet].getCoords()
+        # Case d'arrivée
+        endXY = destination.getCoords()
+
+        trajet = [self.trajet[self.caseOfTrajet]]
+        done = 0
+        cout = {}
+        cout[trajet[done]] = 0
+
+        edges = {}
+        roads = plateau.getLieu('road')
+        for rCase in roads:
+            nRC = plateau.nearRoads(rCase)
+            nLC = plateau.nearLieu(rCase)
+            if nLC :
+                for lCC in nLC :
+                    if plateau.isEqualCase(destination, lCC):
+                        nRC.append(lCC)
+            edges[rCase] = nRC
+        print("Graph : ",edges)
+
+        # Distances départ->arrivé (manhattanDist)
+        toDo = abs(endXY[0]-startXY[0]) + abs(endXY[1]-startXY[1])
+
+        # Génération plus court chemin
+        while queue :
+            print("Distance restante : ",toDo)
+            print("Coordonnees : ",trajet[done].getCoords())
+
+            if 
+            toDo = 0
+
         return trajet
 
 

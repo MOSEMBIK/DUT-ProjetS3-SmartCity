@@ -16,7 +16,7 @@ class Plateau:
         """
         self.nom = nom
         self.itf = Interface('newMap.png')
-        self.contenu = []
+        self.contenu : list[Case] = []
         self.canvas = Plateau.init_map(self)
         self.img = 0
 
@@ -85,7 +85,7 @@ class Plateau:
         """
         w_image, h_image = self.itf.img.size
         tab = []
-        cases = []
+        cases : list[Case] = []
         coords = case.getCoords()
         for i in range(-1, 2, 2):
             if 0 <= coords[0] + i < w_image:
@@ -113,7 +113,7 @@ class Plateau:
     def nearLieu(self, case: Case):
         w_img, h_img = self.itf.img.size
         tablo = []
-        cases = []
+        cases : list[Case] = []
         coords = case.getCoords()
         for i in range(-1, 2, 2):
             if 0 <= coords[0] + i < w_img:
