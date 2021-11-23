@@ -46,7 +46,6 @@ class Interface:
 
     def createImg(self, cv, img):
         im = Image.open('img/' + img)
-        print('img/' + img)
         im = ImageTk.PhotoImage(im)
         cv.pack()
         self.root.update_idletasks()
