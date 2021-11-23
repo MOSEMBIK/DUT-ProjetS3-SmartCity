@@ -80,6 +80,9 @@ class Agent:
 
         return None
 
+    def weightGraph(graph : dict) -> dict:
+        wGraph = {}
+        return wGraph
 
     def getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
         
@@ -107,17 +110,25 @@ class Agent:
             edges[rCase] = nRC
         print("Graph : ",edges)
 
+        wGraph = self.weightGraph(edges)
+
         # Génération plus court chemin
         while queue :
             print("Coordonnees : ",trajet[done].getCoords())
 
-            # current = queue[] w/ lowest priority and delete it
-            current = queue[-1][1]
-            queue.remove(queue[-1])
+            # Recuperation de la case optimale
+            idx = 0
+            for i in range(1, len(queue)):
+                if queue[idx][0] > queue[i][0]:
+                    idx = i
+            current = queue[idx][1]
+            queue.remove(queue[idx])
 
+            # Gestion de l'arrivee
             if plateau.isEqualCase(current, destination):
                 break
             
+            # Generation du trajet
             for next in edges[current] :
                 nCout = cout[current] # + cout graph pondéré pour aller de current a next
                 if next not in cout or nCout < cout[next] :
@@ -126,20 +137,6 @@ class Agent:
                     prio = nCout + abs(destination.getCoords()[0]-nCXY[0]) + abs(destination.getCoords()[1]-nCXY[1])
                     queue.append((prio, next))
                     trajet.append(current)
-
-        return trajet
-
-
-    def getTrajet_dijkstra(self, plateau: Plateau, destination: Case) -> list:
-        """
-        Génère le trajet le plus court vers
-        une Case donnée.
-        """
-        trajet = [self.trajet[self.caseOfTrajet]]
-        done = 0
-
-        roads = plateau.getLieu('road')
-        # Génération plus court chemin
 
         return trajet
 
