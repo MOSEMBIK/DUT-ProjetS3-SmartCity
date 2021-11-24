@@ -103,7 +103,6 @@ class Agent:
             edges[rCase] = nRC
         
         # Génération plus court chemin
-        print("Start : ",trajet[done].getCoords())
         while queue:
             # Recuperation de la case optimale
             idx = 0
@@ -129,8 +128,6 @@ class Agent:
                     trajet.append(current)
                     done += 1
 
-            print("Coords : ",trajet[done].getCoords())
-        print("End : ",trajet[done+1].getCoords())
         return trajet
 
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
@@ -176,7 +173,7 @@ class Agent:
 
             elif self.caseOfTrajet + self.speed >= len(self.trajet):
                 self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
-                self.trajet = [self.trajet[self.caseOfTrajet]]
+                self.trajet = [self.trajet[-1]]
                 self.caseOfTrajet = 0
 
         else:
