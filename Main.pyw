@@ -24,7 +24,7 @@ def main():
                 ag = sim.equipe[e].getAgents()[a]
                 #if ag.id == 0 :
                     #print(sim.equipe[e].id, ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
-        time.sleep(6)
+        time.sleep(2)
     return None
 
 
