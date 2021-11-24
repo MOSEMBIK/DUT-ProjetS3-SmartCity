@@ -176,7 +176,7 @@ class Agent:
 
             elif self.caseOfTrajet + self.speed >= len(self.trajet):
                 self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
-                self.trajet = [self.trajet[self.caseOfTrajet]]
+                self.trajet = [self.trajet[self.caseOfTrajet + 1]]
                 self.caseOfTrajet = 0
 
         else:
