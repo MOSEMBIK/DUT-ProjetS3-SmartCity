@@ -13,6 +13,7 @@ def main():
 
     maxTour = 150
     sim.allGoToRandom()
+    # del "#" to set trajet to Case of coords = [46, 23]
     #sim.agentGoTo(0,0, sim.plt.getCase(46,23))
     agent1 = sim.equipe[0].agents[0]
 
