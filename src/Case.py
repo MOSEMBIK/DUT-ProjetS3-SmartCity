@@ -67,7 +67,6 @@ class Case:
 
     def isReachable(self) -> bool:
         """
-        ! INCOMPLET !, vérifie seulement les routes
         :return: bool, true si la case est accessible, false sinon
         """
         return self.reachable
