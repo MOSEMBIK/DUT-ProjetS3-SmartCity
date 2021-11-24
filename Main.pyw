@@ -1,4 +1,3 @@
-import asyncio
 import time
 from random import *
 from src.Simulation import *
@@ -23,6 +22,7 @@ def main():
                 ag = sim.equipe[e].getAgents()[a]
                 #if ag.id == 0 :
                     #print(sim.equipe[e].id, ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
+        time.sleep(3)
     return None
 
 
