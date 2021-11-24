@@ -1,6 +1,8 @@
 import tkinter
 from tkinter import *
 from PIL import ImageTk, Image
+import os
+
 
 
 # root = Tk()
@@ -27,7 +29,7 @@ class Interface:
 
     @staticmethod
     def createLieu(cv, coordX, coordY, color):
-        cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
+       cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
 
     @staticmethod
     def createRoad(cv, coordX, coordY):
@@ -44,13 +46,11 @@ class Interface:
         """
         self.root.mainloop()
 
-    def createImg(self, cv, img):
-        im = Image.open('img/' + img)
-        im = ImageTk.PhotoImage(im)
-        cv.pack()
-        self.root.update_idletasks()
+    def createImg(self, cv):
+        skin = cv.create_oval(10 * 20, 7 * 20, 11*20, 8*20, fill='green')
+        # cv.create_rectangle(500, 500, 800, 800, fill='white')
         cv.update()
-        return cv.create_image(10 * 20, 7 * 20, image = im, anchor = NW)
+        return skin
 
     @staticmethod
     def getPalette():
@@ -59,3 +59,12 @@ class Interface:
                    'boulangerie': '#ed00c5', 'coiffeur': '#ec1c1a', 'pharmacie': '#6da6b7', 'spawn': '#ee8438'}
 
         return palette
+
+    @staticmethod
+    def imageMove(cv, id, coords):
+        resetCoords = cv.coords(id)
+        cv.move(id, - resetCoords[0], - resetCoords[1])
+        cv.move(id, coords[0] * 20, coords[1] * 20)
+        cv.update()
+
+

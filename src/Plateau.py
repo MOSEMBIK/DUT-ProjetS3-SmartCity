@@ -15,7 +15,7 @@ class Plateau:
         :param nom: Nom de la fenetre
         """
         self.nom = nom
-        self.itf = Interface('newMap.png')
+        self.itf: Interface = Interface('newMap.png')
         self.contenu: list[Case] = []
         self.canvas = Plateau.init_map(self)
         self.setPortes()

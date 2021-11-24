@@ -9,14 +9,15 @@ class Simulation:
     def __init__(self, name: str = "", nbEquipe: int = 1, nameEquipe: str = "", nbAgent: int = 1, typeAgent: int = 0,
                  pltName: str = ""):
         self.name = name
-
-        self.equipe : list[Equipe] = []
+        self.plt: Plateau = Plateau(pltName)
+        self.skin = {}
+        self.equipe: list[Equipe] = []
         for i in range(nbEquipe):
             self.equipe.append(Equipe(i, nameEquipe))
             for j in range(nbAgent):
-                self.equipe[i].addAgents(j, typeAgent)
-
-        self.plt = Plateau(pltName)
+                idAgent = str(i) + str(j)
+                self.equipe[i].addAgents(int(idAgent), typeAgent)
+                self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.createImg(self.plt.canvas)
 
     # Déplacement
     def agentMoveSimple(self, idE: int, idA: int) -> None:
