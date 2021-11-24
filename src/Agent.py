@@ -1,7 +1,6 @@
 from src.Case import *
 from src.Plateau import *
 from math import *
-import collections
 import random as rdm
 
 
