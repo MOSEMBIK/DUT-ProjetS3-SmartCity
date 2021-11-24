@@ -46,8 +46,8 @@ class Interface:
         """
         self.root.mainloop()
 
-    def createImg(self, cv):
-        skin = cv.create_oval(10 * 20, 7 * 20, 11*20, 8*20, fill='green')
+    def createImg(self, cv, coords):
+        skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0]+1)*20, (coords[1]+1)*20, fill='green')
         # cv.create_rectangle(500, 500, 800, 800, fill='white')
         cv.update()
         return skin
@@ -65,6 +65,5 @@ class Interface:
         resetCoords = cv.coords(id)
         cv.move(id, - resetCoords[0], - resetCoords[1])
         cv.move(id, coords[0] * 20, coords[1] * 20)
-        cv.update()
 
 

@@ -11,6 +11,7 @@ class Agent:
 
     def __init__(self, id: int, type: int = 0):
         self.id = id
+        self.spawn = [22,43]
         if type in [0, 1, 2]:
             self.type = type
 
@@ -61,7 +62,7 @@ class Agent:
         Génère un trajet aléatoire de 0 à 99 déplacements.
         """
         if not self.trajet:
-            self.trajet.append(rdm.choice(plateau.getLieu('road')))
+            self.trajet.append(plateau.getCase(self.spawn[0], self.spawn[1]))
         else:
             self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0
@@ -85,10 +86,13 @@ class Agent:
         une Case donnée en utilisant la methode
         type de l'algorithme a*.
         """
-        queue: list[tuple(int, Case)] = [(0, self.trajet[self.caseOfTrajet])]
-
         trajet = [self.trajet[self.caseOfTrajet]]
         done = 0
+        if trajet[done].type != 'road':
+            trajet.append(plateau.nearRoads(trajet[done])[0])
+            done += 1
+        
+        queue: list[tuple(int, Case)] = [(0, trajet[-1])]
         cout = {}
         cout[trajet[done]] = 0
 
@@ -128,6 +132,7 @@ class Agent:
                     queue.append((prio, next))
                     trajet.append(current)
                     done += 1
+
 
         return trajet
 
