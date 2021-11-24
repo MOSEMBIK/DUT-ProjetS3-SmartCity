@@ -10,7 +10,7 @@ class Simulation:
                  pltName: str = ""):
         self.name = name
 
-        self.equipe = []
+        self.equipe : list[Equipe] = []
         for i in range(nbEquipe):
             self.equipe.append(Equipe(i, nameEquipe))
             for j in range(nbAgent):
