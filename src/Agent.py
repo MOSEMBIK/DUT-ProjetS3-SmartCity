@@ -78,10 +78,6 @@ class Agent:
 
         return None
 
-    def weightGraph(graph: dict) -> dict:
-        wGraph = {}
-        return wGraph
-
     def getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
 
         """
@@ -106,14 +102,10 @@ class Agent:
                     if plateau.isEqualCase(destination, lCC):
                         nRC.append(lCC)
             edges[rCase] = nRC
-        print("Graph : ", edges)
-
-        wGraph = self.weightGraph(edges)
-
+        
         # Génération plus court chemin
+        print("Start : ",trajet[done].getCoords())
         while queue:
-            print("Coordonnees : ", trajet[done].getCoords())
-
             # Recuperation de la case optimale
             idx = 0
             for i in range(1, len(queue)):
@@ -124,18 +116,22 @@ class Agent:
 
             # Gestion de l'arrivee
             if plateau.isEqualCase(current, destination):
+                trajet.append(destination)
                 break
 
             # Generation du trajet
             for next in edges[current]:
-                nCout = cout[current]  # + cout graph pondéré pour aller de current a next
+                nCout = cout[current]  
                 if next not in cout or nCout < cout[next]:
                     cout[next] = nCout
                     nCXY = current.getCoords()
                     prio = nCout + abs(destination.getCoords()[0] - nCXY[0]) + abs(destination.getCoords()[1] - nCXY[1])
                     queue.append((prio, next))
                     trajet.append(current)
+                    done += 1
 
+            print("Coords : ",trajet[done].getCoords())
+        print("End : ",trajet[done+1].getCoords())
         return trajet
 
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
@@ -146,14 +142,7 @@ class Agent:
         et rétourne True ou False en fonction de la charge.
         """
         percentDone = ((len(self.trajet) - self.caseOfTrajet) * 100) / len(self.trajet)
-
-        if ((self.charge * 100) / self.autonomie) <= 0.25:
-            if percentDone >= 0.8:
-                return False
-            else:
-                return True
-        else:
-            return False
+        return (((self.charge * 100) / self.autonomie) <= 0.25 and percentDone >= 0.8)
 
     # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
 
@@ -214,4 +203,5 @@ class Agent:
         """
         self.setRandomTrajet(plateau)
         return None
+
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
