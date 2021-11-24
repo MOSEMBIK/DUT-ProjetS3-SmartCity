@@ -66,8 +66,10 @@ class Agent:
             self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0
 
-        for i in range(randint(100, 250)):
-            self.trajet.append(rdm.choice(plateau.nearRoads(self.trajet[i])))
+        for i in range(randint(1, 4)):
+            t = self.getTrajet_aStar(plateau, rdm.choice(plateau.getLieu('road')))
+            for c in t:
+                self.trajet.append(c)
 
         return None
 
