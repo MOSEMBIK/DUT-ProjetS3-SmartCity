@@ -13,7 +13,7 @@ def main():
     maxTour = 150
     sim.allGoToRandom()
     # del "#" to set trajet of agent1 to Case of coords = [46, 23]
-    sim.agentGoTo(0,0, sim.plt.getCase(46, 23))
+    #sim.agentGoTo(0,0, sim.plt.getCase(46, 23))
     #sim.agentGoTo(0,0, sim.plt.getCase(0, 0))
     agent1 = sim.equipe[0].agents[0]
     #agent2 = sim.equipe[0].agents[1]
@@ -35,18 +35,17 @@ def main():
 
     for i in range(maxTour):
         # print("Position : ",agent1.trajet[agent1.caseOfTrajet].getCoords())
-
-        sim.allMove()
-        for e in range(len(sim.equipe)):
-            for a in sim.equipe[e].getAgents():
-                ag = sim.equipe[e].getAgents()[a]
-                Interface.imageMove(sim.plt.canvas, idCanva, ag.trajet[ag.caseOfTrajet].getCoords())
-                sim.plt.canvas.update()
-                #Interface.imageMove(sim.plt.canvas, idCanva2, ag.trajet[ag.caseOfTrajet].getCoords())
-                #sim.plt.canvas.update()
-                print("E :", sim.equipe[e].id, "A :", 1 + ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
-        time.sleep(0.1)
-
+        if len(agent1.trajet) > 1 :
+            sim.allMove()
+            for e in range(len(sim.equipe)):
+                for a in sim.equipe[e].getAgents():
+                    ag = sim.equipe[e].getAgents()[a]
+                    Interface.imageMove(sim.plt.canvas, idCanva, ag.trajet[ag.caseOfTrajet].getCoords())
+                    print("E :", sim.equipe[e].id, "A :", 1 + ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
+            time.sleep(0.1)
+        else :
+            sim.allGoToRandom()
+        sim.plt.canvas.update()
     sim.plt.start()
     return None
 
