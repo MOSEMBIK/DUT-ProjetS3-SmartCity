@@ -8,12 +8,13 @@ from src.Case import *
 
 
 def main():
-    sim: Simulation = Simulation("", 1, "", 1, 1, "Map")
+    sim: Simulation = Simulation("", 1, "", 1, 2, "Map")
 
     maxTour = 150
     sim.allGoToRandom()
     # del "#" to set trajet of agent1 to Case of coords = [46, 23]
-    #sim.agentGoTo(0,0, sim.plt.getCase(46, 23))
+    sim.agentGoTo(0,0, sim.plt.getCase(46, 23))
+    #sim.agentGoTo(0,0, sim.plt.getCase(0, 0))
     agent1 = sim.equipe[0].agents[0]
     #agent2 = sim.equipe[0].agents[1]
 
@@ -44,7 +45,7 @@ def main():
                 #Interface.imageMove(sim.plt.canvas, idCanva2, ag.trajet[ag.caseOfTrajet].getCoords())
                 #sim.plt.canvas.update()
                 print("E :", sim.equipe[e].id, "A :", 1 + ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
-        time.sleep(0.5)
+        time.sleep(0.1)
 
     sim.plt.start()
     return None
