@@ -132,9 +132,16 @@ class Agent:
                     queue.append((prio, next))
                     trajet.append(current)
                     done += 1
+            
+        pathing : list[Case] = [trajet[len(trajet)-1]]
+        inPath = 0
+        for i in range(len(trajet)-2, -1, -1):
+            if trajet[i] in plateau.nearLieu(pathing[inPath]) or trajet[i] in plateau.nearRoads(pathing[inPath]):
+                pathing.append(trajet[i])
+                inPath += 1
+        pathing.reverse()
 
-
-        return trajet
+        return pathing
 
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
 
