@@ -46,6 +46,10 @@ class Interface:
         """
         self.root.mainloop()
 
+    def mapSkin(self, cv):
+        Image.open('img/newMapSkin.png', 'r')
+        cv.update()
+
     def createImg(self, cv, coords):
         skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0]+1)*20, (coords[1]+1)*20, fill='green')
         # cv.create_rectangle(500, 500, 800, 800, fill='white')
