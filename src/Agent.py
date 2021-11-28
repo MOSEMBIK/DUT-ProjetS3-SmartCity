@@ -35,6 +35,7 @@ class Agent:
         # Setup de la charge à autonomie
         self.charge = self.autonomie
         self.isGonnaCharge: bool = False
+        self.goAfterChrage : Case = None
 
         # Parametrage du volumeMax selon le type
         if self.type == 0:
@@ -188,33 +189,51 @@ class Agent:
         """
         # Verification du niveau de charge
         needCharge = self.checkNeedCharge()
+        if len(self.trajet) > 1 :
+            if needCharge:
+                crgr = plateau.getLieu('charge')
+                toGo : Case = None
+                for c in crgr:
+                    if c.isReachable():
+                        toGo = c
 
-        if needCharge:
-            oldTrajet = self.trajet
-            newTrajet = []
-            crgr = plateau.getLieu('charge')
-            toGo : Case = None
-            for c in crgr:
-                if c.isReachable():
-                    toGo = c
-
-            trj = self.getTrajet_aStar(plateau, toGo)
-            for i in range(self.caseOfTrajet):
-                newTrajet.append(trj[i])
-            for i in range(self.caseOfTrajet, -1 -1):
-                newTrajet.append(oldTrajet[i])
-            
-            self.trajet = newTrajet
-            self.isGonnaCharge = True
-        else :
-            if self.caseOfTrajet + self.speed < len(self.trajet):
-                self.charge -= 50 * self.speed
-                self.caseOfTrajet += self.speed
-
-            elif self.caseOfTrajet + self.speed >= len(self.trajet):
-                self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
-                self.trajet = [self.trajet[-1]]
+                trj = self.getTrajet_aStar(plateau, toGo)
+                
+                self.goAfterChrage = self.trajet[-1]
+                self.trajet = trj
                 self.caseOfTrajet = 0
+                self.isGonnaCharge = True
+
+            elif self.isGonnaCharge :
+                if self.trajet[self.caseOfTrajet].getType() == 'charge' :
+                    if not self.checkChargeDone() :
+                        self.charging()
+                else :
+                    if self.caseOfTrajet + self.speed < len(self.trajet):
+                        self.charge -= 50 * self.speed
+                        self.caseOfTrajet += self.speed
+
+                    elif self.caseOfTrajet + self.speed >= len(self.trajet):
+                        self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
+                        self.trajet = [self.trajet[-1]]
+                        self.caseOfTrajet = 0
+
+            else :
+                if self.goAfterChrage :
+                    self.trajet = self.getTrajet_aStar(plateau, self.goAfterChrage)
+                    self.caseOfTrajet = 0
+                    self.goAfterChrage = None
+
+                if self.caseOfTrajet + self.speed < len(self.trajet):
+                    self.charge -= 50 * self.speed
+                    self.caseOfTrajet += self.speed
+
+                elif self.caseOfTrajet + self.speed >= len(self.trajet):
+                    self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
+                    self.trajet = [self.trajet[-1]]
+                    self.caseOfTrajet = 0
+        else :
+            self.goToRandom(plateau)
 
         return None
 
@@ -240,10 +259,6 @@ class Agent:
             self.charge += crgParTour
         else : 
             self.charge = self.autonomie
-
-    def setToCharge(self):
-        if self.trajet[self.caseOfTrajet].getType() == 'charge':
-            if not self.checkChargeDone() :
-                self.charging()
+            self.isGonnaCharge = False
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

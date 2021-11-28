@@ -9,7 +9,7 @@ from src.Case import *
 
 def main():
     sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.ico',  1, "", 2, 2)
-    maxTour = 150
+    maxTour = 1000
 
     sim.allGoToRandom()
     # del "#" to set trajet of agent1 to Case of coords
@@ -38,19 +38,27 @@ def main():
         skins = []
         # print("Position : ",agent1.trajet[agent1.caseOfTrajet].getCoords())
 
+        print()
+        print("Tour ", i)
+
         if len(agent1.trajet) > 1 :
             sim.allMove()
             for e in range(len(sim.equipe)):
                 for a in sim.equipe[e].getAgents():
                     ag : Agent = sim.equipe[e].getAgents()[a]
+
+                    print("Agent ", ag.id)
+                    print("Trajet : ", len(ag.trajet)-1, "Case : ", ag.caseOfTrajet)
+                    print("Charge : ", ag.charge)
+
                     Interface.imageMove(sim.plt.canvas, sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                     skins.append(sim.skin.get(ag))
                     #sim.plt.itf.moveSkin(sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
-                    print("E :", sim.equipe[e].id, "A :", 1 + ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
+                    #print("E :", sim.equipe[e].id, "A :", 1 + ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
             
             # Update du screen, affichage du design de map, pause du programme
             mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
-            time.sleep(0.1)
+            #time.sleep(0.02)
             
         else :
             sim.allGoToRandom()
