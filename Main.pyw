@@ -13,7 +13,7 @@ def main():
 
     sim.allGoToRandom()
     # del "#" to set trajet of agent1 to Case of coords
-    #sim.agentGoTo(0,0, sim.plt.getCase(46, 23))
+    sim.agentGoTo(0,0, sim.plt.getCase(36, 20))
     #sim.agentGoTo(0,0, sim.plt.getCase(0, 0))
     agent1 : Agent = sim.equipe[0].agents[0]
     agent2 : Agent = sim.equipe[0].agents[1]
