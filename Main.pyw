@@ -8,7 +8,7 @@ from src.Case import *
 
 
 def main():
-    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.ico',  1, "", 2, 2)
+    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.ico',  1, "", 2, 0)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
     maxTour = 1000
 
@@ -47,9 +47,9 @@ def main():
                 for a in sim.equipe[e].getAgents():
                     ag : Agent = sim.equipe[e].getAgents()[a]
 
-                    #print("Agent ", ag.id)
+                    print("Agent ", ag.id)
                     #print("Trajet : ", len(ag.trajet)-1, "Case : ", ag.caseOfTrajet)
-                    #print("Charge : ", ag.charge)
+                    print("Charge : ", ag.charge)
 
                     Interface.imageMove(sim.plt.canvas, sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                     skins.append(sim.skin.get(ag))
