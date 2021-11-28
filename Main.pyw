@@ -47,11 +47,13 @@ def main():
                     skins.append(sim.skin.get(ag))
                     #sim.plt.itf.moveSkin(sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                     print("E :", sim.equipe[e].id, "A :", 1 + ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
+            
+            # Update du screen, affichage du design de map, pause du programme
+            mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
+            time.sleep(0.1)
+            
         else :
             sim.allGoToRandom()
-
-        mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
-        time.sleep(0.1)
 
     sim.plt.start()
     return None
