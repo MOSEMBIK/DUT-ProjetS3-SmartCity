@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>637</x>
+      <y>49</y>
+      <w>168</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Simulation
+--
+name : string
+skin : list&lt;Agent, string&gt;
+--
+agentMoveSimple(int, int)
+agentMove(int int)
+allMove(int)
+agentGoToRandom(int, int)
+allGoToRandom()
+agentGoTo(int, int, Case) 
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>420</x>
+      <y>294</y>
+      <w>224</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>Plateau
+--
+nom : string
+icon : string
+itf : Interface
+canvas
+img : int
+--
+init_map()
+start()
+test_image()
+getLieu(string): list&lt;Case&gt;
+getCase(int, int): Case
+nearRoads(Case): list&lt;Case&gt;
+setPortes()
+nearLieu(Case): list&lt;Case&gt;
+_isEqualCase(Case, Case): bool_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>819</x>
+      <y>294</y>
+      <w>252</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>Equipe
+--
+id : int
+nom : string
+score : int
+--
+getAgents() : dict&lt;int, Agent&gt;
+addAgent(int, int)
+agentMoveSimple(int)
+agentMove(int, Plateau)
+agentGoToRandom(int, Plateau)
+agentGoTo(int, Plateau, Case)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>427</x>
+      <y>602</y>
+      <w>203</w>
+      <h>182</h>
+    </coordinates>
+    <panel_attributes>Case
+--
+_palette  : dict&lt;string, string&gt;_
+cv : Canvas
+reachable : bool
+type : string
+color : string
+coordX : int
+coordY : int
+couleur : string
+reachable : bool
+--
+getColor(): string
+isReachable(): bool
+setReachable(bool)
+getType(): string</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>567</x>
+      <y>175</y>
+      <w>126</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=
+m2=1\nplt
+&lt; contenir</panel_attributes>
+    <additional_attributes>160.0;10.0;10.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>742</x>
+      <y>175</y>
+      <w>154</w>
+      <h>133</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=
+m2=1..2\nequipes
+contenir &gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>518</x>
+      <y>476</y>
+      <w>84</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
+m1=*\ncontenu
+m2=
+est composé &gt;</panel_attributes>
+    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>868</x>
+      <y>441</y>
+      <w>91</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=
+m2=*\nagents
+est composée &gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>826</x>
+      <y>595</y>
+      <w>238</w>
+      <h>231</h>
+    </coordinates>
+    <panel_attributes>Agent
+--
+id : int
+visibility : bool
+type : int
+autonomie : int
+charge: int
+speed : int
+score : int
+caseOfTrajet : int
+trajet: list&lt;Case&gt;
+--
+setRandomTrajet(Plateau)
+setTrajet(list&lt;Case&gt;)
+getTrajet_dijkstra(Plateau, Case) : list&lt;Case&gt;
+getTrajet_aStar(Plateau, Case) : list&lt;Case&gt;
+checkNeedCharge(): bool
+moveSimple()
+move(Plateau)
+goTo(Plateau, Case)
+goToRandom(Plateau)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>623</x>
+      <y>630</y>
+      <w>217</w>
+      <h>42</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=
+m2=1..*\n- trajet
+&lt; se situe</panel_attributes>
+    <additional_attributes>290.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>840</x>
+      <y>427</y>
+      <w>70</w>
+      <h>21</h>
+    </coordinates>
+    <panel_attributes>int idAgent</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
