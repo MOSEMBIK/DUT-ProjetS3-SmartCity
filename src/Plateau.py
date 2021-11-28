@@ -20,6 +20,7 @@ class Plateau:
         self.contenu: list[Case] = []
         self.canvas = Plateau.init_map(self)
         self.setPortes()
+
         self.img = 0
         
         # Graph des relations entre cases accessibles
@@ -58,7 +59,6 @@ class Plateau:
                 self.contenu.append(c)
                 ix += 20
             iy += 20
-        cv.update()
         return cv
 
     def start(self):
