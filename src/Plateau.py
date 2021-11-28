@@ -21,6 +21,18 @@ class Plateau:
         self.canvas = Plateau.init_map(self)
         self.setPortes()
         self.img = 0
+        
+        # Graph des relations entre cases accessibles
+        self.edges : dict[Case, list[Case]] = {}
+        roads = self.getLieu('road')
+        for rCase in roads:
+            nRC = self.nearRoads(rCase)
+            nLC = self.nearLieu(rCase)
+            if nLC:
+                for lCC in nLC:
+                    self.edges[lCC] = self.nearRoads(lCC)
+                    nRC.append(lCC)
+            self.edges[rCase] = nRC
 
     def init_map(self):
         """

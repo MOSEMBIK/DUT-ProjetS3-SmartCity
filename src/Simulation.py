@@ -15,7 +15,7 @@ class Simulation:
             self.equipe.append(Equipe(i, nameEquipe))
             for j in range(nbAgent):
                 idAgent = str(i) + str(j)
-                self.equipe[i].addAgents(int(idAgent), typeAgent)
+                self.equipe[i].addAgents(int(idAgent), typeAgent, self.plt.edges)
                 self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.createImg(self.plt.canvas, self.equipe[i].getAgents()[int(idAgent)].spawn)
                 #self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.setSkin(self.equipe[i].getAgents()[int(idAgent)].spawn, 'war.png')
 

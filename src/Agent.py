@@ -9,7 +9,7 @@ class Agent:
     Agent intelligent et autonome.
     """
 
-    def __init__(self, id: int, type: int = 0):
+    def __init__(self, id: int, type: int = 0, edges : dict = {}):
         self.id = id
         self.spawn = [22,43]
         if type in [0, 1, 2]:
@@ -44,6 +44,8 @@ class Agent:
             self.volumeMax = 55
         elif self.type == 2:
             self.volumeMax = 150
+
+        self.edges = edges
 
         # Setup de la position à Null
         self.caseOfTrajet: int = 0
@@ -99,16 +101,7 @@ class Agent:
             cout = {}
             cout[trajet[done]] = 0
 
-            edges = {}
-            roads = plateau.getLieu('road')
-            for rCase in roads:
-                nRC = plateau.nearRoads(rCase)
-                nLC = plateau.nearLieu(rCase)
-                if nLC:
-                    for lCC in nLC:
-                        if plateau.isEqualCase(destination, lCC):
-                            nRC.append(lCC)
-                edges[rCase] = nRC
+            edges = self.edges
             
             # Génération plus court chemin
             while queue:
@@ -150,16 +143,34 @@ class Agent:
 
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
 
-    def checkNeedCharge(self) -> bool:
+    def checkNeedCharge(self, plateau) -> bool:
         """
         Vérifie le pourcentage de batterie réstant
         et rétourne True ou False en fonction de la charge.
         """
-        percentDone = ((len(self.trajet) - self.caseOfTrajet) * 100) / len(self.trajet)
+        toReach = (len(self.trajet) - self.caseOfTrajet)
         if self.isGonnaCharge:
             return False
-        else :
-            return (((self.charge * 100) / self.autonomie) <= 0.25 and percentDone >= 0.8)
+        elif self.charge - (toReach * 50) > 0:
+            tempTrj = self.trajet
+            tempCoT = self.caseOfTrajet
+
+            crgr = plateau.getLieu('charge')
+            toGo : Case = None
+            for c in crgr:
+                if c.isReachable():
+                    toGo = c
+
+            self.trajet = [self.trajet[-1]]
+            self.caseOfTrajet = 0
+            destToChrage = len(self.getTrajet_aStar(plateau, toGo))
+            self.trajet = tempTrj
+            self.caseOfTrajet = tempCoT
+
+            if self.charge - (toReach * 50) - destToChrage > 0:
+                return False
+            else :
+                return True
 
     def checkChargeDone(self) -> bool :
         return self.charge == self.autonomie
@@ -180,6 +191,58 @@ class Agent:
 
         return None
 
+    def moveT1(self, plateau: Plateau):
+        """
+        Module de Agent.move()
+        Gere le trajet en cas de besoin de recharge.
+        """
+        crgr = plateau.getLieu('charge')
+        toGo : Case = None
+        for c in crgr:
+            if c.isReachable():
+                toGo = c
+
+        trj = self.getTrajet_aStar(plateau, toGo)
+        
+        self.goAfterChrage = self.trajet[-1]
+        self.trajet = trj
+        self.caseOfTrajet = 0
+        self.isGonnaCharge = True
+    def moveT2(self):
+        """
+        Module de Agent.move()
+        Gere le mouvement dans le cas ou Agent est en chargement.
+        """
+        if self.trajet[self.caseOfTrajet].getType() == 'charge' :
+            if not self.checkChargeDone() :
+                self.charging()
+        else :
+            if self.caseOfTrajet + self.speed < len(self.trajet):
+                self.charge -= 50 * self.speed
+                self.caseOfTrajet += self.speed
+
+            elif self.caseOfTrajet + self.speed >= len(self.trajet):
+                self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
+                self.trajet = [self.trajet[-1]]
+                self.caseOfTrajet = 0
+    def moveTEnd(self, plateau: Plateau):
+        """
+        Module de Agent.move()
+        Gere le trajet si aucun parametre blocant.
+        """
+        if self.goAfterChrage :
+            self.trajet = self.getTrajet_aStar(plateau, self.goAfterChrage)
+            self.caseOfTrajet = 0
+            self.goAfterChrage = None
+
+        if self.caseOfTrajet + self.speed < len(self.trajet):
+            self.charge -= 50 * self.speed
+            self.caseOfTrajet += self.speed
+
+        elif self.caseOfTrajet + self.speed >= len(self.trajet):
+            self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
+            self.trajet = [self.trajet[-1]]
+            self.caseOfTrajet = 0
     def move(self, plateau: Plateau) -> None:
         """
         Change la position de l'Agent sur la
@@ -188,50 +251,17 @@ class Agent:
         Gère la charge de l'Agent.
         """
         # Verification du niveau de charge
-        needCharge = self.checkNeedCharge()
+        needCharge = self.checkNeedCharge(plateau)
         if len(self.trajet) > 1 :
             if needCharge:
-                crgr = plateau.getLieu('charge')
-                toGo : Case = None
-                for c in crgr:
-                    if c.isReachable():
-                        toGo = c
-
-                trj = self.getTrajet_aStar(plateau, toGo)
-                
-                self.goAfterChrage = self.trajet[-1]
-                self.trajet = trj
-                self.caseOfTrajet = 0
-                self.isGonnaCharge = True
+                self.moveT1(plateau)
 
             elif self.isGonnaCharge :
-                if self.trajet[self.caseOfTrajet].getType() == 'charge' :
-                    if not self.checkChargeDone() :
-                        self.charging()
-                else :
-                    if self.caseOfTrajet + self.speed < len(self.trajet):
-                        self.charge -= 50 * self.speed
-                        self.caseOfTrajet += self.speed
-
-                    elif self.caseOfTrajet + self.speed >= len(self.trajet):
-                        self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
-                        self.trajet = [self.trajet[-1]]
-                        self.caseOfTrajet = 0
+                self.moveT2()
 
             else :
-                if self.goAfterChrage :
-                    self.trajet = self.getTrajet_aStar(plateau, self.goAfterChrage)
-                    self.caseOfTrajet = 0
-                    self.goAfterChrage = None
+                self.moveTEnd(plateau)
 
-                if self.caseOfTrajet + self.speed < len(self.trajet):
-                    self.charge -= 50 * self.speed
-                    self.caseOfTrajet += self.speed
-
-                elif self.caseOfTrajet + self.speed >= len(self.trajet):
-                    self.charge -= 50 * (len(self.trajet) - self.caseOfTrajet - 1)
-                    self.trajet = [self.trajet[-1]]
-                    self.caseOfTrajet = 0
         else :
             self.goToRandom(plateau)
 
