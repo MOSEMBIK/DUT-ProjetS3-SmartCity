@@ -27,11 +27,11 @@ class Agent:
 
         # Parametrage de l'autonomie selon le type
         if self.type == 0:
-            self.autonomie = 2500
+            self.autonomie = 10000
         elif self.type == 1:
-            self.autonomie = 5000
+            self.autonomie = 25000
         elif self.type == 2:
-            self.autonomie = 8000
+            self.autonomie = 50000
         # Setup de la charge à autonomie
         self.charge = self.autonomie
         self.isGonnaCharge: bool = False
@@ -143,7 +143,7 @@ class Agent:
 
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
 
-    def checkNeedCharge(self, plateau) -> bool:
+    def OLD_checkNeedCharge(self, plateau) -> bool:
         """
         Vérifie le pourcentage de batterie réstant
         et rétourne True ou False en fonction de la charge.
@@ -171,6 +171,17 @@ class Agent:
                 return False
             else :
                 return True
+
+    def checkNeedCharge(self) -> bool:
+        """
+        Vérifie le pourcentage de batterie réstant
+        et rétourne True ou False en fonction de la charge.
+        """
+        toReach = (len(self.trajet) - self.caseOfTrajet)
+        if self.isGonnaCharge:
+            return False
+        elif self.charge <= 2500:
+            return True
 
     def checkChargeDone(self) -> bool :
         return self.charge == self.autonomie
@@ -251,7 +262,7 @@ class Agent:
         Gère la charge de l'Agent.
         """
         # Verification du niveau de charge
-        needCharge = self.checkNeedCharge(plateau)
+        needCharge = self.checkNeedCharge()
         if len(self.trajet) > 1 :
             if needCharge:
                 self.moveT1(plateau)
