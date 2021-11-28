@@ -5,7 +5,7 @@ from src.Case import *
 
 class Plateau:
 
-    def __init__(self, nom):
+    def __init__(self, nom, ico):
         """
         Constructeur
         self.nom : Nom de la fenêtre
@@ -15,6 +15,7 @@ class Plateau:
         :param nom: Nom de la fenetre
         """
         self.nom = nom
+        self.icon = ico
         self.itf: Interface = Interface('newMap.png')
         self.contenu: list[Case] = []
         self.canvas = Plateau.init_map(self)
@@ -29,6 +30,7 @@ class Plateau:
         """
         # On initialise le canvas
         self.itf.root.title(self.nom)
+        self.itf.root.iconbitmap(self.icon)
         cv = self.itf.createCanvas()
         px = self.itf.getPx()
         w_image, h_image = self.itf.img.size
@@ -44,6 +46,7 @@ class Plateau:
                 self.contenu.append(c)
                 ix += 20
             iy += 20
+        cv.update()
         return cv
 
     def start(self):
