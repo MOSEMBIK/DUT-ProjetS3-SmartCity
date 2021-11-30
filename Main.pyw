@@ -8,7 +8,7 @@ from src.Case import *
 
 
 def main():
-    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.ico',  1, "", 2)
+    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.png',  1, "", 2)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
     maxTour = 1000
 

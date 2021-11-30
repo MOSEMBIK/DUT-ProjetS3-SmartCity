@@ -4,7 +4,6 @@ from PIL import ImageTk, Image
 import os
 
 
-
 # root = Tk()
 # root1 = tkinter.Tk()
 class Interface:
@@ -29,7 +28,7 @@ class Interface:
 
     @staticmethod
     def createLieu(cv, coordX, coordY, color):
-       cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
+        cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
 
     @staticmethod
     def createRoad(cv, coordX, coordY):
@@ -47,9 +46,9 @@ class Interface:
         self.root.mainloop()
 
     def createImg(self, cv, coords):
-        skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0]+1)*20, (coords[1]+1)*20, fill='green')
-        #cv.create_rectangle(500, 500, 800, 800, fill='white')
-        #cv.update()
+        skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20, fill='green')
+        # cv.create_rectangle(500, 500, 800, 800, fill='white')
+        # cv.update()
         return skin
 
     @staticmethod
@@ -61,28 +60,34 @@ class Interface:
         return palette
 
     @staticmethod
-    def imageMove(cv : Canvas, id, coords):
+    def imageMove(cv: Canvas, id, coords):
         cv.tag_raise(id)
         resetCoords = cv.coords(id)
         cv.move(id, - resetCoords[0], - resetCoords[1])
         cv.move(id, coords[0] * 20, coords[1] * 20)
 
-    def skins_map_update(self, cv : Canvas, mapS, skins):
-        if mapS :
+    def skins_map_update(self, cv: Canvas, mapS, skins):
+        if mapS:
             cv.delete(mapS)
         im = Image.open('img/newMapSkin.png')
         h, w = self.img.size
-        nim = im.resize((h*20, w*20), Image.ANTIALIAS)
+        nim = im.resize((h * 20, w * 20), Image.ANTIALIAS)
         im = ImageTk.PhotoImage(nim)
 
         mapS = cv.create_image(0, 0, image=im, anchor=NW, disabledimage=im)
 
-        if skins :
+        if skins:
             for i in range(len(skins)):
                 cv.tag_raise(skins[i])
 
-        #cv.create_rectangle(0, 0, h*20, w*20, fill='white')
+        # cv.create_rectangle(0, 0, h*20, w*20, fill='white')
         cv.update()
         return mapS
 
+    def createIcon(self, icon):
+        t = PhotoImage(file=icon)
+        self.root.tk.call('wm', 'iconphoto', '.', t)
+
+    def getWidth(self):
+        return self.img.size
 
