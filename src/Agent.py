@@ -1,5 +1,6 @@
 from src.Case import *
 from src.Plateau import *
+from src.Tache import *
 from math import *
 import random as rdm
 
@@ -9,7 +10,7 @@ class Agent:
     Agent intelligent et autonome.
     """
 
-    def __init__(self, id: int, edges : dict = {}):
+    def __init__(self, id: int):
         self.id = id
         self.spawn = [22,43]
 
@@ -28,11 +29,12 @@ class Agent:
         # Parametrage du volumeMax selon le type
         self.volumeMax = 150
 
-        self.edges = edges
-
         # Setup de la position à Null
         self.caseOfTrajet: int = 0
         self.trajet: list[Case] = []
+
+        # Tache
+        self.tacheChose : Tache = None
 
         # Setup du score à 0
         self.score: int = 0
@@ -84,7 +86,7 @@ class Agent:
             cout = {}
             cout[trajet[done]] = 0
 
-            edges = self.edges
+            edges = plateau.edges
             
             # Génération plus court chemin
             while queue:
@@ -160,12 +162,14 @@ class Agent:
         Vérifie le pourcentage de batterie réstant
         et rétourne True ou False en fonction de la charge.
         """
-        toReach = (len(self.trajet) - self.caseOfTrajet)
         if self.isGonnaCharge:
             return False
         elif self.charge <= 2500:
             return True
 
+    def checkChargeDone(self) -> bool :
+        return self.charge == self.autonomie
+        
     def checkChargeDone(self) -> bool :
         return self.charge == self.autonomie
 
