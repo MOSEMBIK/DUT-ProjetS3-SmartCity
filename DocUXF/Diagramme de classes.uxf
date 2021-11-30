@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>8</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>637</x>
-      <y>49</y>
-      <w>168</w>
-      <h>133</h>
+      <x>736</x>
+      <y>24</y>
+      <w>192</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>Simulation
 --
@@ -20,16 +20,16 @@ allMove(int)
 agentGoToRandom(int, int)
 allGoToRandom()
 agentGoTo(int, int, Case) 
-</panel_attributes>
+creerRandomTache()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>420</x>
-      <y>294</y>
-      <w>224</w>
-      <h>189</h>
+      <x>488</x>
+      <y>304</y>
+      <w>256</w>
+      <h>224</h>
     </coordinates>
     <panel_attributes>Plateau
 --
@@ -47,16 +47,17 @@ getCase(int, int): Case
 nearRoads(Case): list&lt;Case&gt;
 setPortes()
 nearLieu(Case): list&lt;Case&gt;
-_isEqualCase(Case, Case): bool_</panel_attributes>
+_isEqualCase(Case, Case): bool_
+getPortes() : list&lt;Case&gt;</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>819</x>
-      <y>294</y>
-      <w>252</w>
-      <h>133</h>
+      <x>944</x>
+      <y>304</y>
+      <w>288</w>
+      <h>152</h>
     </coordinates>
     <panel_attributes>Equipe
 --
@@ -75,10 +76,10 @@ agentGoTo(int, Plateau, Case)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>427</x>
-      <y>602</y>
-      <w>203</w>
-      <h>182</h>
+      <x>496</x>
+      <y>656</y>
+      <w>232</w>
+      <h>208</h>
     </coordinates>
     <panel_attributes>Case
 --
@@ -101,52 +102,52 @@ getType(): string</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>567</x>
-      <y>175</y>
-      <w>126</w>
-      <h>133</h>
+      <x>656</x>
+      <y>176</y>
+      <w>144</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
 m1=
 m2=1\nplt
 &lt; contenir</panel_attributes>
-    <additional_attributes>160.0;10.0;10.0;170.0</additional_attributes>
+    <additional_attributes>160.0;10.0;10.0;160.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>742</x>
-      <y>175</y>
-      <w>154</w>
-      <h>133</h>
+      <x>856</x>
+      <y>176</y>
+      <w>176</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
 m1=
 m2=1..2\nequipes
 contenir &gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;160.0;170.0</additional_attributes>
+    <additional_attributes>10.0;10.0;160.0;160.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>518</x>
-      <y>476</y>
-      <w>84</w>
-      <h>140</h>
+      <x>600</x>
+      <y>520</y>
+      <w>96</w>
+      <h>152</h>
     </coordinates>
     <panel_attributes>lt=&lt;-&gt;&gt;&gt;&gt;&gt;
 m1=*\ncontenu
 m2=
 est composé &gt;</panel_attributes>
-    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>868</x>
-      <y>441</y>
-      <w>91</w>
-      <h>168</h>
+      <x>1000</x>
+      <y>472</y>
+      <w>104</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
 m1=
@@ -157,22 +158,21 @@ est composée &gt;</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>826</x>
-      <y>595</y>
-      <w>238</w>
-      <h>231</h>
+      <x>952</x>
+      <y>648</y>
+      <w>272</w>
+      <h>296</h>
     </coordinates>
     <panel_attributes>Agent
 --
+_speed : int_
+_autonomie : int_
 id : int
-visibility : bool
-type : int
-autonomie : int
 charge: int
-speed : int
 score : int
 caseOfTrajet : int
 trajet: list&lt;Case&gt;
+tacheVoulue : Tache
 --
 setRandomTrajet(Plateau)
 setTrajet(list&lt;Case&gt;)
@@ -182,16 +182,20 @@ checkNeedCharge(): bool
 moveSimple()
 move(Plateau)
 goTo(Plateau, Case)
-goToRandom(Plateau)</panel_attributes>
+goToRandom(Plateau)
+chooseTache()
+checkAccessTache()
+checkEndTache()
+</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>623</x>
-      <y>630</y>
-      <w>217</w>
-      <h>42</h>
+      <x>720</x>
+      <y>688</y>
+      <w>248</w>
+      <h>48</h>
     </coordinates>
     <panel_attributes>lt=-&gt;
 m1=
@@ -202,12 +206,74 @@ m2=1..*\n- trajet
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>840</x>
-      <y>427</y>
-      <w>70</w>
-      <h>21</h>
+      <x>968</x>
+      <y>456</y>
+      <w>80</w>
+      <h>24</h>
     </coordinates>
     <panel_attributes>int idAgent</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>168</x>
+      <y>328</y>
+      <w>240</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>Tache
+--
+recompense : int
+volume : int
+/itineraire : list&lt;Case&gt;
+/lenght : int
+enCours : bool
+--
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>272</x>
+      <y>104</y>
+      <w>480</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-&gt;
+m1=
+m2=1..*\ntaches
+&lt; contenir</panel_attributes>
+    <additional_attributes>580.0;20.0;10.0;20.0;10.0;280.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>232</x>
+      <y>536</y>
+      <w>280</w>
+      <h>328</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=
+m2=1 \ndepart
+commence &gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;370.0;330.0;370.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>312</x>
+      <y>536</y>
+      <w>200</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+m1=
+m2=1 \narrivee
+se termine &gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;230.0;230.0;230.0</additional_attributes>
   </element>
 </diagram>
