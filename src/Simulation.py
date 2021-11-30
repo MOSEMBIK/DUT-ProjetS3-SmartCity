@@ -11,6 +11,7 @@ class Simulation:
         self.plt: Plateau = Plateau(self.name, ico)
         self.skin = {}
         self.equipe: list[Equipe] = []
+        self.taches: list[Tache] = []
         for i in range(nbEquipe):
             self.equipe.append(Equipe(i, nameEquipe))
             for j in range(nbAgent):
@@ -42,7 +43,7 @@ class Simulation:
         return None
 
     # Destination
-    def agentGoToRandom(self, idE: int, idA: int, ) -> None:
+    def agentGoToRandom(self, idE: int, idA: int) -> None:
         self.equipe[idE].agentGoToRandom(idA, self.plt)
         return None
 
@@ -55,3 +56,13 @@ class Simulation:
     def agentGoTo(self, idE: int, idA: int, case: Case) -> None:
         self.equipe[idE].agentGoTo(idA, self.plt, case)
         return None
+
+    # Permet de créer une tâche, determine sa case d'arrivée et sa case de départ
+    # Puis lui attribue un volume (poids des marchandises) aléatoire entre 1 et 2.
+    def creerRandomTache(self) -> Tache:
+        casesPossibles = Plateau.getPortes()
+        caseDpt = casesPossibles.pop(randint(0, len(casesPossibles)-1))
+        caseArv = casesPossibles.pop(randint(0, len(casesPossibles)-1))
+        volume = random()+1
+        return Tache(caseDpt, caseArv, volume)
+        
