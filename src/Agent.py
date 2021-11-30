@@ -35,6 +35,7 @@ class Agent:
 
         # Tache
         self.tacheChose : Tache = None
+        self.tacheToDo : Tache = None
 
         # Setup du score à 0
         self.score: int = 0
@@ -43,6 +44,11 @@ class Agent:
 
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # ~~~~~~~~~~~~      METHODES      ~~~~~~~~~~~~~~
+
+    # ~~~~~~~~~~~~~      TRAJET      ~~~~~~~~~~~~~~~
+
+    def chooseTache() -> None:
+        return None
 
     # ~~~~~~~~~~~~~      TRAJET      ~~~~~~~~~~~~~~~
 
@@ -171,7 +177,12 @@ class Agent:
         return self.charge == self.autonomie
 
     def checkAccesTache(self) -> bool :
-        self.charge == self.autonomie
+        if self.tacheChose : 
+            if self.tacheChose.enCours :
+                if self.tacheToDo and self.tacheChose == self.tacheToDo :
+                    return True
+                else :
+                    return False
 
     # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
 
