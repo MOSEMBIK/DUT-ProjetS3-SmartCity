@@ -169,9 +169,9 @@ class Agent:
 
     def checkChargeDone(self) -> bool :
         return self.charge == self.autonomie
-        
-    def checkChargeDone(self) -> bool :
-        return self.charge == self.autonomie
+
+    def checkAccesTache(self) -> bool :
+        self.charge == self.autonomie
 
     # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
 
