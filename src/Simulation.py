@@ -1,21 +1,17 @@
-import src.Layer
 from src.Equipe import *
 from src.Agent import *
 from src.Plateau import *
 from src.Case import *
-from src.Layer import *
 
 
 class Simulation:
 
     def __init__(self, name: str = "", ico : str = None, nbEquipe: int = 1, nameEquipe: str = "", nbAgent: int = 1):
         self.name = name
-        self.window: Interface = Interface('newMap.png')
-        self.plt: Plateau = Plateau(self.name, ico, self.window)
-        self.layer: Layer = Layer(self.window)
+        self.plt: Plateau = Plateau(self.name, ico)
         self.skin = {}
         self.equipe: list[Equipe] = []
-
+        self.taches: list[Tache] = []
         for i in range(nbEquipe):
             self.equipe.append(Equipe(i, nameEquipe))
             for j in range(nbAgent):

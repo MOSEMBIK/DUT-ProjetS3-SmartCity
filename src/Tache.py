@@ -5,24 +5,26 @@ import random as rdm
 
 class Tache:
 
-    def __init__(self):
-        self.depart : Case = None
-        self.arrive : Case = None
+    def __init__(self, dpt: Case, arv: Case, volume: float ):
+        self.depart : Case = dpt
+        self.arrivee : Case = arv
+        self.volume : float = volume
 
-        self.itineraire = self.Itineraire_aStar(self.arrive)
+        self.itineraire = self.Itineraire_aStar(self.arrivee)
         self.lenght = len(self.itineraire)
         
-        self.volume : int = 0
 
-        self.recompense : int = 0
+        self.recompense : int = self.setRecompense()
         self.enCours : bool = False
     
     def demandeTache():
         # Corps à completer
         return None
     
-    def setRecompense(self, newRecompense):
-        self.recompense = newRecompense
+    # Fonction qui détermine la récompense en fonction de la longueur du trajet et du volume à transporter
+    # Multiplie le coût en batterie (volume*lenght) par un nombre entre 1.5 et 3 
+    def setRecompense(self):
+        self.recompense = int(self.volume*self.lenght*(random()*1.5+1.5))
         return None
 
     def Itineraire_aStar(self, plateau: Plateau, destination: Case) -> list:

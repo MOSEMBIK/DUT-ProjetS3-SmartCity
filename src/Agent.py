@@ -1,3 +1,4 @@
+from os import truncate
 from src.Case import *
 from src.Plateau import *
 from src.Tache import *
@@ -14,20 +15,19 @@ class Agent:
         self.id = id
         self.spawn = [22,43]
 
-        self.visibility: bool = True
-
-        # Parametrage de la vitesse selon le type
+        # Parametrage de la vitesse
         self.speed = 1
 
-        # Parametrage de l'autonomie selon le type
+        # Parametrage de l'autonomie
         self.autonomie = 10000
         # Setup de la charge à autonomie
         self.charge = self.autonomie
         self.isGonnaCharge: bool = False
         self.goAfterChrage : Case = None
 
-        # Parametrage du volumeMax selon le type
-        self.volumeMax = 150
+        # Parametrage du volumeMax
+        self.volumeMax = 100
+        self.volume = 0
 
         # Setup de la position à Null
         self.caseOfTrajet: int = 0
@@ -45,9 +45,12 @@ class Agent:
     # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # ~~~~~~~~~~~~      METHODES      ~~~~~~~~~~~~~~
 
-    # ~~~~~~~~~~~~~      TRAJET      ~~~~~~~~~~~~~~~
+    # ~~~~~~~~~~~~~      TACHES      ~~~~~~~~~~~~~~~
 
     def chooseTache() -> None:
+        return None
+
+    def tacheEnd() -> None:
         return None
 
     # ~~~~~~~~~~~~~      TRAJET      ~~~~~~~~~~~~~~~
@@ -184,6 +187,12 @@ class Agent:
                 else :
                     return False
 
+    def checkEndTache(self) -> bool :
+        if self.trajet[self.caseOfTrajet] == self.tacheToDo.arrivee :
+            return True
+        else :
+            return False
+
     # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
 
     def moveSimple(self) -> None:
@@ -227,11 +236,11 @@ class Agent:
                 self.charging()
         else :
             if self.caseOfTrajet + self.speed < len(self.trajet):
-                self.charge -= 50
+                self.charge -= 50*self.tacheToDo.volume
                 self.caseOfTrajet += self.speed
 
             elif self.caseOfTrajet + self.speed >= len(self.trajet):
-                self.charge -= 50
+                self.charge -= 50*self.tacheToDo.volume
                 self.trajet = [self.trajet[-1]]
                 self.caseOfTrajet = 0
     def moveTEnd(self, plateau: Plateau):
@@ -245,11 +254,11 @@ class Agent:
             self.goAfterChrage = None
 
         if self.caseOfTrajet + self.speed < len(self.trajet):
-            self.charge -= 50
+            self.charge -= 50*self.tacheToDo.volume
             self.caseOfTrajet += self.speed
 
         elif self.caseOfTrajet + self.speed >= len(self.trajet):
-            self.charge -= 50
+            self.charge -= 50*self.tacheToDo.volume
             self.trajet = [self.trajet[-1]]
             self.caseOfTrajet = 0
     def move(self, plateau: Plateau) -> None:
@@ -259,20 +268,55 @@ class Agent:
 
         Gère la charge de l'Agent.
         """
+        if self.charge > 0 :
+            # Verification du niveau de charge
+            needCharge = self.checkNeedCharge()
+            if len(self.trajet) > 1 :
+                if needCharge:
+                    self.moveT1(plateau)
+                elif self.isGonnaCharge :
+                    self.moveT2()
+                else :
+                    self.moveTEnd(plateau)
+            else :
+                self.goToRandom(plateau)
+        return None
+
+    def move2(self, plateau : Plateau) -> None:
+        """
+        Change la position de l'Agent sur la
+        prochaine Case de son trajet.
+
+        Gestion complète.
+        """
         # Verification du niveau de charge
         needCharge = self.checkNeedCharge()
-        if len(self.trajet) > 1 :
-            if needCharge:
-                self.moveT1(plateau)
+        canAccesTache = self.checkAccesTache()
+        isTacheEnd = self.checkEndTache()
 
-            elif self.isGonnaCharge :
-                self.moveT2()
+        if self.charge > 0 :
+            if len(self.trajet) > 1 :
+                if self.tacheChose :
+                    if canAccesTache :
+                        if needCharge:
+                            self.moveT1(plateau)
+
+                        elif self.isGonnaCharge :
+                            self.moveT2()
+
+                        else :
+                            self.moveTEnd(plateau)
+                    else :
+                        self.chooseTache()
+                else :
+                    self.chooseTache()
 
             else :
-                self.moveTEnd(plateau)
-
-        else :
-            self.goToRandom(plateau)
+                if isTacheEnd :
+                    self.tacheEnd()
+                    self.chooseTache()
+                else :
+                    self.setTrajet(self.getTrajet_aStar(plateau, self.tacheToDo.arrive))
 
         return None
 

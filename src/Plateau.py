@@ -140,6 +140,14 @@ class Plateau:
                 tablo.append(k)
         return tablo
 
+    def getPortes(self):
+        portes = []
+        for case in self.contenu:
+            if case.isReachable() and case.getType() != 'road':
+                portes.append(case)
+        return portes
+
+
     @staticmethod
     def isEqualCase(case1, case2) :
         return case1.getCoords()[0] == case2.getCoords()[0] and case1.getCoords()[1] == case2.getCoords()[1]
