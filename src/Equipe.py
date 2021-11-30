@@ -12,8 +12,8 @@ class Equipe:
     def getAgents(self) -> dict:
         return self.agents
     
-    def addAgents(self, id : int, type : int = 0, edges : dict = {}) -> None:
-        self.agents[id] = Agent(id, type, edges)
+    def addAgents(self, id : int, edges : dict = {}) -> None:
+        self.agents[id] = Agent(id, edges)
         return None
     
     # Déplacement

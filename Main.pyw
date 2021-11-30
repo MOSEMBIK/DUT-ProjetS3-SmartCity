@@ -8,13 +8,13 @@ from src.Case import *
 
 
 def main():
-    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.ico',  1, "", 2, 0)
+    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.ico',  1, "", 2, 2)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
     maxTour = 1000
 
     sim.allGoToRandom()
     # del "#" to set trajet of agent1 to Case of coords
-    #sim.agentGoTo(0,0, sim.plt.getCase(36, 20))
+    sim.agentGoTo(0,0, sim.plt.getCase(36, 20))
     #sim.agentGoTo(0,0, sim.plt.getCase(0, 0))
     agent1 : Agent = sim.equipe[0].agents[0]
     agent2 : Agent = sim.equipe[0].agents[1]
@@ -58,7 +58,7 @@ def main():
             
             # Update du screen, affichage du design de map, pause du programme
             mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
-            #time.sleep(0.02)
+            time.sleep(0.5)
             
         else :
             sim.allGoToRandom()

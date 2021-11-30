@@ -9,41 +9,24 @@ class Agent:
     Agent intelligent et autonome.
     """
 
-    def __init__(self, id: int, type: int = 0, edges : dict = {}):
+    def __init__(self, id: int, edges : dict = {}):
         self.id = id
         self.spawn = [22,43]
-        if type in [0, 1, 2]:
-            self.type = type
 
         self.visibility: bool = True
 
         # Parametrage de la vitesse selon le type
-        if self.type == 0:
-            self.speed = 4
-        elif self.type == 1:
-            self.speed = 2
-        elif self.type == 2:
-            self.speed = 1
+        self.speed = 1
 
         # Parametrage de l'autonomie selon le type
-        if self.type == 0:
-            self.autonomie = 10000
-        elif self.type == 1:
-            self.autonomie = 25000
-        elif self.type == 2:
-            self.autonomie = 50000
+        self.autonomie = 10000
         # Setup de la charge à autonomie
         self.charge = self.autonomie
         self.isGonnaCharge: bool = False
         self.goAfterChrage : Case = None
 
         # Parametrage du volumeMax selon le type
-        if self.type == 0:
-            self.volumeMax = 15
-        elif self.type == 1:
-            self.volumeMax = 55
-        elif self.type == 2:
-            self.volumeMax = 150
+        self.volumeMax = 150
 
         self.edges = edges
 
