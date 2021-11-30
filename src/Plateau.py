@@ -5,7 +5,7 @@ from src.Case import *
 
 class Plateau:
 
-    def __init__(self, nom, ico):
+    def __init__(self, nom, ico, interface):
         """
         Constructeur
         self.nom : Nom de la fenêtre
@@ -16,7 +16,7 @@ class Plateau:
         """
         self.nom = nom
         self.icon = ico
-        self.itf: Interface = Interface('newMap.png')
+        self.itf = interface
         self.contenu: list[Case] = []
         self.canvas = Plateau.init_map(self)
         self.setPortes()
@@ -143,3 +143,5 @@ class Plateau:
     @staticmethod
     def isEqualCase(case1, case2) :
         return case1.getCoords()[0] == case2.getCoords()[0] and case1.getCoords()[1] == case2.getCoords()[1]
+
+

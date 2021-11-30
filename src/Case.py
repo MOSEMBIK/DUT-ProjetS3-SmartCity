@@ -1,8 +1,8 @@
 from random import *
 from src.Interface import *
 
-palette = {'epicerie': '#b07678', 'magasin': '#00edd9', 'charge': '#1e736e', 'restaurant': '#8e00ed',
-           'ecole': '#5741b0', 'entrepot': '#a0be0e', 'cimetiere': '#5bc944', 'musee': '#ffe900',
+palette = {'epicerie': '#b07678', 'magasin': '#00edd9', 'cimetiere': '#1e736e', 'restaurant': '#8e00ed',
+           'ecole': '#5741b0', 'entrepot': '#a0be0e', 'charge': '#5bc944', 'musee': '#ffe900',
            'boulangerie': '#ed00c5', 'coiffeur': '#ec1c1a', 'pharmacie': '#6da6b7', 'spawn': '#ee8438'}
 
 
