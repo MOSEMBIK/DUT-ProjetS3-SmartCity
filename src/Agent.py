@@ -236,11 +236,13 @@ class Agent:
                 self.charging()
         else :
             if self.caseOfTrajet + self.speed < len(self.trajet):
-                self.charge -= 50*self.tacheToDo.volume
+                #self.charge -= 50*self.tacheToDo.volume
+                self.charge -= 50
                 self.caseOfTrajet += self.speed
 
             elif self.caseOfTrajet + self.speed >= len(self.trajet):
-                self.charge -= 50*self.tacheToDo.volume
+                #self.charge -= 50*self.tacheToDo.volume
+                self.charge -= 50
                 self.trajet = [self.trajet[-1]]
                 self.caseOfTrajet = 0
     def moveTEnd(self, plateau: Plateau):
@@ -254,11 +256,13 @@ class Agent:
             self.goAfterChrage = None
 
         if self.caseOfTrajet + self.speed < len(self.trajet):
-            self.charge -= 50*self.tacheToDo.volume
+            #self.charge -= 50*self.tacheToDo.volume
+            self.charge -= 50
             self.caseOfTrajet += self.speed
 
         elif self.caseOfTrajet + self.speed >= len(self.trajet):
-            self.charge -= 50*self.tacheToDo.volume
+            #self.charge -= 50*self.tacheToDo.volume
+            self.charge -= 50
             self.trajet = [self.trajet[-1]]
             self.caseOfTrajet = 0
     def move(self, plateau: Plateau) -> None:
