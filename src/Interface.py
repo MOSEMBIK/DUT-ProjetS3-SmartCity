@@ -20,11 +20,15 @@ class Interface:
 
     def createCanvas(self):
         w_image, h_image = self.img.size
-        print(h_image*20)
-        self.root.geometry('1600x' + str(h_image*20))
+        print(h_image * 20)
+        self.root.geometry('1600x' + str(h_image * 20))
         cv = Canvas(self.root, height=h_image * 20, width=w_image * 20)
-        cv.pack()
-        self.root.update_idletasks()
+        #cv.pack()
+        cv.grid(row = 1, column = 1)
+
+        self.root.grid_columnconfigure(0, weight=1)
+        self.root.grid_columnconfigure(3, weight=1)
+        #self.root.update_idletasks()
         cv.update()
         return cv
 
@@ -93,12 +97,13 @@ class Interface:
     def getWidth(self):
         return self.img.size
 
-
     def addText(self, text, x, y):
-        t = tkinter.Text(self.root, height = 4, width=50)
+        t = tkinter.Text(self.root, height=30, width=500)
+        #t.pack(side = LEFT)
+        quote = text
+
+    def addTexte(self, text, x, y):
+        t = tkinter.Text(self.root, height=500, width=500)
+        t.insert(INSERT, text)
+        t.grid(row = 1, column = 1, sticky="W")
         t.pack()
-        quote=text
-        t.insert(tkinter.END, quote)
-
-
-
