@@ -1,6 +1,7 @@
 import random as rd
 from src.Interface import *
 from src.Case import *
+from src.Tache import *
 
 
 class Plateau:
@@ -20,6 +21,7 @@ class Plateau:
         self.contenu: list[Case] = []
         self.canvas = Plateau.init_map(self)
         self.setPortes()
+        self.listeTaches = []
 
         self.img = 0
         
@@ -34,6 +36,7 @@ class Plateau:
                     self.edges[lCC] = self.nearRoads(lCC)
                     nRC.append(lCC)
             self.edges[rCase] = nRC
+        self.createTaches()
 
     def init_map(self):
         """
@@ -152,4 +155,15 @@ class Plateau:
     def isEqualCase(case1, case2) :
         return case1.getCoords()[0] == case2.getCoords()[0] and case1.getCoords()[1] == case2.getCoords()[1]
 
+    def createTaches(self) :
+        for i in range(10):
+            dpt=rd.choice(self.getPortes())
+            arv=rd.choice(self.getPortes())
+            volume=randint(0,100)
+            while (dpt==arv):
+                dpt=rd.choice(self.getPortes())
+                arv=rd.choice(self.getPortes())
+            tache = Tache(dpt,arv,volume)
+            self.listeTaches.append(tache)
+        return None
 

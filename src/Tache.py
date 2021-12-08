@@ -17,9 +17,6 @@ class Tache:
         self.recompense : int = self.setRecompense()
         self.enCours : bool = False
     
-    def demandeTache():
-        # Corps à completer
-        return None
     
     # Fonction qui détermine la récompense en fonction de la longueur du trajet et du volume à transporter
     # Multiplie le coût en batterie (volume*lenght) par un nombre entre 1.5 et 3 
