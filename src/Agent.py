@@ -13,7 +13,7 @@ class Agent:
 
     def __init__(self, id: int):
         self.id = id
-        self.spawn = [22,43]
+        self.spawn = [22, 43]
 
         # Parametrage de la vitesse
         self.speed = 1
@@ -23,7 +23,7 @@ class Agent:
         # Setup de la charge à autonomie
         self.charge = self.autonomie
         self.isGonnaCharge: bool = False
-        self.goAfterChrage : Case = None
+        self.goAfterCharge: Case = None
 
         # Parametrage du volumeMax
         self.volumeMax = 100
@@ -34,8 +34,8 @@ class Agent:
         self.trajet: list[Case] = []
 
         # Tache
-        self.tacheChose : Tache = None
-        self.tacheToDo : Tache = None
+        self.tacheChose: Tache = None
+        self.tacheToDo: Tache = None
 
         # Setup du score à 0
         self.score: int = 0
@@ -48,15 +48,15 @@ class Agent:
     # ~~~~~~~~~~~~~      TACHES      ~~~~~~~~~~~~~~~
 
     def chooseTache(self) -> None:
-        #On choisit une tache au hasard dans la liste.
-        self.tacheChose=rdm.choice(Plateau.listeTaches)
+        # On choisit une tache au hasard dans la liste.
+        self.tacheChose = rdm.choice(Plateau.listeTaches)
         return None
 
     def tacheEnd(self) -> None:
         # A appeler quand l'agent est arrivé.
-        self.score+=self.tacheToDo.recompense
-        self.tacheToDo=None
-        self.tacheChose=None
+        self.score += self.tacheToDo.recompense
+        self.tacheToDo = None
+        self.tacheChose = None
         return None
 
     # ~~~~~~~~~~~~~      TRAJET      ~~~~~~~~~~~~~~~
@@ -96,13 +96,13 @@ class Agent:
             if trajet[done].type != 'road':
                 trajet.append(plateau.nearRoads(trajet[done])[0])
                 done += 1
-            
+
             queue: list[tuple(int, Case)] = [(0, trajet[-1])]
             cout = {}
             cout[trajet[done]] = 0
 
             edges = plateau.edges
-            
+
             # Génération plus court chemin
             while queue:
                 # Recuperation de la case optimale
@@ -120,25 +120,26 @@ class Agent:
 
                 # Generation du trajet
                 for next in edges[current]:
-                    nCout = cout[current]  
+                    nCout = cout[current]
                     if next not in cout or nCout < cout[next]:
                         cout[next] = nCout
                         nCXY = current.getCoords()
-                        prio = nCout + abs(destination.getCoords()[0] - nCXY[0]) + abs(destination.getCoords()[1] - nCXY[1])
+                        prio = nCout + abs(destination.getCoords()[0] - nCXY[0]) + abs(
+                            destination.getCoords()[1] - nCXY[1])
                         queue.append((prio, next))
                         trajet.append(current)
                         done += 1
-                
-            pathing : list[Case] = [trajet[len(trajet)-1]]
+
+            pathing: list[Case] = [trajet[len(trajet) - 1]]
             inPath = 0
-            for i in range(len(trajet)-2, -1, -1):
+            for i in range(len(trajet) - 2, -1, -1):
                 if trajet[i] in plateau.nearLieu(pathing[inPath]) or trajet[i] in plateau.nearRoads(pathing[inPath]):
                     pathing.append(trajet[i])
                     inPath += 1
             pathing.reverse()
 
             return pathing
-        else :
+        else:
             return trajet
 
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
@@ -156,7 +157,7 @@ class Agent:
             tempCoT = self.caseOfTrajet
 
             crgr = plateau.getLieu('charge')
-            toGo : Case = None
+            toGo: Case = None
             for c in crgr:
                 if c.isReachable():
                     toGo = c
@@ -169,7 +170,7 @@ class Agent:
 
             if self.charge - (toReach * 50) - destToChrage > 0:
                 return False
-            else :
+            else:
                 return True
 
     def checkNeedCharge(self) -> bool:
@@ -182,21 +183,21 @@ class Agent:
         elif self.charge <= 2500:
             return True
 
-    def checkChargeDone(self) -> bool :
+    def checkChargeDone(self) -> bool:
         return self.charge == self.autonomie
 
-    def checkAccesTache(self) -> bool :
-        if self.tacheChose : 
-            if self.tacheChose.enCours :
-                if self.tacheToDo and self.tacheChose == self.tacheToDo :
+    def checkAccesTache(self) -> bool:
+        if self.tacheChose:
+            if self.tacheChose.enCours:
+                if self.tacheToDo and self.tacheChose == self.tacheToDo:
                     return True
-                else :
+                else:
                     return False
 
-    def checkEndTache(self) -> bool :
-        if self.trajet[self.caseOfTrajet] == self.tacheToDo.arrivee :
+    def checkEndTache(self) -> bool:
+        if self.trajet[self.caseOfTrajet] == self.tacheToDo.arrivee:
             return True
-        else :
+        else:
             return False
 
     # ~~~~~~~~~~      DEPLACEMENTS      ~~~~~~~~~~~~
@@ -221,56 +222,59 @@ class Agent:
         Gere le trajet en cas de besoin de recharge.
         """
         crgr = plateau.getLieu('charge')
-        toGo : Case = None
+        toGo: Case = None
         for c in crgr:
             if c.isReachable():
                 toGo = c
 
         trj = self.getTrajet_aStar(plateau, toGo)
-        
-        self.goAfterChrage = self.trajet[-1]
+
+        self.goAfterCharge = self.trajet[-1]
         self.trajet = trj
         self.caseOfTrajet = 0
         self.isGonnaCharge = True
+
     def moveT2(self):
         """
         Module de Agent.move()
         Gere le mouvement dans le cas ou Agent est en chargement.
         """
-        if self.trajet[self.caseOfTrajet].getType() == 'charge' :
-            if not self.checkChargeDone() :
+        if self.trajet[self.caseOfTrajet].getType() == 'charge':
+            if not self.checkChargeDone():
                 self.charging()
-        else :
+        else:
             if self.caseOfTrajet + self.speed < len(self.trajet):
-                self.charge -= 50*self.tacheToDo.volume
-                #self.charge -= 50
+                # self.charge -= 50 * self.tacheToDo.volume
+                self.charge -= 50
                 self.caseOfTrajet += self.speed
 
             elif self.caseOfTrajet + self.speed >= len(self.trajet):
-                self.charge -= 50*self.tacheToDo.volume
-                #self.charge -= 50
+                # self.charge -= 50 * self.tacheToDo.volume
+                self.charge -= 50
                 self.trajet = [self.trajet[-1]]
                 self.caseOfTrajet = 0
+
     def moveTEnd(self, plateau: Plateau):
         """
         Module de Agent.move()
         Gere le trajet si aucun parametre blocant.
         """
-        if self.goAfterChrage :
-            self.trajet = self.getTrajet_aStar(plateau, self.goAfterChrage)
+        if self.goAfterCharge:
+            self.trajet = self.getTrajet_aStar(plateau, self.goAfterCharge)
             self.caseOfTrajet = 0
-            self.goAfterChrage = None
+            self.goAfterCharge = None
 
         if self.caseOfTrajet + self.speed < len(self.trajet):
-            self.charge -= 50*self.tacheToDo.volume
-            #self.charge -= 50
+            # self.charge -= 50 * self.tacheToDo.volume
+            self.charge -= 50
             self.caseOfTrajet += self.speed
 
         elif self.caseOfTrajet + self.speed >= len(self.trajet):
-            self.charge -= 50*self.tacheToDo.volume
-            #self.charge -= 50
+            # self.charge -= 50 * self.tacheToDo.volume
+            self.charge -= 50
             self.trajet = [self.trajet[-1]]
             self.caseOfTrajet = 0
+
     def move(self, plateau: Plateau) -> None:
         """
         Change la position de l'Agent sur la
@@ -278,21 +282,21 @@ class Agent:
 
         Gère la charge de l'Agent.
         """
-        if self.charge > 0 :
+        if self.charge > 0:
             # Verification du niveau de charge
             needCharge = self.checkNeedCharge()
-            if len(self.trajet) > 1 :
+            if len(self.trajet) > 1:
                 if needCharge:
                     self.moveT1(plateau)
-                elif self.isGonnaCharge :
+                elif self.isGonnaCharge:
                     self.moveT2()
-                else :
+                else:
                     self.moveTEnd(plateau)
-            else :
+            else:
                 self.goToRandom(plateau)
         return None
 
-    def move2(self, plateau : Plateau) -> None:
+    def move2(self, plateau: Plateau) -> None:
         """
         Change la position de l'Agent sur la
         prochaine Case de son trajet.
@@ -304,28 +308,28 @@ class Agent:
         canAccesTache = self.checkAccesTache()
         isTacheEnd = self.checkEndTache()
 
-        if self.charge > 0 :
-            if len(self.trajet) > 1 :
-                if self.tacheChose :
-                    if canAccesTache :
+        if self.charge > 0:
+            if len(self.trajet) > 1:
+                if self.tacheChose:
+                    if canAccesTache:
                         if needCharge:
                             self.moveT1(plateau)
 
-                        elif self.isGonnaCharge :
+                        elif self.isGonnaCharge:
                             self.moveT2()
 
-                        else :
+                        else:
                             self.moveTEnd(plateau)
-                    else :
+                    else:
                         self.chooseTache()
-                else :
+                else:
                     self.chooseTache()
 
-            else :
-                if isTacheEnd :
+            else:
+                if isTacheEnd:
                     self.tacheEnd()
                     self.chooseTache()
-                else :
+                else:
                     self.setTrajet(self.getTrajet_aStar(plateau, self.tacheToDo.arrive))
 
         return None
@@ -350,7 +354,7 @@ class Agent:
         crgParTour = 200
         if self.charge + crgParTour < self.autonomie:
             self.charge += crgParTour
-        else : 
+        else:
             self.charge = self.autonomie
             self.isGonnaCharge = False
 

@@ -1,7 +1,7 @@
 import random as rd
 from src.Interface import *
 from src.Case import *
-from src.Tache import *
+# from src.Tache import *
 
 
 class Plateau:
@@ -157,13 +157,13 @@ class Plateau:
 
     def createTaches(self) :
         for i in range(10):
-            dpt=rd.choice(self.getPortes())
-            arv=rd.choice(self.getPortes())
-            volume=randint(0,100)
-            while (dpt==arv):
-                dpt=rd.choice(self.getPortes())
-                arv=rd.choice(self.getPortes())
-            tache = Tache(dpt,arv,volume)
-            self.listeTaches.append(tache)
+            dpt = rd.choice(self.getPortes())
+            arv = rd.choice(self.getPortes())
+            volume = randint(0,100)
+            while (dpt == arv):
+                dpt = rd.choice(self.getPortes())
+                arv = rd.choice(self.getPortes())
+            # tache = Tache(dpt, arv, volume)
+            # self.listeTaches.append(tache)
         return None
 

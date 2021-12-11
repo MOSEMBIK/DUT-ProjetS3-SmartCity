@@ -3,25 +3,25 @@ from src.Plateau import *
 from math import *
 import random as rdm
 
+
 class Tache:
 
-    def __init__(self, dpt: Case, arv: Case, volume: float ):
-        self.depart : Case = dpt
-        self.arrivee : Case = arv
-        self.volume : float = volume
+    def __init__(self, dpt: Case, arv: Case, volume: float):
+        self.depart: Case = dpt
+        self.arrivee: Case = arv
+        self.volume: float = volume
 
         self.itineraire = self.Itineraire_aStar(self.arrivee)
         self.lenght = len(self.itineraire)
-        
 
-        self.recompense : int = self.setRecompense()
-        self.enCours : bool = False
-    
-    
+        self.recompense: int = self.setRecompense()
+
+        self.enCours: bool = False
+
     # Fonction qui détermine la récompense en fonction de la longueur du trajet et du volume à transporter
     # Multiplie le coût en batterie (volume*lenght) par un nombre entre 1.5 et 3 
     def setRecompense(self):
-        self.recompense = int(self.volume*self.lenght*(random()*1.5+1.5))
+        self.recompense = int(self.volume * self.lenght * (random() * 1.5 + 1.5))
         return None
 
     def Itineraire_aStar(self, plateau: Plateau, destination: Case) -> list:
@@ -36,13 +36,13 @@ class Tache:
             if trajet[done].type != 'road':
                 trajet.append(plateau.nearRoads(trajet[done])[0])
                 done += 1
-            
+
             queue: list[tuple(int, Case)] = [(0, trajet[-1])]
             cout = {}
             cout[trajet[done]] = 0
 
             edges = plateau.edges
-            
+
             # Génération plus court chemin
             while queue:
                 # Recuperation de la case optimale
@@ -60,24 +60,24 @@ class Tache:
 
                 # Generation du trajet
                 for next in edges[current]:
-                    nCout = cout[current]  
+                    nCout = cout[current]
                     if next not in cout or nCout < cout[next]:
                         cout[next] = nCout
                         nCXY = current.getCoords()
-                        prio = nCout + abs(destination.getCoords()[0] - nCXY[0]) + abs(destination.getCoords()[1] - nCXY[1])
+                        prio = nCout + abs(destination.getCoords()[0] - nCXY[0]) + abs(
+                            destination.getCoords()[1] - nCXY[1])
                         queue.append((prio, next))
                         trajet.append(current)
                         done += 1
-                
-            pathing : list[Case] = [trajet[len(trajet)-1]]
+
+            pathing: list[Case] = [trajet[len(trajet) - 1]]
             inPath = 0
-            for i in range(len(trajet)-2, -1, -1):
+            for i in range(len(trajet) - 2, -1, -1):
                 if trajet[i] in plateau.nearLieu(pathing[inPath]) or trajet[i] in plateau.nearRoads(pathing[inPath]):
                     pathing.append(trajet[i])
                     inPath += 1
             pathing.reverse()
 
             return pathing
-        else :
+        else:
             return trajet
-
