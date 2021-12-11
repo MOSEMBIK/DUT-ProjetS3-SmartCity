@@ -1,4 +1,5 @@
 import tkinter
+import tkinter.ttk
 from tkinter import *
 from PIL import ImageTk, Image
 import os
@@ -20,27 +21,22 @@ class Interface:
 
     def createCanvas(self):
         w_image, h_image = self.img.size
-        print(h_image * 20)
         self.root.geometry('1600x' + str(h_image * 20))
         cv = Canvas(self.root, height=h_image * 20, width=w_image * 20)
-        #cv.pack()
-        cv.grid(row = 1, column = 1)
+        cv.grid(row=0, column=1, columnspan=1, sticky="N")
 
-        self.root.grid_columnconfigure(0, weight=1)
-        self.root.grid_columnconfigure(3, weight=1)
-        #self.root.update_idletasks()
+        # self.root.grid_columnconfigure(0, weight=1)
+        # self.root.grid_columnconfigure(3, weight=1)
+        # self.root.update_idletasks()
         cv.update()
         return cv
 
-    @staticmethod
     def createLieu(cv, coordX, coordY, color):
         cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
 
-    @staticmethod
     def createRoad(cv, coordX, coordY):
         cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill='#efe4c6', width=1, outline='#967979')
 
-    @staticmethod
     def createDecor(cv, coordX, coordY):
         cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill='#000000', width=1)
 
@@ -97,13 +93,62 @@ class Interface:
     def getWidth(self):
         return self.img.size
 
-    def addText(self, text, x, y):
-        t = tkinter.Text(self.root, height=30, width=500)
-        #t.pack(side = LEFT)
-        quote = text
-
     def addTexte(self, text, x, y):
-        t = tkinter.Text(self.root, height=500, width=500)
-        t.insert(INSERT, text)
-        t.grid(row = 1, column = 1, sticky="W")
-        t.pack()
+        t = tkinter.Frame(self.root, width=320, height=1600, bg="#000000")
+        t.grid(row=0, column=0, columnspan=1, sticky="W")
+        t.grid_propagate(0)
+
+        s = tkinter.Text(t, width=5, height=10)
+        s.insert(INSERT, "AAAAA")
+
+        p = tkinter.Frame(self.root, width=20, height=1600)
+        p.grid(row=0, column=2, columnspan=1, sticky="E")
+
+    def teste(self):
+        game_frame = Frame(self.root, width=800, height=1600)
+        game_frame.grid(row=0, column=0, sticky="W")
+        my_game = tkinter.ttk.Treeview(game_frame)
+        my_game['columns'] = ('agent_id', 'autonomie', 'trajet')
+
+        my_game.column("#0", width=0, stretch=NO)
+        my_game.column("agent_id", anchor=CENTER, width=80)
+        my_game.column("autonomie", anchor=CENTER, width=80)
+        my_game.column("trajet", anchor=CENTER, width=80)
+
+        my_game.heading("#0", text="", anchor=CENTER)
+        my_game.heading("agent_id", text="Agent", anchor=CENTER)
+        my_game.heading("autonomie", text="Charge", anchor=CENTER)
+        my_game.heading("trajet", text="Trajet", anchor=CENTER)
+
+        my_game.insert(parent='', index='end', iid=0, text='',
+                       values=('Ninja', 1000, (30, 30)))
+
+        my_game.grid(row = 0, column = 0, sticky = "W")
+
+    def grumpe(self):
+        game_frame = Frame(self.root, width=350, height=1600)
+        game_frame.grid(row=0, column=2, sticky="E")
+        my_game = tkinter.ttk.Treeview(game_frame)
+        my_game['columns'] = ('agent_id', 'autonomie', 'trajet')
+
+        my_game.column("#0", width=0, stretch=NO)
+        my_game.column("agent_id", anchor=CENTER, width=80)
+        my_game.column("autonomie", anchor=CENTER, width=80)
+        my_game.column("trajet", anchor=CENTER, width=80)
+
+        my_game.heading("#0", text="", anchor=CENTER)
+        my_game.heading("agent_id", text="Agent", anchor=CENTER)
+        my_game.heading("autonomie", text="Charge", anchor=CENTER)
+        my_game.heading("trajet", text="Trajet", anchor=CENTER)
+
+        my_game.insert(parent='', index='end', iid=0, text='',
+                       values=('Ninja', 1000, (30, 30)))
+
+        my_game.grid(row=0, column=2, sticky="E")
+
+    def test(self):
+        game_frame = Frame(self.root, width=800, height=1600, bg="#000000")
+        game_frame.grid(row=0, column=0, sticky="W")
+
+        my_game = tkinter.ttk.Treeview(game_frame)
+        my_game.pack()
