@@ -9,7 +9,7 @@ class Simulation:
 
     def __init__(self, name: str = "", ico : str = None, nbEquipe: int = 1, nameEquipe: str = "", nbAgent: int = 1):
         self.name = name
-        self.itf = Interface('newMap.png')
+        self.itf = Interface('Squelette_map.png')
         self.plt: Plateau = Plateau(self.name, ico, self.itf)
         self.layer: Layer = Layer(self.itf)
         self.skin = {}

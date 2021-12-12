@@ -76,16 +76,21 @@ class Interface:
     def skins_map_update(self, cv: Canvas, mapS, skins):
         if mapS:
             cv.delete(mapS)
-        im = Image.open('img/newMapSkin.png')
+        im = Image.open('img/fond_route.png')
+        imdec = Image.open('img/decor.png')
         h, w = self.img.size
         nim = im.resize((h * 20, w * 20), Image.ANTIALIAS)
+        nimdec = imdec.resize((h * 20, w * 20), Image.ANTIALIAS)
         im = ImageTk.PhotoImage(nim)
+        imdec = ImageTk.PhotoImage(nimdec)
 
         mapS = cv.create_image(0, 0, image=im, anchor=NW, disabledimage=im)
 
         if skins:
             for i in range(len(skins)):
                 cv.tag_raise(skins[i])
+
+        mapS = cv.create_image(0, 0, image=imdec, anchor=NW, disabledimage=im)
 
         # cv.create_rectangle(0, 0, h*20, w*20, fill='white')
         cv.update()
