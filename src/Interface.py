@@ -1,7 +1,10 @@
 import tkinter
+import tkinter.ttk
 from tkinter import *
 from PIL import ImageTk, Image
 import os
+import tkinter.font as tkFont
+
 
 
 # root = Tk()
@@ -20,15 +23,13 @@ class Interface:
 
     def createCanvas(self):
         w_image, h_image = self.img.size
-        print(h_image * 20)
         self.root.geometry('1600x' + str(h_image * 20))
         cv = Canvas(self.root, height=h_image * 20, width=w_image * 20)
-        #cv.pack()
-        cv.grid(row = 1, column = 1)
+        cv.grid(row=0, column=1, columnspan=1, sticky="N")
 
-        self.root.grid_columnconfigure(0, weight=1)
-        self.root.grid_columnconfigure(3, weight=1)
-        #self.root.update_idletasks()
+        # self.root.grid_columnconfigure(0, weight=1)
+        # self.root.grid_columnconfigure(3, weight=1)
+        # self.root.update_idletasks()
         cv.update()
         return cv
 
@@ -67,7 +68,7 @@ class Interface:
 
     @staticmethod
     def imageMove(cv: Canvas, id, coords):
-        cv.tag_raise(id)
+        # cv.tag_raise(id)
         resetCoords = cv.coords(id)
         cv.move(id, - resetCoords[0], - resetCoords[1])
         cv.move(id, coords[0] * 20, coords[1] * 20)
@@ -97,13 +98,32 @@ class Interface:
     def getWidth(self):
         return self.img.size
 
-    def addText(self, text, x, y):
-        t = tkinter.Text(self.root, height=30, width=500)
-        #t.pack(side = LEFT)
-        quote = text
+    def addText(self, text, frame):
+        font = tkFont.Font(family = 'Verdana', size = 36, weight='bold')
+        label = tkinter.Label(
+            frame, text = text, font = font, justify = 'center'
+        )
+        label.place(anchor = 'nw', relx = 0.25)
 
-    def addTexte(self, text, x, y):
-        t = tkinter.Text(self.root, height=500, width=500)
-        t.insert(INSERT, text)
-        t.grid(row = 1, column = 1, sticky="W")
-        t.pack()
+    def addBoard(self, column):
+        game_frame = Frame(self.root, width=320, height=1600)
+        game_frame.grid(row = 0, column = column)
+
+        my_game = tkinter.ttk.Treeview(game_frame)
+        my_game['columns'] = ('agent_id', 'autonomie', 'trajet')
+
+        my_game.column("#0", width=0, stretch=NO)
+        my_game.column("agent_id", anchor=CENTER, width=80)
+        my_game.column("autonomie", anchor=CENTER, width=80)
+        my_game.column("trajet", anchor=CENTER, width=80)
+
+        my_game.heading("#0", text="", anchor=CENTER)
+        my_game.heading("agent_id", text="Agent", anchor=CENTER)
+        my_game.heading("autonomie", text="Charge", anchor=CENTER)
+        my_game.heading("trajet", text="Trajet", anchor=CENTER)
+
+        my_game.insert(parent='', index='end', iid=0, text='',
+                       values=('Ninja', 1000, (30, 30)))
+
+        my_game.place(anchor = 'nw', width = 320, rely = 0.1)
+        return game_frame
