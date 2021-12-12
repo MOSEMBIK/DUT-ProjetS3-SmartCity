@@ -1,5 +1,5 @@
 from src.Case import *
-from src.Plateau import *
+import src.Plateau as Plateau
 from math import *
 import random as rdm
 

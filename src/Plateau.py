@@ -1,7 +1,7 @@
 import random as rd
 from src.Interface import *
 from src.Case import *
-# from src.Tache import *
+from src.Tache import *
 
 
 class Plateau:
