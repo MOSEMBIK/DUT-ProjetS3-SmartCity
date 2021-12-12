@@ -47,7 +47,7 @@ class Case:
             Interface.createDecor(self.cv, self.coordX, self.coordY)
             self.type = 'decor'
         else:
-            raise ValueError("La couleur n'existe pas dans le canvas")
+            raise ValueError(f"La couleur n'existe pas dans le canvas. X({coordX})Y({coordY})")
 
     def getCoords(self):
         """
