@@ -1,13 +1,11 @@
 from random import *
 from src.Interface import *
 
-palette = {'epicerie': '#b07678', 'magasin': '#00edd9', 'cimetiere': '#1e736e', 'restaurant': '#8e00ed',
-           'ecole': '#5741b0', 'entrepot': '#a0be0e', 'charge': '#5bc944', 'musee': '#ffe900',
-           'boulangerie': '#ed00c5', 'coiffeur': '#ec1c1a', 'pharmacie': '#6da6b7', 'spawn': '#ee8438'}
+palette = {'Bioserre': '#b07678', 'Accumulateurs électriques': '#00edd9', 'Chateau d\'eau': '#1e736e', 'Panneaux solaires': '#8e00ed',
+           'Station de recyclage': '#5741b0', 'Centre de contrôle': '#a0be0e', 'Parc éolien': '#88877e', 'Centre météorologique': '#ffe900',
+           'Entrepôt': '#ed00c5', 'Générateur d\'énergie': '#ec1c1a', 'Mine': '#6da6b7', 'Spawn A': '#ee8438', 'Spawn B': '#ee7490', 'Laboratoire': '#6a2a3a', 'Zone de recharge': '#5bc944'}
 
 
-# palette = ['#b07678', '#00edd9', '#1e736e', '#8e00ed', '#5741b0', '#ec1c1a', '#5bc944', '#ffe900', '#ed00c5',
-# '#1e736e','#6da6b7', '#ee8438']
 
 
 class Case:
