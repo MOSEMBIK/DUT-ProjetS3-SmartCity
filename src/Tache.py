@@ -11,7 +11,7 @@ class Tache:
         self.arrivee: Case = arv
         self.volume: float = volume
 
-        self.itineraire = self.Itineraire_aStar(self, plat,self.arrivee)
+        self.itineraire = self.Itineraire_aStar(plat, self.arrivee)
         self.length = len(self.itineraire)
 
         self.recompense: int = self.setRecompense()
