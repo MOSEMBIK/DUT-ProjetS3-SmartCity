@@ -156,14 +156,15 @@ class Plateau:
         return case1.getCoords()[0] == case2.getCoords()[0] and case1.getCoords()[1] == case2.getCoords()[1]
 
     def createTaches(self) :
+        portes = self.getPortes()
+        
         for i in range(10):
-            dpt = rd.choice(self.getPortes())
-            arv = rd.choice(self.getPortes())
+            portes2 = portes
+            dpt = rd.choice(portes2)
+            portes2.pop(dpt)
+            arv = rd.choice(portes2)
             volume = randint(0,100)
-            while (dpt == arv):
-                dpt = rd.choice(self.getPortes())
-                arv = rd.choice(self.getPortes())
-            # tache = Tache(dpt, arv, volume)
-            # self.listeTaches.append(tache)
+            tache = Tache(dpt, arv, volume)
+            self.listeTaches.append(tache)
         return None
 
