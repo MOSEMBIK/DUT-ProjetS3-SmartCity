@@ -22,7 +22,7 @@ class Equipe:
         return None
     
     def agentMove(self, id : int, plt : Plateau) -> None:
-        self.agents.get(id).move(plt)
+        self.agents.get(id).move2(plt)
         return None
     
     # Destination
