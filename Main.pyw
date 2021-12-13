@@ -12,8 +12,6 @@ def main():
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
     maxTour = 10000
 
-
-
     sim.allGoToRandom()
     # del "#" to set trajet of agent1 to Case of coords
     # sim.agentGoTo(0, 0, sim.plt.getCase(36, 20))
@@ -49,6 +47,7 @@ def main():
                     ag: Agent = sim.equipe[e].getAgents()[a]
 
                     sim.layer.updateTab(ag)
+                    sim.layer.updateScore()
 
                     Interface.imageMove(sim.plt.canvas, sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                     skins.append(sim.skin.get(ag))
@@ -57,7 +56,7 @@ def main():
 
             # Update du screen, affichage du design de map, pause du programme
             mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
-            #time.sleep(0.01)
+            # time.sleep(0.01)
 
         else:
             sim.allGoToRandom()

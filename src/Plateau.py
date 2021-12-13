@@ -165,6 +165,7 @@ class Plateau:
             arv = rd.choice(portes2)
             volume = randint(0,100)
             tache = Tache(dpt, arv, volume, self)
+            createTaskIcon(self.canvas, dpt)
             self.listeTaches.append(tache)
         return None
 
