@@ -55,11 +55,6 @@ def addBoard(game_frame, agents):
 
 def updateTab(my_game, agent):
     children = my_game.get_children()
-    print("\n")
-    print("Agent id", agent.id)
-    print("Childrens", children[agent.id])
-    print("\n")
-    print("Agent trajet", agent.trajet[-1].getCoords())
     my_game.delete(children[agent.id])
     my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                    values=(agent.id, agent.charge, agent.trajet[-1].getCoords(), agent.score))
