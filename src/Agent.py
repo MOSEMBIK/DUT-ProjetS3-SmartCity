@@ -359,60 +359,29 @@ class Agent:
                     if self.checkAccesTache():
                         if self.checkNeedCharge():
                             self.moveT1(plateau)
-                            print(self.trajet[self.caseOfTrajet].getCoords())
-                            print(len(self.trajet))
-                            print(self.caseOfTrajet)
 
                         elif self.isGonnaCharge:
                             self.moveT2()
-                            print(self.trajet[self.caseOfTrajet].getCoords())
-                            print(len(self.trajet))
-                            print(self.caseOfTrajet)
 
                         else:
                             self.moveTEnd(plateau)
-                            print(self.trajet[self.caseOfTrajet].getCoords())
-                            print(len(self.trajet))
-                            print(self.caseOfTrajet)
                     else:
                         self.chooseTache(plateau)
-                        print("Agent", self.id)
-                        print(self.trajet[self.caseOfTrajet].getCoords())
-                        print(self.tacheChose.depart.getCoords())
-                        print(self.tacheChose.arrivee.getCoords())
                 else:
                     self.chooseTache(plateau)
-                    print("Agent", self.id)
-                    print(self.trajet[self.caseOfTrajet].getCoords())
-                    print(self.tacheChose.depart.getCoords())
-                    print(self.tacheChose.arrivee.getCoords())
 
             elif self.isGonnaCharge :
                     self.moveT2()
 
             else:
                 if self.trajet[self.caseOfTrajet] == self.tacheChose.depart:
-                    print("Agent", self.id)
-                    print(self.trajet[self.caseOfTrajet].getCoords())
-                    print(self.tacheChose.depart.getCoords())
-                    print(self.tacheChose.arrivee.getCoords())
                     self.takeTache()
-                    print("Took a tache")
                 else :
                     self.moveTEnd(plateau)
-                    print(self.trajet[self.caseOfTrajet].getCoords())
-                    print(len(self.trajet))
-                    print(self.caseOfTrajet)
 
                 if self.tacheToDo :
                     if self.checkEndTache():
-                        print("Agent", self.id)
-                        print(self.trajet[self.caseOfTrajet].getCoords())
-                        print(self.tacheChose.depart.getCoords())
-                        print(self.tacheChose.arrivee.getCoords())
-                        print("Tache end")
                         self.tacheEnd()
-                        print("score", self.score)
                         self.chooseTache(plateau)
                 else:
                     self.chooseTache(plateau)
