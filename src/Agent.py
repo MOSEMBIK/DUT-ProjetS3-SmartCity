@@ -19,7 +19,7 @@ class Agent:
         self.speed = 1
 
         # Parametrage de l'autonomie
-        self.autonomie = 5000
+        self.autonomie = 10000
         # Setup de la charge à autonomie
         self.charge = self.autonomie
         self.isGonnaCharge: bool = False
@@ -59,11 +59,11 @@ class Agent:
         self.caseOfTrajet = 0
 
 
-    # def chooseTacheOpti(self, pl:Plateau) -> None:
+    # def chooseTacheOpti(self, plateau:Plateau) -> None:
     #     # On choisit la tache la plus proche possible
     #     proche = 1000
-    #     for tache in pl.listeTaches :
-    #         distance = len(self.getTrajet_aStar(pl, tache.depart);
+    #     for tache in plateau.listeTaches :
+    #         distance = len(self.getTrajet_aStar(plateau, tache.depart);
     #         if (len(getTrajet_aStar(self, pl, tache.depart)) < proche):
     #             proche = distance
     #             self.tacheChose = tache
