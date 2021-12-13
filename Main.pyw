@@ -49,7 +49,6 @@ def main():
                     ag: Agent = sim.equipe[e].getAgents()[a]
 
                     # print("Trajet : ", len(ag.trajet)-1, "Case : ", ag.caseOfTrajet)
-                    sim.layer.updateCharge(ag.charge)
                     sim.layer.updateTab(ag)
                     sim.layer.updateScore()
 

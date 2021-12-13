@@ -54,10 +54,6 @@ def addBoard(game_frame, agents):
 
 def updateTab(my_game, agent):
     children = my_game.get_children()
-    for i in children:
-        print("child", i)
-    print("agent", int(agent.id))
-    print(my_game.item(agent.id))
     my_game.delete(agent.id)
     my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                    values=(agent.id, agent.charge, agent.trajet[-1].getCoords(), agent.score))
@@ -128,8 +124,12 @@ class Interface:
         """
         self.root.mainloop()
 
-    def createImg(self, cv, coords):
-        skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20, fill='green')
+    def createImg(self, cv, coords, equipe):
+        if equipe == 0:
+            skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20, fill='green')
+        else:
+            skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20, fill='red')
+
         # cv.create_rectangle(500, 500, 800, 800, fill='white')
         # cv.update()
         return skin
