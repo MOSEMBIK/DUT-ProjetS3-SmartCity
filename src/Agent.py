@@ -85,9 +85,10 @@ class Agent:
         self.trajet = self.tacheToDo.itineraire
         self.caseOfTrajet = 0
 
-    def tacheEnd(self) -> None:
+    def tacheEnd(self, plateau: Plateau) -> None:
         # A appeler quand l'agent est arrivé.
         self.score += self.tacheToDo.recompense
+        plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheToDo))
         self.tacheToDo = None
         self.tacheChose = None
         return None
@@ -381,7 +382,7 @@ class Agent:
 
                 if self.tacheToDo :
                     if self.checkEndTache():
-                        self.tacheEnd()
+                        self.tacheEnd(plateau)
                         self.chooseTache(plateau)
                 else:
                     self.chooseTache(plateau)

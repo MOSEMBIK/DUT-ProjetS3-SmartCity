@@ -48,9 +48,7 @@ def main():
                 for a in sim.equipe[e].getAgents():
                     ag: Agent = sim.equipe[e].getAgents()[a]
 
-                    # print("Trajet : ", len(ag.trajet)-1, "Case : ", ag.caseOfTrajet)
                     sim.layer.updateTab(ag)
-                    sim.layer.updateScore()
 
                     Interface.imageMove(sim.plt.canvas, sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                     skins.append(sim.skin.get(ag))
