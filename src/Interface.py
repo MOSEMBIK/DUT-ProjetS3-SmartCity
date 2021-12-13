@@ -43,7 +43,7 @@ def addBoard(game_frame, agents):
     for i in agents.keys():
         agent = agents[i]
 
-        my_game.insert(parent='', index='end', iid=i, text='',
+        my_game.insert(parent='', index='end', iid=agent.id, text='',
                        values=(agent.id, agent.charge, agent.caseOfTrajet, agent.score))
 
     my_game.place(anchor='nw', width=320, rely=0.1)
@@ -54,7 +54,11 @@ def addBoard(game_frame, agents):
 
 def updateTab(my_game, agent):
     children = my_game.get_children()
-    my_game.delete(children[agent.id])
+    for i in children:
+        print("child", i)
+    print("agent", int(agent.id))
+    print(my_game.item(agent.id))
+    my_game.delete(agent.id)
     my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                    values=(agent.id, agent.charge, agent.trajet[-1].getCoords(), agent.score))
     return my_game

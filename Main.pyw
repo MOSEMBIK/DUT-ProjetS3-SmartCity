@@ -12,8 +12,6 @@ def main():
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
     maxTour = 10000
 
-    print(sim.equipe[0].getAgents())
-    print(sim.equipe[1].getAgents())
 
 
     sim.allGoToRandom()

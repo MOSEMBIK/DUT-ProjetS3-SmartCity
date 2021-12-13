@@ -11,7 +11,7 @@ class Layer:
 
         # Creation des tableaux
         self.tab1 = addBoard(self.frame1, equipe[0].getAgents())
-        self.tab2 = addBoard(self.frame2, equipe[0].getAgents())
+        self.tab2 = addBoard(self.frame2, equipe[1].getAgents())
 
 
         # Score equipe 1 et 2
@@ -35,5 +35,8 @@ class Layer:
         # addScore(self.score1, self.frame1)
 
     def updateTab(self, agent):
-        self.tab1 = updateTab(self.tab1, agent)
+        if int(agent.id) < 10:
+            self.tab1 = updateTab(self.tab1, agent)
+        else:
+            self.tab2 = updateTab(self.tab2, agent)
         # updateTab(self.tab2, agent)
