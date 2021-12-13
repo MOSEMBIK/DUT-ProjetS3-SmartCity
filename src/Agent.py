@@ -1,4 +1,3 @@
-from os import truncate
 from src.Case import *
 from src.Plateau import *
 from src.Tache import *
