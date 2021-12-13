@@ -13,7 +13,6 @@ class Simulation:
         self.plt: Plateau = Plateau(self.name, ico, self.itf)
         self.skin = {}
         self.equipe: list[Equipe] = []
-        self.taches: list[Tache] = []
         for i in range(nbEquipe):
             self.equipe.append(Equipe(i, nameEquipe))
             for j in range(nbAgent):
