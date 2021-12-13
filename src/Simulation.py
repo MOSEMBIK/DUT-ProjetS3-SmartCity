@@ -11,7 +11,6 @@ class Simulation:
         self.name = name
         self.itf = Interface('Squelette_map.png')
         self.plt: Plateau = Plateau(self.name, ico, self.itf)
-        self.layer: Layer = Layer(self.itf)
         self.skin = {}
         self.equipe: list[Equipe] = []
         self.taches: list[Tache] = []
@@ -21,7 +20,9 @@ class Simulation:
                 idAgent = str(i) + str(j)
                 self.equipe[i].addAgents(int(idAgent))
                 self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.createImg(self.plt.canvas, self.equipe[i].getAgents()[int(idAgent)].spawn)
-                #self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.setSkin(self.equipe[i].getAgents()[int(idAgent)].spawn, 'war.png')
+                # self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.setSkin(self.equipe[
+                # i].getAgents()[int(idAgent)].spawn, 'war.png')
+        self.layer: Layer = Layer(self.itf, self.equipe)
 
     # Déplacement
     def agentMoveSimple(self, idE: int, idA: int) -> None:
