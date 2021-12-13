@@ -1,4 +1,3 @@
-from os import truncate
 from src.Case import *
 from src.Plateau import *
 from src.Tache import *
@@ -51,7 +50,7 @@ class Agent:
 
     # ~~~~~~~~~~~~~      TACHES      ~~~~~~~~~~~~~~~
 
-    def chooseTache(self, plateau:Plateau) -> None:
+    def randomChooseTache(self, plateau:Plateau) -> None:
         # On choisit une tache au hasard dans la liste.
         self.tacheChose = rdm.choice(plateau.listeTaches)
 
@@ -59,15 +58,14 @@ class Agent:
         self.caseOfTrajet = 0
 
 
-    # def chooseTacheOpti(self, plateau:Plateau) -> None:
-    #     # On choisit la tache la plus proche possible
-    #     proche = 1000
-    #     for tache in plateau.listeTaches :
-    #         distance = len(self.getTrajet_aStar(plateau, tache.depart);
-    #         if (len(getTrajet_aStar(self, pl, tache.depart)) < proche):
-    #             proche = distance
-    #             self.tacheChose = tache
-    #     return None
+    def chooseTache(self, plateau:Plateau) -> None:
+        # On choisit la tache la plus rentable
+        self.tacheChose = plateau.listeTaches[0]
+        for i in plateau.listeTaches:
+            if i.recompense > self.tacheChose.recompense :
+                self.tacheChose = i
+        self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
+        self.caseOfTrajet = 0
 
     # def chooseTacheOpti2(self, pl:Plateau) -> None:
     #     # On choisit la tache la plus proche possible
@@ -80,15 +78,18 @@ class Agent:
     #                 self.tacheChose = tache
     #     return None
 
-    def takeTache(self):
-        self.tacheToDo = self.tacheChose
-        self.trajet = self.tacheToDo.itineraire
-        self.caseOfTrajet = 0
+    def takeTache(self, plateau: Plateau):
+        if self.tacheChose in plateau.listeTaches:
+            self.tacheToDo = self.tacheChose
+            self.trajet = self.tacheToDo.itineraire
+            self.caseOfTrajet = 0
+            plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheToDo))
+        else :
+            self.chooseTache(plateau)
 
     def tacheEnd(self, plateau: Plateau) -> None:
         # A appeler quand l'agent est arrivé.
         self.score += self.tacheToDo.recompense
-        plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheToDo))
         self.tacheToDo = None
         self.tacheChose = None
         return None
@@ -376,7 +377,7 @@ class Agent:
 
             else:
                 if self.trajet[self.caseOfTrajet] == self.tacheChose.depart:
-                    self.takeTache()
+                    self.takeTache(plateau)
                 else :
                     self.moveTEnd(plateau)
 
@@ -386,6 +387,9 @@ class Agent:
                         self.chooseTache(plateau)
                 else:
                     self.chooseTache(plateau)
+        elif self.trajet[self.caseOfTrajet].getType() == 'Zone de recharge':
+            if not self.checkChargeDone():
+                self.charging()
 
         return None
 
@@ -401,6 +405,7 @@ class Agent:
         Envoie un agent vers une direction.
         """
         self.setRandomTrajet(plateau)
+        self.randomChooseTache(plateau)
         return None
 
     # ~~~~~~~~~~      CHARGEMENT      ~~~~~~~~~~~~

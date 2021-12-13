@@ -40,7 +40,7 @@ def main():
         # print()
         # print("Tour ", i)
 
-        if len(agent1.trajet) > 1:
+        if len(agent1.trajet) > 0:
             sim.allMove()
             for e in range(len(sim.equipe)):
                 for a in sim.equipe[e].getAgents():
