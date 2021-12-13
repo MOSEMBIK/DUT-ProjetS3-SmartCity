@@ -42,13 +42,14 @@ def main():
         # print()
         # print("Tour ", i)
 
-        if len(agent1.trajet) > 1:
+        if len(agent1.trajet) > 0:
             sim.allMove()
             for e in range(len(sim.equipe)):
                 for a in sim.equipe[e].getAgents():
                     ag: Agent = sim.equipe[e].getAgents()[a]
 
                     sim.layer.updateTab(ag)
+                    sim.layer.updateScore()
 
                     Interface.imageMove(sim.plt.canvas, sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                     skins.append(sim.skin.get(ag))

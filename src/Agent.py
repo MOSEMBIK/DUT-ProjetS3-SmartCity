@@ -386,6 +386,9 @@ class Agent:
                         self.chooseTache(plateau)
                 else:
                     self.chooseTache(plateau)
+        elif self.trajet[self.caseOfTrajet].getType() == 'Zone de recharge':
+            if not self.checkChargeDone():
+                self.charging()
 
         return None
 
