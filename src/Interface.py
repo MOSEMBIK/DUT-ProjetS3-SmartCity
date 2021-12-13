@@ -6,9 +6,59 @@ import os
 import tkinter.font as tkFont
 
 
-
 # root = Tk()
 # root1 = tkinter.Tk()
+def addText(text, frame):
+    font = tkFont.Font(family='Verdana', size=36, weight='bold')
+    label = tkinter.Label(
+        frame, text=text, font=font, justify='center'
+    )
+    label.place(anchor='nw', relx=0.25)
+
+
+def addScore(score, frame):
+    font = tkFont.Font(family='Verdana', size=36, weight='bold')
+    label = tkinter.Label(
+        frame, text=score, font=font, justify='center'
+    )
+    label.place(anchor='nw', relx=0.25, rely=0.25)
+
+
+def addBoard(game_frame, agents):
+    my_game = tkinter.ttk.Treeview(game_frame)
+    my_game['columns'] = ('agent_id', 'autonomie', 'trajet')
+
+    my_game.column("#0", width=0, stretch=NO)
+    my_game.column("agent_id", anchor=CENTER, width=80)
+    my_game.column("autonomie", anchor=CENTER, width=80)
+    my_game.column("trajet", anchor=CENTER, width=80)
+
+    my_game.heading("#0", text="", anchor=CENTER)
+    my_game.heading("agent_id", text="Agent", anchor=CENTER)
+    my_game.heading("autonomie", text="Charge", anchor=CENTER)
+    my_game.heading("trajet", text="Trajet", anchor=CENTER)
+
+    for i in agents.keys():
+        agent = agents[i]
+
+        my_game.insert(parent='', index='end', iid=i, text='',
+                       values=(agent.id, agent.charge, agent.caseOfTrajet))
+
+    my_game.place(anchor='nw', width=320, rely=0.1)
+
+    return my_game
+
+    # def updateBoard(selfself, column):
+
+
+def updateTab(my_game, charge):
+    children = my_game.get_children()
+    print(children)
+    my_game.delete(children[0])
+    my_game.insert(parent='', index='0', iid='item1', text='',
+                   values=('NiSSSSnja', charge, (30, 30)))
+
+
 class Interface:
     def __init__(self, img):
         self.root = Tk()
@@ -103,32 +153,8 @@ class Interface:
     def getWidth(self):
         return self.img.size
 
-    def addText(self, text, frame):
-        font = tkFont.Font(family = 'Verdana', size = 36, weight='bold')
-        label = tkinter.Label(
-            frame, text = text, font = font, justify = 'center'
-        )
-        label.place(anchor = 'nw', relx = 0.25)
-
-    def addBoard(self, column):
+    def addFrame(self, column):
         game_frame = Frame(self.root, width=320, height=1600)
-        game_frame.grid(row = 0, column = column)
+        game_frame.grid(row=0, column=column)
 
-        my_game = tkinter.ttk.Treeview(game_frame)
-        my_game['columns'] = ('agent_id', 'autonomie', 'trajet')
-
-        my_game.column("#0", width=0, stretch=NO)
-        my_game.column("agent_id", anchor=CENTER, width=80)
-        my_game.column("autonomie", anchor=CENTER, width=80)
-        my_game.column("trajet", anchor=CENTER, width=80)
-
-        my_game.heading("#0", text="", anchor=CENTER)
-        my_game.heading("agent_id", text="Agent", anchor=CENTER)
-        my_game.heading("autonomie", text="Charge", anchor=CENTER)
-        my_game.heading("trajet", text="Trajet", anchor=CENTER)
-
-        my_game.insert(parent='', index='end', iid=0, text='',
-                       values=('Ninja', 1000, (30, 30)))
-
-        my_game.place(anchor = 'nw', width = 320, rely = 0.1)
         return game_frame

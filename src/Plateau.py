@@ -24,9 +24,9 @@ class Plateau:
         self.listeTaches = []
 
         self.img = 0
-        
+
         # Graph des relations entre cases accessibles
-        self.edges : dict[Case, list[Case]] = {}
+        self.edges: dict[Case, list[Case]] = {}
         roads = self.getLieu('road')
         for rCase in roads:
             nRC = self.nearRoads(rCase)
@@ -104,7 +104,7 @@ class Plateau:
         """
         w_image, h_image = self.itf.img.size
         tab = []
-        cases : list[Case] = []
+        cases: list[Case] = []
         coords = case.getCoords()
         for i in range(-1, 2, 2):
             if 0 <= coords[0] + i < w_image:
@@ -150,21 +150,19 @@ class Plateau:
                 portes.append(case)
         return portes
 
-
     @staticmethod
-    def isEqualCase(case1, case2) :
+    def isEqualCase(case1, case2):
         return case1.getCoords()[0] == case2.getCoords()[0] and case1.getCoords()[1] == case2.getCoords()[1]
 
-    def createTaches(self) :
+    def createTaches(self):
         portes = self.getPortes()
-        
+
         for i in range(10):
             portes2 = portes
             dpt = rd.choice(portes2)
             portes2.pop(portes2.index(dpt))
             arv = rd.choice(portes2)
-            volume = randint(0,100)
+            volume = randint(0, 100)
             tache = Tache(dpt, arv, volume, self)
             self.listeTaches.append(tache)
         return None
-
