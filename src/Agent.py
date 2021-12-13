@@ -11,7 +11,7 @@ class Agent:
     Agent intelligent et autonome.
     """
 
-    def __init__(self, id: int):
+    def __init__(self, id: str):
         self.id = id
         self.spawn = [22, 43]
 

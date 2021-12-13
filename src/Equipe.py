@@ -12,25 +12,25 @@ class Equipe:
     def getAgents(self) -> dict:
         return self.agents
     
-    def addAgents(self, id : int) -> None:
+    def addAgents(self, id : str) -> None:
         self.agents[id] = Agent(id)
         return None
     
     # Déplacement
-    def agentMoveSimple(self, id : int) -> None:
+    def agentMoveSimple(self, id : str) -> None:
         self.agents.get(id).moveSimple()
         return None
     
-    def agentMove(self, id : int, plt : Plateau) -> None:
+    def agentMove(self, id : str, plt : Plateau) -> None:
         self.agents.get(id).move2(plt)
         return None
     
     # Destination
-    def agentGoToRandom(self, id : int, plt : Plateau) -> None:
+    def agentGoToRandom(self, id : str, plt : Plateau) -> None:
         self.agents.get(id).goToRandom(plt)
         return None
     
-    def agentGoTo(self, id : int, plt : Plateau, case : Case) -> None:
+    def agentGoTo(self, id : str, plt : Plateau, case : Case) -> None:
         """
         Requete qui parametre le déplacement d'un Agent vers une case.
 
