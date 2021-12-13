@@ -24,5 +24,5 @@ class Layer:
         self.score1 = charge
         # addScore(self.score1, self.frame1)
 
-    def updateTab(self):
-        updateTab(self.tab1, self.score1)
+    def updateTab(self, agent):
+        updateTab(self.tab1, agent)

@@ -51,7 +51,7 @@ def main():
                     print("Charge : ", ag.charge)
                     sim.layer.updateCharge(ag.charge)
                     print("Score : ", ag.score)
-                    sim.layer.updateTab()
+                    sim.layer.updateTab(ag)
 
                     Interface.imageMove(sim.plt.canvas, sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                     skins.append(sim.skin.get(ag))

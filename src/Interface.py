@@ -26,23 +26,25 @@ def addScore(score, frame):
 
 def addBoard(game_frame, agents):
     my_game = tkinter.ttk.Treeview(game_frame)
-    my_game['columns'] = ('agent_id', 'autonomie', 'trajet')
+    my_game['columns'] = ('agent_id', 'autonomie', 'trajet', 'score')
 
     my_game.column("#0", width=0, stretch=NO)
     my_game.column("agent_id", anchor=CENTER, width=80)
     my_game.column("autonomie", anchor=CENTER, width=80)
     my_game.column("trajet", anchor=CENTER, width=80)
+    my_game.column("score", anchor=CENTER, width=80)
 
     my_game.heading("#0", text="", anchor=CENTER)
     my_game.heading("agent_id", text="Agent", anchor=CENTER)
     my_game.heading("autonomie", text="Charge", anchor=CENTER)
     my_game.heading("trajet", text="Trajet", anchor=CENTER)
+    my_game.heading("score", text="score", anchor=CENTER)
 
     for i in agents.keys():
         agent = agents[i]
 
         my_game.insert(parent='', index='end', iid=i, text='',
-                       values=(agent.id, agent.charge, agent.caseOfTrajet))
+                       values=(agent.id, agent.charge, agent.caseOfTrajet, agent.score))
 
     my_game.place(anchor='nw', width=320, rely=0.1)
 
@@ -51,11 +53,16 @@ def addBoard(game_frame, agents):
     # def updateBoard(selfself, column):
 
 
-def updateTab(my_game, charge):
+def updateTab(my_game, agent):
     children = my_game.get_children()
-    my_game.delete(children[0])
-    my_game.insert(parent='', index='0', iid='item1', text='',
-                   values=('NiSSSSnja', charge, (30, 30)))
+    print("\n")
+    print("Agent id", agent.id)
+    print("Childrens", children[agent.id])
+    print("\n")
+    print("Agent trajet", agent.trajet[-1].getCoords())
+    my_game.delete(children[agent.id])
+    my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
+                   values=(agent.id, agent.charge, agent.trajet[-1].getCoords(), agent.score))
 
 
 class Interface:
