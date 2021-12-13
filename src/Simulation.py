@@ -18,18 +18,18 @@ class Simulation:
             self.equipe.append(Equipe(i, nameEquipe))
             for j in range(nbAgent):
                 idAgent = str(i) + str(j)
-                self.equipe[i].addAgents(int(idAgent))
-                self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.createImg(self.plt.canvas, self.equipe[i].getAgents()[int(idAgent)].spawn)
+                self.equipe[i].addAgents(idAgent)
+                self.skin[self.equipe[i].getAgents()[idAgent]] = self.plt.itf.createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn)
                 # self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.setSkin(self.equipe[
                 # i].getAgents()[int(idAgent)].spawn, 'war.png')
         self.layer: Layer = Layer(self.itf, self.equipe)
 
     # Déplacement
-    def agentMoveSimple(self, idE: int, idA: int) -> None:
+    def agentMoveSimple(self, idE: int, idA: str) -> None:
         self.equipe[idE].agentMoveSimple(idA)
         return None
 
-    def agentMove(self, idE: int, idA: int) -> None:
+    def agentMove(self, idE: int, idA: str) -> None:
         self.equipe[idE].agentMove(idA, self.plt)
         return None
 
@@ -37,26 +37,26 @@ class Simulation:
         # Mode complexe (gestion charge, vitesse, ...)
         if mode == 0:
             for idE in range(len(self.equipe)):
-                for idA in range(len(self.equipe[idE].getAgents())):
+                for idA in self.equipe[idE].getAgents():
                     self.agentMove(idE, idA)
         # Mode simple
         else:
             for idE in range(len(self.equipe)):
-                for idA in range(len(self.equipe[idE].getAgents())):
+                for idA in self.equipe[idE].getAgents():
                     self.agentMoveSimple(idE, idA)
         return None
 
     # Destination
-    def agentGoToRandom(self, idE: int, idA: int, ) -> None:
+    def agentGoToRandom(self, idE: int, idA: str, ) -> None:
         self.equipe[idE].agentGoToRandom(idA, self.plt)
         return None
 
     def allGoToRandom(self) -> None:
         for idE in range(len(self.equipe)):
-            for idA in range(len(self.equipe[idE].getAgents())):
+            for idA in self.equipe[idE].getAgents():
                 self.agentGoToRandom(idE, idA)
         return None
 
-    def agentGoTo(self, idE: int, idA: int, case: Case) -> None:
+    def agentGoTo(self, idE: int, idA: str, case: Case) -> None:
         self.equipe[idE].agentGoTo(idA, self.plt, case)
         return None
