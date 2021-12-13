@@ -2,36 +2,35 @@ from src.Agent import *
 from src.Plateau import *
 from src.Case import *
 
-
 class Equipe:
 
     def __init__(self, id: int, nom: str = ""):
         self.id = id
         self.nom = nom
         self.agents = {}
-
+    
     def getAgents(self) -> dict:
         return self.agents
-
-    def addAgents(self, id: int) -> None:
+    
+    def addAgents(self, id : int) -> None:
         self.agents[id] = Agent(id)
         return None
-
+    
     # Déplacement
-    def agentMoveSimple(self, id: int) -> None:
+    def agentMoveSimple(self, id : int) -> None:
         self.agents.get(id).moveSimple()
         return None
-
-    def agentMove(self, id: int, plt: Plateau) -> None:
-        self.agents.get(id).move(plt)
+    
+    def agentMove(self, id : int, plt : Plateau) -> None:
+        self.agents.get(id).move2(plt)
         return None
-
+    
     # Destination
-    def agentGoToRandom(self, id: int, plt: Plateau) -> None:
+    def agentGoToRandom(self, id : int, plt : Plateau) -> None:
         self.agents.get(id).goToRandom(plt)
         return None
-
-    def agentGoTo(self, id: int, plt: Plateau, case: Case) -> None:
+    
+    def agentGoTo(self, id : int, plt : Plateau, case : Case) -> None:
         """
         Requete qui parametre le déplacement d'un Agent vers une case.
 

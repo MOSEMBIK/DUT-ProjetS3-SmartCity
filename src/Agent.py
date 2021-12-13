@@ -19,7 +19,7 @@ class Agent:
         self.speed = 1
 
         # Parametrage de l'autonomie
-        self.autonomie = 10000
+        self.autonomie = 5000
         # Setup de la charge à autonomie
         self.charge = self.autonomie
         self.isGonnaCharge: bool = False
@@ -27,7 +27,6 @@ class Agent:
 
         # Parametrage du volumeMax
         self.volumeMax = 100
-        self.volume = 0
 
         # Setup de la position à Null
         self.caseOfTrajet: int = 0
@@ -36,6 +35,11 @@ class Agent:
         # Tache
         self.tacheChose: Tache = None
         self.tacheToDo: Tache = None
+        
+        if self.tacheToDo :
+            self.wearing = (self.tacheToDo.volume / self.volumeMax) * 3
+        else :
+            self.wearing = 1
 
         # Setup du score à 0
         self.score: int = 0
@@ -47,10 +51,39 @@ class Agent:
 
     # ~~~~~~~~~~~~~      TACHES      ~~~~~~~~~~~~~~~
 
-    def chooseTache(self) -> None:
+    def chooseTache(self, plateau:Plateau) -> None:
         # On choisit une tache au hasard dans la liste.
-        self.tacheChose = rdm.choice(Plateau.listeTaches)
-        return None
+        self.tacheChose = rdm.choice(plateau.listeTaches)
+
+        self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
+        self.caseOfTrajet = 0
+
+
+    # def chooseTacheOpti(self, pl:Plateau) -> None:
+    #     # On choisit la tache la plus proche possible
+    #     proche = 1000
+    #     for tache in pl.listeTaches :
+    #         distance = len(self.getTrajet_aStar(pl, tache.depart);
+    #         if (len(getTrajet_aStar(self, pl, tache.depart)) < proche):
+    #             proche = distance
+    #             self.tacheChose = tache
+    #     return None
+
+    # def chooseTacheOpti2(self, pl:Plateau) -> None:
+    #     # On choisit la tache la plus proche possible
+    #     proche = 1000
+    #     for tache in pl.listeTaches :
+    #         distance = len(getTrajet_aStar(self, pl, tache.depart);
+    #         if (len(getTrajet_aStar(self, pl, tache.depart)) < proche):
+    #             if (checkNeedCharge(self)):
+    #                 proche = distance
+    #                 self.tacheChose = tache
+    #     return None
+
+    def takeTache(self):
+        self.tacheToDo = self.tacheChose
+        self.trajet = self.tacheToDo.itineraire
+        self.caseOfTrajet = 0
 
     def tacheEnd(self) -> None:
         # A appeler quand l'agent est arrivé.
@@ -84,7 +117,6 @@ class Agent:
         return None
 
     def getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
-
         """
         Génère le trajet le plus court vers
         une Case donnée en utilisant la methode
@@ -173,6 +205,17 @@ class Agent:
             else:
                 return True
 
+    # def checkNeedCharge(self, arv:Case, pl:Plateau) -> bool:
+    #     """
+    #     Vérifie le pourcentage de batterie réstant
+    #     et rétourne True ou False en fonction de la charge.
+    #     """
+    #     distance = len(self.getTrajet_aStar(pl, arv))
+    #     if self.isGonnaCharge:
+    #         return False
+    #     elif distance*50 >= self.autonomie:
+    #         return True
+
     def checkNeedCharge(self) -> bool:
         """
         Vérifie le pourcentage de batterie réstant
@@ -183,6 +226,7 @@ class Agent:
         elif self.charge <= 2500:
             return True
 
+
     def checkChargeDone(self) -> bool:
         return self.charge == self.autonomie
 
@@ -190,9 +234,13 @@ class Agent:
         if self.tacheChose:
             if self.tacheChose.enCours:
                 if self.tacheToDo and self.tacheChose == self.tacheToDo:
-                    return True
-                else:
                     return False
+                else:
+                    return True
+            else:
+                return True
+        else:
+            return True
 
     def checkEndTache(self) -> bool:
         if self.trajet[self.caseOfTrajet] == self.tacheToDo.arrivee:
@@ -221,12 +269,12 @@ class Agent:
         Module de Agent.move()
         Gere le trajet en cas de besoin de recharge.
         """
-        crgr = plateau.getLieu('charge')
+        crgr = plateau.getLieu('Zone de recharge')
         toGo: Case = None
         for c in crgr:
             if c.isReachable():
                 toGo = c
-
+        
         trj = self.getTrajet_aStar(plateau, toGo)
 
         self.goAfterCharge = self.trajet[-1]
@@ -239,18 +287,18 @@ class Agent:
         Module de Agent.move()
         Gere le mouvement dans le cas ou Agent est en chargement.
         """
-        if self.trajet[self.caseOfTrajet].getType() == 'charge':
+        if self.trajet[self.caseOfTrajet].getType() == 'Zone de recharge':
             if not self.checkChargeDone():
                 self.charging()
         else:
             if self.caseOfTrajet + self.speed < len(self.trajet):
-                # self.charge -= 50 * self.tacheToDo.volume
-                self.charge -= 50
+                self.charge -= 50 * self.wearing
+                # self.charge -= 50
                 self.caseOfTrajet += self.speed
 
             elif self.caseOfTrajet + self.speed >= len(self.trajet):
-                # self.charge -= 50 * self.tacheToDo.volume
-                self.charge -= 50
+                self.charge -= 50 * self.wearing
+                # self.charge -= 50
                 self.trajet = [self.trajet[-1]]
                 self.caseOfTrajet = 0
 
@@ -265,13 +313,13 @@ class Agent:
             self.goAfterCharge = None
 
         if self.caseOfTrajet + self.speed < len(self.trajet):
-            # self.charge -= 50 * self.tacheToDo.volume
-            self.charge -= 50
+            self.charge -= 50 * self.wearing
+            # self.charge -= 50
             self.caseOfTrajet += self.speed
 
         elif self.caseOfTrajet + self.speed >= len(self.trajet):
-            # self.charge -= 50 * self.tacheToDo.volume
-            self.charge -= 50
+            self.charge -= 50 * self.wearing
+            # self.charge -= 50
             self.trajet = [self.trajet[-1]]
             self.caseOfTrajet = 0
 
@@ -304,33 +352,70 @@ class Agent:
         Gestion complète.
         """
         # Verification du niveau de charge
-        needCharge = self.checkNeedCharge()
-        canAccesTache = self.checkAccesTache()
-        isTacheEnd = self.checkEndTache()
 
         if self.charge > 0:
-            if len(self.trajet) > 1:
+            if self.trajet[self.caseOfTrajet] != self.trajet[-1] :
                 if self.tacheChose:
-                    if canAccesTache:
-                        if needCharge:
+                    if self.checkAccesTache():
+                        if self.checkNeedCharge():
                             self.moveT1(plateau)
+                            print(self.trajet[self.caseOfTrajet].getCoords())
+                            print(len(self.trajet))
+                            print(self.caseOfTrajet)
 
                         elif self.isGonnaCharge:
                             self.moveT2()
+                            print(self.trajet[self.caseOfTrajet].getCoords())
+                            print(len(self.trajet))
+                            print(self.caseOfTrajet)
 
                         else:
                             self.moveTEnd(plateau)
+                            print(self.trajet[self.caseOfTrajet].getCoords())
+                            print(len(self.trajet))
+                            print(self.caseOfTrajet)
                     else:
-                        self.chooseTache()
+                        self.chooseTache(plateau)
+                        print("Agent", self.id)
+                        print(self.trajet[self.caseOfTrajet].getCoords())
+                        print(self.tacheChose.depart.getCoords())
+                        print(self.tacheChose.arrivee.getCoords())
                 else:
-                    self.chooseTache()
+                    self.chooseTache(plateau)
+                    print("Agent", self.id)
+                    print(self.trajet[self.caseOfTrajet].getCoords())
+                    print(self.tacheChose.depart.getCoords())
+                    print(self.tacheChose.arrivee.getCoords())
+
+            elif self.isGonnaCharge :
+                    self.moveT2()
 
             else:
-                if isTacheEnd:
-                    self.tacheEnd()
-                    self.chooseTache()
+                if self.trajet[self.caseOfTrajet] == self.tacheChose.depart:
+                    print("Agent", self.id)
+                    print(self.trajet[self.caseOfTrajet].getCoords())
+                    print(self.tacheChose.depart.getCoords())
+                    print(self.tacheChose.arrivee.getCoords())
+                    self.takeTache()
+                    print("Took a tache")
+                else :
+                    self.moveTEnd(plateau)
+                    print(self.trajet[self.caseOfTrajet].getCoords())
+                    print(len(self.trajet))
+                    print(self.caseOfTrajet)
+
+                if self.tacheToDo :
+                    if self.checkEndTache():
+                        print("Agent", self.id)
+                        print(self.trajet[self.caseOfTrajet].getCoords())
+                        print(self.tacheChose.depart.getCoords())
+                        print(self.tacheChose.arrivee.getCoords())
+                        print("Tache end")
+                        self.tacheEnd()
+                        print("score", self.score)
+                        self.chooseTache(plateau)
                 else:
-                    self.setTrajet(self.getTrajet_aStar(plateau, self.tacheToDo.arrive))
+                    self.chooseTache(plateau)
 
         return None
 
