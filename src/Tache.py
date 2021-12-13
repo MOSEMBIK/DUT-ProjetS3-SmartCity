@@ -81,3 +81,9 @@ class Tache:
             return pathing
         else:
             return trajet
+
+    def setEnCours(self, boolean):
+        self.enCours = boolean
+
+    def getEnCours(self):
+        return self.enCours
