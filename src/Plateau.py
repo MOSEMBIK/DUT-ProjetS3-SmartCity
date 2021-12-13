@@ -168,3 +168,5 @@ class Plateau:
             self.listeTaches.append(tache)
         return None
 
+
+

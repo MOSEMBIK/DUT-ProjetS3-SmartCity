@@ -47,9 +47,31 @@ class Agent:
 
     # ~~~~~~~~~~~~~      TACHES      ~~~~~~~~~~~~~~~
 
-    def chooseTache(self) -> None:
+    def chooseTache(self, pl:Plateau) -> None:
         # On choisit une tache au hasard dans la liste.
-        self.tacheChose = rdm.choice(Plateau.listeTaches)
+        self.tacheChose = rdm.choice(pl.listeTaches)
+        return None
+
+
+    def chooseTacheOpti(self, pl:Plateau) -> None:
+        # On choisit la tache la plus proche possible
+        proche = 1000
+        for tache in pl.listeTaches :
+            distance = len(getTrajet_aStar(self, pl, tache.depart);
+            if (len(getTrajet_aStar(self, pl, tache.depart)) < proche):
+                proche = distance
+                self.tacheChose = tache
+        return None
+
+    def chooseTacheOpti2(self, pl:Plateau) -> None:
+        # On choisit la tache la plus proche possible
+        proche = 1000
+        for tache in pl.listeTaches :
+            distance = len(getTrajet_aStar(self, pl, tache.depart);
+            if (len(getTrajet_aStar(self, pl, tache.depart)) < proche):
+                if (checkNeedCharge(self)):
+                    proche = distance
+                    self.tacheChose = tache
         return None
 
     def tacheEnd(self) -> None:
@@ -173,14 +195,15 @@ class Agent:
             else:
                 return True
 
-    def checkNeedCharge(self) -> bool:
+    def checkNeedCharge(self, arv:Case, pl:Plateau) -> bool:
         """
         Vérifie le pourcentage de batterie réstant
         et rétourne True ou False en fonction de la charge.
         """
+        distance = len(self.getTrajet_aStar(self, pl: Plateau, arv: Case))
         if self.isGonnaCharge:
             return False
-        elif self.charge <= 2500:
+        elif distance*50 >= self.autonomie:
             return True
 
     def checkChargeDone(self) -> bool:
