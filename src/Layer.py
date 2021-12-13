@@ -22,7 +22,6 @@ class Layer:
 
     def updateCharge(self, charge):
         self.score1 = charge
-        print(self.score1)
         # addScore(self.score1, self.frame1)
 
     def updateTab(self):

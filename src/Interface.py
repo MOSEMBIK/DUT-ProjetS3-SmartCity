@@ -53,7 +53,6 @@ def addBoard(game_frame, agents):
 
 def updateTab(my_game, charge):
     children = my_game.get_children()
-    print(children)
     my_game.delete(children[0])
     my_game.insert(parent='', index='0', iid='item1', text='',
                    values=('NiSSSSnja', charge, (30, 30)))
