@@ -206,16 +206,27 @@ class Agent:
             else:
                 return True
 
-    def checkNeedCharge(self, arv:Case, pl:Plateau) -> bool:
+    # def checkNeedCharge(self, arv:Case, pl:Plateau) -> bool:
+    #     """
+    #     Vérifie le pourcentage de batterie réstant
+    #     et rétourne True ou False en fonction de la charge.
+    #     """
+    #     distance = len(self.getTrajet_aStar(pl, arv))
+    #     if self.isGonnaCharge:
+    #         return False
+    #     elif distance*50 >= self.autonomie:
+    #         return True
+
+    def checkNeedCharge(self) -> bool:
         """
         Vérifie le pourcentage de batterie réstant
         et rétourne True ou False en fonction de la charge.
         """
-        distance = len(self.getTrajet_aStar(self, pl: Plateau, arv: Case))
         if self.isGonnaCharge:
             return False
-        elif distance*50 >= self.autonomie:
+        elif self.charge <= 2500:
             return True
+
 
     def checkChargeDone(self) -> bool:
         return self.charge == self.autonomie
