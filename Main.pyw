@@ -60,7 +60,7 @@ def main():
 
             # Update du screen, affichage du design de map, pause du programme
             mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
-            time.sleep(0.01)
+            #time.sleep(0.01)
 
         else:
             sim.allGoToRandom()
