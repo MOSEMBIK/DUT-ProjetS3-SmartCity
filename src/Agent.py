@@ -117,7 +117,6 @@ class Agent:
         return None
 
     def getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
-
         """
         Génère le trajet le plus court vers
         une Case donnée en utilisant la methode
