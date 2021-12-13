@@ -47,7 +47,6 @@ def addBoard(game_frame, agents):
                        values=(agent.id, agent.charge, agent.caseOfTrajet, agent.score))
 
     my_game.place(anchor='nw', width=320, rely=0.1)
-
     return my_game
 
     # def updateBoard(selfself, column):
@@ -55,14 +54,31 @@ def addBoard(game_frame, agents):
 
 def updateTab(my_game, agent):
     children = my_game.get_children()
-    print("\n")
-    print("Agent id", agent.id)
-    print("Childrens", children[agent.id])
-    print("\n")
-    print("Agent trajet", agent.trajet[-1].getCoords())
     my_game.delete(children[agent.id])
     my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                    values=(agent.id, agent.charge, agent.trajet[-1].getCoords(), agent.score))
+    return my_game
+
+
+def getScore(my_game):
+    children = my_game.get_children()
+    score = 0
+    for i in children:
+        score += my_game.item(i)['values'][3]
+    return score
+
+
+def createScoreValue(frame, score):
+    font = tkFont.Font(family='Verdana', size=36)
+    label = tkinter.Label(
+        frame, text=score, justify='left', font=font
+    )
+    label.place(anchor='nw', relx=0.24, rely=0.05)
+    return label
+
+
+def updateScoreValue(label, score):
+    label.config(text=score)
 
 
 class Interface:
