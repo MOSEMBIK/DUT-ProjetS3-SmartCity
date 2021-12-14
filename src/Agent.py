@@ -91,7 +91,7 @@ class Agent:
         else :
             self.chooseTache(plateau)
 
-    def tacheEnd(self, plateau: Plateau) -> None:
+    def tacheEnd(self) -> None:
         # A appeler quand l'agent est arrivé.
         self.score += self.tacheToDo.recompense
         self.tacheToDo = None
