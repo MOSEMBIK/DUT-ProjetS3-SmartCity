@@ -435,7 +435,7 @@ class Agent:
 
                 if self.tacheToDo :
                     if self.checkEndTache():
-                        self.tacheEnd(plateau)
+                        self.tacheEnd()
                         self.chooseTache(plateau)
                 else:
                     self.chooseTache(plateau)
