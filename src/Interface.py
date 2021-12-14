@@ -2,7 +2,6 @@ import tkinter
 import tkinter.ttk
 from tkinter import *
 from PIL import ImageTk, Image
-import os
 import tkinter.font as tkFont
 
 
@@ -13,50 +12,60 @@ def addText(text, frame):
     label = tkinter.Label(
         frame, text=text, font=font, justify='center'
     )
-    label.place(anchor='nw', relx=0.25)
-
-
-def addScore(score, frame):
-    font = tkFont.Font(family='Verdana', size=36, weight='bold')
-    label = tkinter.Label(
-        frame, text=score, font=font, justify='center'
-    )
-    label.place(anchor='nw', relx=0.25, rely=0.25)
+    label.place(anchor='nw', relx=0.3)
 
 
 def addBoard(game_frame, agents):
     my_game = tkinter.ttk.Treeview(game_frame)
-    my_game['columns'] = ('agent_id', 'autonomie', 'trajet', 'score')
+    my_game['columns'] = ('agent_id', 'autonomie', 'trajet', 'score', 'tache', 'volume')
 
     my_game.column("#0", width=0, stretch=NO)
     my_game.column("agent_id", anchor=CENTER, width=80)
     my_game.column("autonomie", anchor=CENTER, width=80)
     my_game.column("trajet", anchor=CENTER, width=80)
     my_game.column("score", anchor=CENTER, width=80)
+    my_game.column("tache", anchor=CENTER, width=80)
+    my_game.column("volume", anchor=CENTER, width=80)
 
     my_game.heading("#0", text="", anchor=CENTER)
     my_game.heading("agent_id", text="Agent", anchor=CENTER)
     my_game.heading("autonomie", text="Charge", anchor=CENTER)
     my_game.heading("trajet", text="Trajet", anchor=CENTER)
     my_game.heading("score", text="score", anchor=CENTER)
+    my_game.heading("tache", text="tache", anchor=CENTER)
+    my_game.heading("volume", text="volume", anchor=CENTER)
 
     for i in agents.keys():
         agent = agents[i]
 
         my_game.insert(parent='', index='end', iid=agent.id, text='',
-                       values=(agent.id, agent.charge, agent.caseOfTrajet, agent.score))
+                       values=(agent.id,
+                               agent.charge,
+                               agent.caseOfTrajet,
+                               agent.score,
+                               "No Task ",
+                               0))
 
-    my_game.place(anchor='nw', width=320, rely=0.1)
+    my_game.place(anchor='nw', width=480, rely=0.1)
     return my_game
 
     # def updateBoard(selfself, column):
 
 
 def updateTab(my_game, agent):
-    children = my_game.get_children()
     my_game.delete(agent.id)
-    my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
-                   values=(agent.id, agent.charge, agent.trajet[-1].getCoords(), agent.score))
+    if agent.tacheToDo is None:
+        my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
+                       values=(agent.id, agent.charge, agent.trajet[-1].getCoords(),
+                               agent.score,
+                               "no task"))
+    else:
+        my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
+                       values=(agent.id, agent.charge, agent.trajet[-1].getCoords(),
+                               agent.score,
+                               ("(" + str(agent.tacheToDo.depart.getCoords()[0])
+                                + "," + str(agent.tacheToDo.depart.getCoords()[1]) + ")"),
+                               agent.wearing))
     return my_game
 
 
@@ -73,12 +82,34 @@ def createScoreValue(frame, score):
     label = tkinter.Label(
         frame, text=score, justify='left', font=font
     )
-    label.place(anchor='nw', relx=0.24, rely=0.05)
+    label.place(anchor='nw', relx=0.3, rely=0.05)
     return label
 
 
 def updateScoreValue(label, score):
     label.config(text=score)
+
+
+def createTaskIcon(cv, dpt):
+    exc = Image.open('img/Exclamation.png')
+    im = ImageTk.PhotoImage(exc)
+    c = cv.create_image(0, 0, image=im, anchor='nw')
+    cv.tag_raise(c)
+    cv.update()
+    return c
+
+
+def createImg(cv, coords, equipe):
+    if equipe == 0:
+        skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20,
+                              fill='green')
+    else:
+        skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20,
+                              fill='red')
+
+    # cv.create_rectangle(500, 500, 800, 800, fill='white')
+    # cv.update()
+    return skin
 
 
 class Interface:
@@ -95,9 +126,9 @@ class Interface:
 
     def createCanvas(self):
         w_image, h_image = self.img.size
-        self.root.geometry('1600x' + str(h_image * 20))
+        self.root.geometry('1926x' + str(h_image * 20))
         cv = Canvas(self.root, height=h_image * 20, width=w_image * 20)
-        cv.grid(row=0, column=1, columnspan=1, sticky="N")
+        cv.grid(row=0, column=1, sticky="N")
 
         # self.root.grid_columnconfigure(0, weight=1)
         # self.root.grid_columnconfigure(3, weight=1)
@@ -123,16 +154,6 @@ class Interface:
         :return: void
         """
         self.root.mainloop()
-
-    def createImg(self, cv, coords, equipe):
-        if equipe == 0:
-            skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20, fill='green')
-        else:
-            skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20, fill='red')
-
-        # cv.create_rectangle(500, 500, 800, 800, fill='white')
-        # cv.update()
-        return skin
 
     @staticmethod
     def getPalette():
@@ -179,8 +200,8 @@ class Interface:
     def getWidth(self):
         return self.img.size
 
-    def addFrame(self, column):
-        game_frame = Frame(self.root, width=320, height=1600)
-        game_frame.grid(row=0, column=column)
+    def addFrame(self, row, column):
+        game_frame = Frame(self.root, width=480, height=1600)
+        game_frame.grid(row=row, column=column)
 
         return game_frame
