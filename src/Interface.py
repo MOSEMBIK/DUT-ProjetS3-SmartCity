@@ -206,13 +206,16 @@ class Interface:
 
         return game_frame
 
-  #  def simuFini(self, t):
-   #     self.root.geometry('1620x980')
-   #     if t == 0:
-  #          font = tkFont.Font(family='Verdana', size=36, weight='bold')
-  #          label = tkinter.Label(
-  #              self.root, text=text, font=font, justify='center'
-   #         )
-    #        label.place(anchor='nw', relx=0.3)
+    def gameFini(self, team):
+        font = tkFont.Font(family='Verdana', size=36, weight='bold')
+
+        frame = Frame(self.root, width = 960, height = 960)
+        frame.grid(row = 0, column = 1, sticky = 'N')
+        label = tkinter.Label(
+            frame, text='EQUIPE ' + str(team) + ' WIN', font=font, justify='center'
+        )
+        label.place(anchor = 'n', relx = 0.5, rely = 0.3)
+
+
 
 

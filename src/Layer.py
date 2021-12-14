@@ -39,3 +39,8 @@ class Layer:
         else:
             self.tab2 = updateTab(self.tab2, agent)
         # updateTab(self.tab2, agent)
+
+    def getWinner(self):
+        if self.score1 > self.score2:
+            return 1
+        return 2

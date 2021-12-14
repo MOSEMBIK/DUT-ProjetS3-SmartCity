@@ -171,3 +171,6 @@ class Plateau:
             # createTaskIcon(self.canvas, dpt)
             self.listeTaches.append(tache)
         return None
+
+    def delcv(self):
+        self.canvas.delete("all")

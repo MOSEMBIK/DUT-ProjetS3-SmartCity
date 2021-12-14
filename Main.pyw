@@ -9,16 +9,15 @@ from tkinter import *
 from PIL import ImageTk, Image
 
 
-
 def main():
-    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.png', 2, "", 5)
+    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.png', 2, "", 2)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
 
     sim.allGoToRandom()
 
     while len(sim.plt.listeTaches) > 0:
         skins = []
-        
+
         sim.allMove()
         for e in range(len(sim.equipe)):
             for a in sim.equipe[e].getAgents():
@@ -38,6 +37,8 @@ def main():
 
     print("END")
 
+    sim.plt.delcv()
+    sim.plt.itf.gameFini(sim.layer.getWinner())
     sim.plt.start()
     return None
 
