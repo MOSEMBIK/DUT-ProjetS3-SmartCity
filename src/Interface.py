@@ -205,3 +205,14 @@ class Interface:
         game_frame.grid(row=row, column=column)
 
         return game_frame
+
+  #  def simuFini(self, t):
+   #     self.root.geometry('1620x980')
+   #     if t == 0:
+  #          font = tkFont.Font(family='Verdana', size=36, weight='bold')
+  #          label = tkinter.Label(
+  #              self.root, text=text, font=font, justify='center'
+   #         )
+    #        label.place(anchor='nw', relx=0.3)
+
+

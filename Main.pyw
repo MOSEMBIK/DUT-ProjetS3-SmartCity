@@ -5,6 +5,9 @@ from src.Interface import *
 
 from src.Plateau import *
 from src.Case import *
+from tkinter import *
+from PIL import ImageTk, Image
+
 
 
 def main():
