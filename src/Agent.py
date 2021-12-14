@@ -371,10 +371,11 @@ class Agent:
                     self.moveT2()
 
             else:
-                if self.trajet[self.caseOfTrajet] == self.tacheChose.depart:
-                    self.takeTache(plateau)
-                else :
-                    self.moveTEnd(plateau)
+                if self.tacheChose:
+                    if self.trajet[self.caseOfTrajet] == self.tacheChose.depart:
+                        self.takeTache(plateau)
+                    else :
+                        self.moveTEnd(plateau)
 
                 if self.tacheToDo :
                     if self.checkEndTache():
