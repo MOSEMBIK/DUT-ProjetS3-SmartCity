@@ -35,7 +35,7 @@ class Agent:
         self.tacheChose: Tache = None
         self.tacheToDo: Tache = None
         
-        if self.tacheToDo != None:
+        if self.tacheToDo is not None:
             self.wearing = float('%.2f'%(1 + (self.tacheToDo.volume / self.volumeMax)))
         else :
             self.wearing = 1

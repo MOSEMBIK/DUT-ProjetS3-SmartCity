@@ -3,6 +3,7 @@ import tkinter.ttk
 from tkinter import *
 from PIL import ImageTk, Image
 import tkinter.font as tkFont
+from src.Agent import *
 
 
 # root = Tk()
@@ -20,12 +21,12 @@ def addBoard(game_frame, agents):
     my_game['columns'] = ('agent_id', 'autonomie', 'trajet', 'score', 'tache', 'volume')
 
     my_game.column("#0", width=0, stretch=NO)
-    my_game.column("agent_id", anchor=CENTER, width=80)
-    my_game.column("autonomie", anchor=CENTER, width=80)
-    my_game.column("trajet", anchor=CENTER, width=80)
-    my_game.column("score", anchor=CENTER, width=80)
-    my_game.column("tache", anchor=CENTER, width=80)
-    my_game.column("volume", anchor=CENTER, width=80)
+    my_game.column("agent_id", anchor=CENTER, width=60)
+    my_game.column("autonomie", anchor=CENTER, width=60)
+    my_game.column("trajet", anchor=CENTER, width=60)
+    my_game.column("score", anchor=CENTER, width=60)
+    my_game.column("tache", anchor=CENTER, width=120)
+    my_game.column("volume", anchor=CENTER, width=60)
 
     my_game.heading("#0", text="", anchor=CENTER)
     my_game.heading("agent_id", text="Agent", anchor=CENTER)
@@ -36,12 +37,12 @@ def addBoard(game_frame, agents):
     my_game.heading("volume", text="volume", anchor=CENTER)
 
     for i in agents.keys():
-        agent = agents[i]
+        agent: Agent = agents[i]
 
         my_game.insert(parent='', index='end', iid=agent.id, text='',
                        values=(agent.id,
                                agent.charge,
-                               agent.caseOfTrajet,
+                               agent.trajet[agent.caseOfTrajet],
                                agent.score,
                                "No Task ",
                                0))
@@ -208,9 +209,9 @@ class Interface:
     def gameFini(self, team):
         font = tkFont.Font(family='Verdana', size=36, weight='bold')
 
-        frame = Frame(self.root, width = 960, height = 960)
-        frame.grid(row = 0, column = 1, sticky = 'N')
+        frame = Frame(self.root, width=960, height=960)
+        frame.grid(row=0, column=1, sticky='N')
         label = tkinter.Label(
             frame, text='EQUIPE ' + str(team) + ' WIN', font=font, justify='center'
         )
-        label.place(anchor = 'n', relx = 0.5, rely = 0.3)
+        label.place(anchor='n', relx=0.5, rely=0.3)
