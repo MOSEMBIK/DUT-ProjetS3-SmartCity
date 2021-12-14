@@ -60,8 +60,7 @@ class Tache:
                     if next not in cout or nCout < cout[next]:
                         cout[next] = nCout
                         nCXY = current.getCoords()
-                        prio = nCout + abs(destination.getCoords()[0] - nCXY[0]) + abs(
-                            destination.getCoords()[1] - nCXY[1])
+                        prio = nCout + abs(destination.getCoords()[0] - nCXY[0]) + abs(destination.getCoords()[1] - nCXY[1])
                         queue.append((prio, next))
                         trajet.append(current)
                         done += 1
