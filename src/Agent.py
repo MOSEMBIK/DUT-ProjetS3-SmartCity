@@ -36,7 +36,7 @@ class Agent:
         self.tacheToDo: Tache = None
         
         if self.tacheToDo != None:
-            self.wearing = float('%.2f'%(1 + (self.tacheToDo.volume / self.volumeMax) * 2))
+            self.wearing = float('%.2f'%(1 + (self.tacheToDo.volume / self.volumeMax)))
         else :
             self.wearing = 1
 
@@ -83,7 +83,7 @@ class Agent:
             self.tacheToDo = self.tacheChose
             self.trajet = self.tacheToDo.itineraire
             self.caseOfTrajet = 0
-            self.wearing = float('%.2f'%(1 + ((self.tacheToDo.volume / self.volumeMax) * 2)))
+            self.wearing = float('%.2f'%(1 + ((self.tacheToDo.volume / self.volumeMax))))
             plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheChose))
         else :
             self.chooseTache(plateau)
@@ -231,9 +231,12 @@ class Agent:
                 else:
                     return True
             else:
-                return True
+                if self.tacheToDo and self.tacheChose == self.tacheToDo:
+                    return True
+                else :
+                    return False
         else:
-            return True
+            return False
 
     def checkEndTache(self) -> bool:
         if self.trajet[self.caseOfTrajet] == self.tacheToDo.arrivee:
@@ -262,16 +265,24 @@ class Agent:
         Module de Agent.move()
         Gere le trajet en cas de besoin de recharge.
         """
-        Zcharge = plateau.getLieu('Zone de recharge')
-        toGo: Case = None
+        Zcharge :list[Case] = plateau.getLieu('Zone de recharge')
+        toGo = None
+        print(len(Zcharge))
         for zch in Zcharge:
-            trj : Case = self.getTrajet_aStar(plateau, zch)
-            toGo = None
-            if toGo and len(trj) < len(toGo):
+            print(zch.isReachable())
+            trj = self.getTrajet_aStar(plateau, zch)
+            if toGo != None :
+                print(len(toGo))
+                print(toGo[-1].getCoords())
+                print(len(trj))
+                print(trj[-1].getCoords())
+                if len(trj) < len(toGo) :
+                    toGo = trj
+            else :
                 toGo = trj
 
         self.goAfterCharge = self.trajet[-1]
-        self.trajet = trj
+        self.trajet = toGo
         self.caseOfTrajet = 0
         self.isGonnaCharge = True
 
@@ -346,7 +357,7 @@ class Agent:
             if self.trajet[self.caseOfTrajet] != self.trajet[-1] :
                 if self.tacheChose:
                     if self.checkAccesTache(plateau):
-                        if self.checkNeedCharge():
+                        if self.checkNeedCharge() and not(self.isGonnaCharge):
                             self.moveT1(plateau)
 
                         elif self.isGonnaCharge:
