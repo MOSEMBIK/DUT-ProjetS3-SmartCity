@@ -3,7 +3,7 @@ from src.Interface import *
 
 palette = {'Bioserre': '#b07678', 'Accumulateurs électriques': '#00edd9', 'Chateau d\'eau': '#1e736e', 'Panneaux solaires': '#8e00ed',
            'Station de recyclage': '#5741b0', 'Centre de contrôle': '#a0be0e', 'Parc éolien': '#88877e', 'Centre météorologique': '#ffe900',
-           'Entrepôt': '#ed00c5', 'Générateur d\'énergie': '#ec1c1a', 'Mine': '#6da6b7', 'Spawn A': '#ee8438', 'Spawn B': '#ee7490', 'Laboratoire': '#6a2a3a', 'Zone de recharge': '#5bc944'}
+           'Entrepôt': '#ed00c5', 'Générateur d\'énergie': '#ec1c1a', 'Mine': '#6da6b7', 'Spawn': '#ee7490', 'Laboratoire': '#6a2a3a', 'Zone de recharge': '#5bc944'}
 
 
 

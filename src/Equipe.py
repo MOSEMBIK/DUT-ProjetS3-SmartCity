@@ -12,8 +12,8 @@ class Equipe:
     def getAgents(self) -> dict:
         return self.agents
     
-    def addAgents(self, id : str) -> None:
-        self.agents[id] = Agent(id)
+    def addAgents(self, id : str, spawn : Case) -> None:
+        self.agents[id] = Agent(id, spawn)
         return None
     
     # Déplacement

@@ -10,9 +10,9 @@ class Agent:
     Agent intelligent et autonome.
     """
 
-    def __init__(self, id: str):
+    def __init__(self, id: str, spawn : Case):
         self.id = id
-        self.spawn = [22, 43]
+        self.spawn : Case = spawn
 
         # Parametrage de la vitesse
         self.speed = 1
@@ -83,7 +83,7 @@ class Agent:
             self.tacheToDo = self.tacheChose
             self.trajet = self.tacheToDo.itineraire
             self.caseOfTrajet = 0
-            plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheToDo))
+            plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheChoseo))
         else :
             self.chooseTache(plateau)
 
@@ -232,9 +232,9 @@ class Agent:
     def checkChargeDone(self) -> bool:
         return self.charge == self.autonomie
 
-    def checkAccesTache(self) -> bool:
+    def checkAccesTache(self, plateau: Plateau) -> bool:
         if self.tacheChose:
-            if self.tacheChose.enCours:
+            if self.tacheChose in plateau.listeTaches:
                 if self.tacheToDo and self.tacheChose == self.tacheToDo:
                     return False
                 else:
@@ -358,7 +358,7 @@ class Agent:
         if self.charge > 0:
             if self.trajet[self.caseOfTrajet] != self.trajet[-1] :
                 if self.tacheChose:
-                    if self.checkAccesTache():
+                    if self.checkAccesTache(plateau):
                         if self.checkNeedCharge():
                             self.moveT1(plateau)
 
@@ -411,7 +411,7 @@ class Agent:
     # ~~~~~~~~~~      CHARGEMENT      ~~~~~~~~~~~~
 
     def charging(self):
-        crgParTour = 200
+        crgParTour = 700
         if self.charge + crgParTour < self.autonomie:
             self.charge += crgParTour
         else:
