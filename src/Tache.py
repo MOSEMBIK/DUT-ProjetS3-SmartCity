@@ -14,7 +14,9 @@ class Tache:
         self.itineraire = self.Itineraire_aStar(plat, self.arrivee)
         self.length = len(self.itineraire)
 
-        self.recompense: int = int(self.volume * self.length * (random() * 1.5 + 1.5))
+        self.recompense: int = int(self.volume * self.length * (random() * 0.5 + 1))
+
+        self.rentabilite = (self.recompense / self.length)/self.volume
 
         self.enCours: bool = False
 

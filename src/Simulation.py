@@ -71,11 +71,8 @@ class Simulation:
     def createTaches(self, nbTaches):
         for i in range(nbTaches):
             portes2 = self.plt.getPortes()
-            print(len(self.plt.getPortes()))
-            print(len(portes2))
             dpt = rdm.choice(portes2)
             portes2.pop(portes2.index(dpt))
-            print(len(portes2))
             arv = rdm.choice(portes2)
             volume = randint(10,100)
             tache = Tache(dpt, arv, volume, self.plt)

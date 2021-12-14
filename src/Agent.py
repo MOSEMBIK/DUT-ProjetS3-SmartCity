@@ -62,7 +62,7 @@ class Agent:
         # On choisit la tache la plus rentable
         self.tacheChose = plateau.listeTaches[0]
         for i in plateau.listeTaches:
-            if i.recompense > self.tacheChose.recompense :
+            if i.rentabilite > self.tacheChose.rentabilite :
                 self.tacheChose = i
         self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
         self.caseOfTrajet = 0
@@ -216,7 +216,7 @@ class Agent:
         """
         if self.isGonnaCharge:
             return False
-        elif self.charge <= 4500:
+        elif self.charge <= 5000:
             return True
 
 
