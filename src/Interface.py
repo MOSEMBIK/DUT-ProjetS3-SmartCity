@@ -186,7 +186,7 @@ class Interface:
             for i in range(len(skins)):
                 cv.tag_raise(skins[i])
 
-        mapS = cv.create_image(0, 0, image=imdec, anchor=NW, disabledimage=im)
+        mapS = cv.create_image(0, 0, image=imdec, anchor=NW, disabledimage=imdec)
 
         # cv.create_rectangle(0, 0, h*20, w*20, fill='white')
         cv.update()
@@ -214,7 +214,3 @@ class Interface:
             frame, text='EQUIPE ' + str(team) + ' WIN', font=font, justify='center'
         )
         label.place(anchor = 'n', relx = 0.5, rely = 0.3)
-
-
-
-
