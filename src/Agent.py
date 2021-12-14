@@ -60,12 +60,15 @@ class Agent:
 
     def chooseTache(self, plateau:Plateau) -> None:
         # On choisit la tache la plus rentable
-        self.tacheChose = plateau.listeTaches[0]
-        for i in plateau.listeTaches:
-            if i.rentabilite > self.tacheChose.rentabilite :
-                self.tacheChose = i
-        self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
-        self.caseOfTrajet = 0
+        if plateau.listeTaches != []:
+            self.tacheChose = plateau.listeTaches[0]
+            for i in plateau.listeTaches:
+                if i.rentabilite > self.tacheChose.rentabilite :
+                    self.tacheChose = i
+            self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
+            self.caseOfTrajet = 0
+        else :
+            self.charge = 0
 
     # def chooseTacheOpti2(self, pl:Plateau) -> None:
     #     # On choisit la tache la plus proche possible
