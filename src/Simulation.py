@@ -18,8 +18,8 @@ class Simulation:
             self.equipe.append(Equipe(i, nameEquipe))
             for j in range(nbAgent):
                 idAgent = str(i) + str(j)
-                self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn'))
-                self.skin[self.equipe[i].getAgents()[idAgent]] = self.plt.itf.createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn, i)
+                self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0])
+                self.skin[self.equipe[i].getAgents()[idAgent]] = self.plt.itf.createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
                 # self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.setSkin(self.equipe[
                 # i].getAgents()[int(idAgent)].spawn, 'war.png')
         self.layer: Layer = Layer(self.itf, self.equipe)

@@ -35,8 +35,8 @@ class Agent:
         self.tacheChose: Tache = None
         self.tacheToDo: Tache = None
         
-        if self.tacheToDo :
-            self.wearing = (self.tacheToDo.volume / self.volumeMax) * 3
+        if self.tacheToDo != None:
+            self.wearing = 1 + (self.tacheToDo.volume / self.volumeMax) * 2
         else :
             self.wearing = 1
 
@@ -83,7 +83,8 @@ class Agent:
             self.tacheToDo = self.tacheChose
             self.trajet = self.tacheToDo.itineraire
             self.caseOfTrajet = 0
-            plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheChoseo))
+            self.wearing = 1 + ((self.tacheToDo.volume / self.volumeMax) * 2)
+            plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheChose))
         else :
             self.chooseTache(plateau)
 
@@ -92,6 +93,7 @@ class Agent:
         self.score += self.tacheToDo.recompense
         self.tacheToDo = None
         self.tacheChose = None
+        self.wearing = 1
         return None
 
     # ~~~~~~~~~~~~~      TRAJET      ~~~~~~~~~~~~~~~
@@ -101,7 +103,7 @@ class Agent:
         Génère un trajet aléatoire de 0 à 99 déplacements.
         """
         if not self.trajet:
-            self.trajet.append(plateau.getCase(self.spawn[0], self.spawn[1]))
+            self.trajet.append(plateau.getCase(self.spawn.getCoords()[0], self.spawn.getCoords()[1]))
         else:
             self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0

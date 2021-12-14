@@ -163,7 +163,7 @@ class Plateau:
             dpt = rd.choice(portes2)
             portes2.pop(portes2.index(dpt))
             arv = rd.choice(portes2)
-            volume = randint(0,100)
+            volume = randint(10,100)
             tache = Tache(dpt, arv, volume, self)
             self.listeTaches.append(tache)
         return None
