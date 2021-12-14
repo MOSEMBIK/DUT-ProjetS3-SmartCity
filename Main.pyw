@@ -20,9 +20,10 @@ def main():
     while len(sim.taches) > 0 or len(sim.plt.listeTaches) > 0 or allDone:
         if len(sim.plt.listeTaches) <= 4:
             for i in range(6):
-                t = rdm.choice(sim.taches)
-                sim.plt.listeTaches.append(t)
-                sim.taches.pop(sim.taches.index(t))
+                if len(sim.plt.listeTaches) >= 1:
+                    t = rdm.choice(sim.taches)
+                    sim.plt.listeTaches.append(t)
+                    sim.taches.pop(sim.taches.index(t))
                 
         skins = []
 
