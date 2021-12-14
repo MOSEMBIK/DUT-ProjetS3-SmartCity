@@ -63,8 +63,7 @@ def updateTab(my_game, agent):
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                        values=(agent.id, agent.charge, agent.trajet[-1].getCoords(),
                                agent.score,
-                               ("(" + str(agent.tacheToDo.depart.getCoords()[0])
-                                + "," + str(agent.tacheToDo.depart.getCoords()[1]) + ")"),
+                               agent.tacheToDo.depart.getType(),
                                agent.wearing))
     return my_game
 
