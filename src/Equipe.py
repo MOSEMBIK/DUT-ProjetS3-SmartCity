@@ -7,9 +7,9 @@ class Equipe:
     def __init__(self, id: int, nom: str = ""):
         self.id = id
         self.nom = nom
-        self.agents = {}
+        self.agents : dict[str,Agent] = {}
     
-    def getAgents(self) -> dict:
+    def getAgents(self) -> dict[str,Agent]:
         return self.agents
     
     def addAgents(self, id : str, spawn : Case) -> None:
