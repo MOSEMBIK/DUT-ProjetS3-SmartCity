@@ -36,7 +36,7 @@ class Plateau:
                     self.edges[lCC] = self.nearRoads(lCC)
                     nRC.append(lCC)
             self.edges[rCase] = nRC
-        self.createTaches()
+        # self.createTaches()
 
     def init_map(self):
         """
@@ -158,19 +158,19 @@ class Plateau:
     def isEqualCase(case1, case2):
         return case1.getCoords()[0] == case2.getCoords()[0] and case1.getCoords()[1] == case2.getCoords()[1]
 
-    def createTaches(self):
-        portes = self.getPortes()
+    # def createTaches(self):
+    #     portes = self.getPortes()
 
-        for i in range(10):
-            portes2 = portes
-            dpt = rd.choice(portes2)
-            portes2.pop(portes2.index(dpt))
-            arv = rd.choice(portes2)
-            volume = randint(10,100)
-            tache = Tache(dpt, arv, volume, self)
-            # createTaskIcon(self.canvas, dpt)
-            self.listeTaches.append(tache)
-        return None
+    #     for i in range(10):
+    #         portes2 = portes
+    #         dpt = rd.choice(portes2)
+    #         portes2.pop(portes2.index(dpt))
+    #         arv = rd.choice(portes2)
+    #         volume = randint(10,100)
+    #         tache = Tache(dpt, arv, volume, self)
+    #         # createTaskIcon(self.canvas, dpt)
+    #         self.listeTaches.append(tache)
+    #     return None
 
     def delcv(self):
         self.canvas.delete("all")

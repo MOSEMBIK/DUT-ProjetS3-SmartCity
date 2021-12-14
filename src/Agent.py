@@ -267,15 +267,9 @@ class Agent:
         """
         Zcharge :list[Case] = plateau.getLieu('Zone de recharge')
         toGo = None
-        print(len(Zcharge))
         for zch in Zcharge:
-            print(zch.isReachable())
             trj = self.getTrajet_aStar(plateau, zch)
             if toGo != None :
-                print(len(toGo))
-                print(toGo[-1].getCoords())
-                print(len(trj))
-                print(trj[-1].getCoords())
                 if len(trj) < len(toGo) :
                     toGo = trj
             else :
