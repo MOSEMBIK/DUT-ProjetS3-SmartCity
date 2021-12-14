@@ -8,7 +8,7 @@ from src.Case import *
 
 
 def main():
-    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.png', 2, "", 2)
+    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.png', 2, "", 5)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
     maxTour = 10000
 
@@ -33,7 +33,7 @@ def main():
     # print("Len Trajet : ", len(agent2.trajet))
     # print()
 
-    for i in range(maxTour):
+    while len(sim.plt.listeTaches) > 0:
         skins = []
         # print("Position : ",agent1.trajet[agent1.caseOfTrajet].getCoords())
 
@@ -60,6 +60,8 @@ def main():
 
         else:
             sim.allGoToRandom()
+
+    print("END")
 
     sim.plt.start()
     return None

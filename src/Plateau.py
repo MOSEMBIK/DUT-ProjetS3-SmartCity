@@ -125,8 +125,12 @@ class Plateau:
             for case in casinas:
                 if self.nearRoads(case):
                     potentialPorte.append(case)
-            nouvellePorte = rd.choice(potentialPorte)
-            nouvellePorte.setReachable()
+            if lieu != "Zone de recharge":
+                nouvellePorte = rd.choice(potentialPorte)
+                nouvellePorte.setReachable()
+            else :
+                for p in potentialPorte:
+                    p.setReachable()
 
     def nearLieu(self, case: Case):
         w_img, h_img = self.itf.img.size

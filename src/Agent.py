@@ -18,7 +18,7 @@ class Agent:
         self.speed = 1
 
         # Parametrage de l'autonomie
-        self.autonomie = 10000
+        self.autonomie = 15000
         # Setup de la charge à autonomie
         self.charge = self.autonomie
         self.isGonnaCharge: bool = False
@@ -36,7 +36,7 @@ class Agent:
         self.tacheToDo: Tache = None
         
         if self.tacheToDo != None:
-            self.wearing = 1 + (self.tacheToDo.volume / self.volumeMax) * 2
+            self.wearing = float('%.2f'%(1 + (self.tacheToDo.volume / self.volumeMax) * 2))
         else :
             self.wearing = 1
 
@@ -83,7 +83,7 @@ class Agent:
             self.tacheToDo = self.tacheChose
             self.trajet = self.tacheToDo.itineraire
             self.caseOfTrajet = 0
-            self.wearing = 1 + ((self.tacheToDo.volume / self.volumeMax) * 2)
+            self.wearing = float('%.2f'%(1 + ((self.tacheToDo.volume / self.volumeMax) * 2)))
             plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheChose))
         else :
             self.chooseTache(plateau)
@@ -209,17 +209,6 @@ class Agent:
             else:
                 return True
 
-    # def checkNeedCharge(self, arv:Case, pl:Plateau) -> bool:
-    #     """
-    #     Vérifie le pourcentage de batterie réstant
-    #     et rétourne True ou False en fonction de la charge.
-    #     """
-    #     distance = len(self.getTrajet_aStar(pl, arv))
-    #     if self.isGonnaCharge:
-    #         return False
-    #     elif distance*50 >= self.autonomie:
-    #         return True
-
     def checkNeedCharge(self) -> bool:
         """
         Vérifie le pourcentage de batterie réstant
@@ -227,7 +216,7 @@ class Agent:
         """
         if self.isGonnaCharge:
             return False
-        elif self.charge <= 2500:
+        elif self.charge <= 4500:
             return True
 
 
@@ -273,13 +262,13 @@ class Agent:
         Module de Agent.move()
         Gere le trajet en cas de besoin de recharge.
         """
-        crgr = plateau.getLieu('Zone de recharge')
+        Zcharge = plateau.getLieu('Zone de recharge')
         toGo: Case = None
-        for c in crgr:
-            if c.isReachable():
-                toGo = c
-        
-        trj = self.getTrajet_aStar(plateau, toGo)
+        for zch in Zcharge:
+            trj : Case = self.getTrajet_aStar(plateau, zch)
+            toGo = None
+            if toGo and len(trj) < len(toGo):
+                toGo = trj
 
         self.goAfterCharge = self.trajet[-1]
         self.trajet = trj
@@ -296,13 +285,11 @@ class Agent:
                 self.charging()
         else:
             if self.caseOfTrajet + self.speed < len(self.trajet):
-                self.charge -= 50 * self.wearing
-                # self.charge -= 50
+                self.charge -= int(50 * self.wearing)
                 self.caseOfTrajet += self.speed
 
             elif self.caseOfTrajet + self.speed >= len(self.trajet):
-                self.charge -= 50 * self.wearing
-                # self.charge -= 50
+                self.charge -= int(50 * self.wearing)
                 self.trajet = [self.trajet[-1]]
                 self.caseOfTrajet = 0
 
@@ -317,13 +304,11 @@ class Agent:
             self.goAfterCharge = None
 
         if self.caseOfTrajet + self.speed < len(self.trajet):
-            self.charge -= 50 * self.wearing
-            # self.charge -= 50
+            self.charge -= int(50 * self.wearing)
             self.caseOfTrajet += self.speed
 
         elif self.caseOfTrajet + self.speed >= len(self.trajet):
-            self.charge -= 50 * self.wearing
-            # self.charge -= 50
+            self.charge -= int(50 * self.wearing)
             self.trajet = [self.trajet[-1]]
             self.caseOfTrajet = 0
 
