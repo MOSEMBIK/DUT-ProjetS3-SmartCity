@@ -19,33 +19,37 @@ def addText(text, frame):
 
 def addBoard(game_frame, agents):
     my_game = tkinter.ttk.Treeview(game_frame)
-    my_game['columns'] = ('agent_id', 'autonomie', 'trajet', 'score', 'tache', 'volume')
+    my_game['columns'] = ('agent_id', 'autonomie', 'position', 'score', 'tache', 'tacheAr', 'volume')
 
     my_game.column("#0", width=0, stretch=NO)
-    my_game.column("agent_id", anchor=CENTER, width=60)
+    my_game.column("agent_id", anchor=CENTER, width=20)
     my_game.column("autonomie", anchor=CENTER, width=60)
-    my_game.column("trajet", anchor=CENTER, width=60)
+    my_game.column("position", anchor=CENTER, width=60)
     my_game.column("score", anchor=CENTER, width=60)
     my_game.column("tache", anchor=CENTER, width=120)
+    my_game.column("tacheAr", anchor=CENTER, width=120)
     my_game.column("volume", anchor=CENTER, width=60)
 
     my_game.heading("#0", text="", anchor=CENTER)
-    my_game.heading("agent_id", text="Agent", anchor=CENTER)
+    my_game.heading("agent_id", text="ID", anchor=CENTER)
     my_game.heading("autonomie", text="Charge", anchor=CENTER)
-    my_game.heading("trajet", text="Trajet", anchor=CENTER)
+    my_game.heading("position", text="Position", anchor=CENTER)
     my_game.heading("score", text="score", anchor=CENTER)
     my_game.heading("tache", text="tache", anchor=CENTER)
+    my_game.heading("tacheAr", text="tacheAr", anchor=CENTER)
     my_game.heading("volume", text="volume", anchor=CENTER)
 
     for i in agents.keys():
         agent: Agent = agents[i]
+        print(agent.caseOfTrajet)
 
         my_game.insert(parent='', index='end', iid=agent.id, text='',
                        values=(agent.id,
                                agent.charge,
-                               agent.trajet[agent.caseOfTrajet],
+                               0,
                                agent.score,
-                               "No Task ",
+                               "No task",
+                               "No task",
                                0))
 
     my_game.place(anchor='nw', width=480, rely=0.1)
@@ -58,14 +62,17 @@ def updateTab(my_game, agent):
     my_game.delete(agent.id)
     if agent.tacheToDo is None:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
-                       values=(agent.id, agent.charge, agent.trajet[-1].getCoords(),
+                       values=(agent.id, agent.charge,
+                               agent.trajet[agent.caseOfTrajet].getCoords(),
                                agent.score,
-                               "no task"))
+                               "No task", "No task", agent.wearing))
     else:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
-                       values=(agent.id, agent.charge, agent.trajet[-1].getCoords(),
+                       values=(agent.id, agent.charge,
+                               agent.trajet[agent.caseOfTrajet].getCoords(),
                                agent.score,
                                agent.tacheToDo.depart.getType(),
+                               agent.tacheToDo.arrivee.getType(),
                                agent.wearing))
     return my_game
 
