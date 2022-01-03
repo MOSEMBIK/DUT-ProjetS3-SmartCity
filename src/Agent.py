@@ -87,10 +87,6 @@ class Agent:
             self.caseOfTrajet = 0
             self.wearing = float('%.2f'%(1 + ((self.tacheToDo.volume / self.volumeMax))))
             plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheChose))
-        # L'agent calcule la batterie à l'arrivée, si elle est < 30%, il passera se charger pendant sa tâche
-        if ((self.charge - self.tacheChose.chargeNeeded) < self.autonomie*0.3):
-                print (self.id + "n'aura pas assez de batterie, il va se recharger");
-                self.moveT1(plateau);
         else :
             self.chooseTache(plateau)
 
@@ -278,7 +274,13 @@ class Agent:
         """
         if self.isGonnaCharge:
             return False
-        elif self.charge <= 5000:
+            
+        # L'agent calcule la batterie à l'arrivée, si elle est < 30%, il passera se charger pendant sa tâche
+        elif self.tacheToDo and ((self.charge - self.tacheToDo.chargeNeeded) < self.autonomie*0.3):
+                print (self.id + "n'aura pas assez de batterie, il va se recharger")
+                return True
+
+        elif self.charge <= self.autonomie*0.3:
             return True
 
 
