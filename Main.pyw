@@ -10,7 +10,7 @@ from PIL import ImageTk, Image
 
 
 def main():
-    sim: Simulation = Simulation("SmartCity - MARS", 'img/logo/smartCorp.png', 2, "", 2)
+    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbEquipe=2, nameEquipe="", nbAgent=2, nbTaches=50, nbTachSim=10)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
 
     sim.allGoToRandom()
