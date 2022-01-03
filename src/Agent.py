@@ -57,7 +57,6 @@ class Agent:
         self.trajet = self.getTrajet_aStar_Mannhattan(plateau, self.tacheChose.depart)
         self.caseOfTrajet = 0
 
-
     def chooseTache(self, plateau:Plateau) -> None:
         # On choisit la tache la plus rentable
         if plateau.listeTaches != []:
@@ -88,6 +87,10 @@ class Agent:
             self.caseOfTrajet = 0
             self.wearing = float('%.2f'%(1 + ((self.tacheToDo.volume / self.volumeMax))))
             plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheChose))
+        # L'agent calcule la batterie à l'arrivée, si elle est < 30%, il passera se charger pendant sa tâche
+        if ((self.charge - self.tacheChose.chargeNeeded) < self.autonomie*0.3):
+                print (self.id + "n'aura pas assez de batterie, il va se recharger");
+                self.moveT1(plateau);
         else :
             self.chooseTache(plateau)
 

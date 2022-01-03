@@ -14,6 +14,8 @@ class Tache:
         self.itineraire = self.Itineraire_aStar(plat, self.arrivee)
         self.length = len(self.itineraire)
 
+        self.chargeNeeded : int = int(self.length * 50 * (1+self.volume/100));
+
         self.recompense: int = int(self.volume * self.length * (random() * 0.5 + 1))
 
         self.rentabilite = (self.recompense / self.length)/self.volume
