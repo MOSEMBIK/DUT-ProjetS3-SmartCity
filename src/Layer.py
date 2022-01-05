@@ -30,11 +30,14 @@ class Layer:
         addText('BLUE', self.frame1)
         addText('RED', self.frame2)
 
+        self.winnerTab = createWinnerTeamTab(self.frame3)
+
     def updateScore(self):
         self.score1 = getScore(self.tab1)
         self.score2 = getScore(self.tab2)
         updateScoreValue(self.label1, self.score1)
         updateScoreValue(self.label2, self.score2)
+        updateWinnerTeamTab(self.winnerTab, self.getWinner())
 
     def updateTab(self, agent):
         if int(agent.id) < 10:
