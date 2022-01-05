@@ -8,7 +8,7 @@ import random as rdm
 
 class Simulation:
 
-    def __init__(self, name: str = "", ico : str = None, nbEquipe: int = 1, nameEquipe: str = "", nbAgent: int = 2, nbTaches = 50, nbTachSim = 10):
+    def __init__(self, name: str = "", ico : str = None, nbEquipe: int = 1, nbAgent: int = 2, nbTaches = 50, nbTachesSim = 10):
         self.name = name
         self.itf = Interface('Squelette_map.png')
         self.plt: Plateau = Plateau(self.name, ico, self.itf)
@@ -16,19 +16,17 @@ class Simulation:
         self.equipe: list[Equipe] = []
         self.taches: list[Tache] = []
         self.createTaches(nbTaches)
-        for i in range(nbTachSim):
+        for i in range(nbTachesSim):
             t = rdm.choice(self.taches)
             self.plt.listeTaches.append(t)
             self.taches.pop(self.taches.index(t))
         for i in range(nbEquipe):
-            self.equipe.append(Equipe(i, nameEquipe))
+            self.equipe.append(Equipe(i))
             for j in range(nbAgent):
                 idAgent = str(i) + str(j)
                 self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0])
                 self.skin[self.equipe[i].getAgents()[idAgent]] = createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
 
-                # self.skin[self.equipe[i].getAgents()[int(idAgent)]] = self.plt.itf.setSkin(self.equipe[
-                # i].getAgents()[int(idAgent)].spawn, 'war.png')
         self.layer: Layer = Layer(self.itf, self.equipe)
 
     # Déplacement

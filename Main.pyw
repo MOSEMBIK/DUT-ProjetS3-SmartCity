@@ -5,17 +5,27 @@ from src.Interface import *
 
 from src.Plateau import *
 from src.Case import *
-from src.Menu import *
+from src.SimMenu import *
 
 from tkinter import *
 from PIL import ImageTk, Image
 
-def menu():
-    window = Menu
+def preMain():
+    nbEquipe = 2
+    nbAgentE1 = 1
+    nbAgentE2 = 1
+    nbTaches=50
+    nbTacheSim=10
+    heuristiqueE1=0
+    heuristiqueE2=0
+    
+    window = SimMenu ()
     window.start()
+    return val
 
-def main():
-    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbEquipe=2, nameEquipe="", nbAgent=2, nbTaches=50, nbTachSim=10)
+def main(val):
+    print(val)
+    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbEquipe=2, nbAgent=2, nbTaches=50, nbTachesSim=10)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
 
     sim.allGoToRandom()
@@ -63,5 +73,5 @@ def main():
     return None
 
 if __name__ == "__main__" :
-    menu()
-    main()
+    val = preMain()
+    main(val)
