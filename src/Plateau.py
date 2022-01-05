@@ -47,6 +47,7 @@ class Plateau:
         # On initialise le canvas
         self.itf.root.title(self.nom)
         self.itf.createIcon(self.icon)
+        #self.itf.createWindow()
         cv = self.itf.createCanvas()
         px = self.itf.getPx()
         w_image, h_image = self.itf.getWidth()

@@ -23,10 +23,12 @@ class Layer:
         self.label1 = createScoreValue(self.frame1, self.score1)
         self.label2 = createScoreValue(self.frame2, self.score2)
 
+        self.accelerate = addButton(self.frame3, 0.8, 0.5, '>>')
+        self.pause = addButton(self.frame3, 0.8, 0.4, "II")
 
         # Ajout widgets
-        addText('blue', self.frame1)
-        addText('red', self.frame2)
+        addText('BLUE', self.frame1)
+        addText('RED', self.frame2)
 
     def updateScore(self):
         self.score1 = getScore(self.tab1)
