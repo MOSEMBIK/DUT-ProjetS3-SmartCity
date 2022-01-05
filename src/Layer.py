@@ -6,8 +6,9 @@ class Layer:
         self.itf: Interface = interface
 
         # Creation des frames
-        self.frame1 = self.itf.addFrame(0, 0)
-        self.frame2 = self.itf.addFrame(0, 2)
+        self.frame1 = self.itf.addFrame(1, 0, 860, 140)
+        self.frame2 = self.itf.addFrame(2, 0, 860, 140)
+        self.frame3 = self.itf.addFrame(0, 0, 320, 580)
 
         # Creation des tableaux
         self.tab1 = addBoard(self.frame1, equipe[0].getAgents())
@@ -24,8 +25,8 @@ class Layer:
 
 
         # Ajout widgets
-        addText("Score", self.frame1)
-        addText("Score", self.frame2)
+        addText('blue', self.frame1)
+        addText('red', self.frame2)
 
     def updateScore(self):
         self.score1 = getScore(self.tab1)
@@ -44,3 +45,4 @@ class Layer:
         if self.score1 > self.score2:
             return 1
         return 2
+

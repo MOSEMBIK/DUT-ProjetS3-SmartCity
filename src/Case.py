@@ -1,4 +1,6 @@
 from random import *
+
+from src import Interface
 from src.Interface import *
 
 palette = {'Bioserre': '#b07678', 'Accumulateurs électriques': '#00edd9', 'Chateau d\'eau': '#1e736e', 'Panneaux solaires': '#8e00ed',
@@ -54,7 +56,7 @@ class Case:
         Retourne les coordonnées en pixel de la case
         :return:
         """
-        return [self.coordX / 20, self.coordY / 20]
+        return [self.coordX / 12, self.coordY / 12]
 
     def getColor(self) -> str:
         """

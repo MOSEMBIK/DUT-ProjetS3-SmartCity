@@ -9,16 +9,24 @@ from src.Agent import *
 
 # root = Tk()
 # root1 = tkinter.Tk()
-def addText(text, frame):
-    font = tkFont.Font(family='Verdana', size=36, weight='bold')
+def addText(team, frame):
+    font = tkFont.Font(family='Verdana', size=18, weight='bold')
     label = tkinter.Label(
-        frame, text=text, font=font, justify='center'
+        frame, text="Score :", font=font, justify='center'
     )
-    label.place(anchor='nw', relx=0.3)
+    label.place(anchor='nw', relx=0.65, rely=0.05)
+
+    equipe = tkinter.Label(
+        frame, text=team + " team", font=font, justify='center'
+    )
+    equipe.place(anchor='nw', rely=0.01)
 
 
 def addBoard(game_frame, agents):
-    my_game = tkinter.ttk.Treeview(game_frame)
+    style = tkinter.ttk.Style()
+    style.configure("Treeview", font=('Calibri', 11))
+
+    my_game = tkinter.ttk.Treeview(game_frame, style="Treeview")
     my_game['columns'] = ('agent_id', 'autonomie', 'position', 'score', 'tache', 'tacheAr', 'volume')
 
     my_game.column("#0", width=0, stretch=NO)
@@ -41,7 +49,6 @@ def addBoard(game_frame, agents):
 
     for i in agents.keys():
         agent: Agent = agents[i]
-        print(agent.caseOfTrajet)
 
         my_game.insert(parent='', index='end', iid=agent.id, text='',
                        values=(agent.id,
@@ -52,7 +59,7 @@ def addBoard(game_frame, agents):
                                "No task",
                                0))
 
-    my_game.place(anchor='nw', width=480, rely=0.1)
+    my_game.place(anchor='nw', width=860, height=140, rely=0.3)
     return my_game
 
     # def updateBoard(selfself, column):
@@ -86,11 +93,11 @@ def getScore(my_game):
 
 
 def createScoreValue(frame, score):
-    font = tkFont.Font(family='Verdana', size=36)
+    font = tkFont.Font(family='Verdana', size=18, weight='bold')
     label = tkinter.Label(
         frame, text=score, justify='left', font=font
     )
-    label.place(anchor='nw', relx=0.3, rely=0.05)
+    label.place(anchor='nw', relx=0.8, rely=0.06)
     return label
 
 
@@ -109,10 +116,10 @@ def createTaskIcon(cv, dpt):
 
 def createImg(cv, coords, equipe):
     if equipe == 0:
-        skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20,
-                              fill='green')
+        skin = cv.create_oval(coords[0] * 12, coords[1] * 12, (coords[0] + 1) * 12, (coords[1] + 1) * 12,
+                              fill='blue')
     else:
-        skin = cv.create_oval(coords[0] * 20, coords[1] * 20, (coords[0] + 1) * 20, (coords[1] + 1) * 20,
+        skin = cv.create_oval(coords[0] * 12, coords[1] * 12, (coords[0] + 1) * 12, (coords[1] + 1) * 12,
                               fill='red')
 
     # cv.create_rectangle(500, 500, 800, 800, fill='white')
@@ -134,9 +141,9 @@ class Interface:
 
     def createCanvas(self):
         w_image, h_image = self.img.size
-        self.root.geometry('1926x' + str(h_image * 20))
-        cv = Canvas(self.root, height=h_image * 20, width=w_image * 20)
-        cv.grid(row=0, column=1, sticky="N")
+        self.root.geometry('860x' + str(h_image * 18))
+        cv = Canvas(self.root, height=h_image * 12, width=w_image * 12)
+        cv.grid(row=0, column=0, sticky="nw")
 
         # self.root.grid_columnconfigure(0, weight=1)
         # self.root.grid_columnconfigure(3, weight=1)
@@ -146,15 +153,15 @@ class Interface:
 
     @staticmethod
     def createLieu(cv, coordX, coordY, color):
-        cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill=color, width=1, outline='#0b181c')
+        cv.create_rectangle(coordX, coordY, coordX + 12, coordY + 12, fill=color, width=1, outline='#0b181c')
 
     @staticmethod
     def createRoad(cv, coordX, coordY):
-        cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill='#efe4c6', width=1, outline='#967979')
+        cv.create_rectangle(coordX, coordY, coordX + 12, coordY + 12, fill='#efe4c6', width=1, outline='#967979')
 
     @staticmethod
     def createDecor(cv, coordX, coordY):
-        cv.create_rectangle(coordX, coordY, coordX + 20, coordY + 20, fill='#000000', width=1)
+        cv.create_rectangle(coordX, coordY, coordX + 12, coordY + 12, fill='#000000', width=1)
 
     def main_loop(self):
         """
@@ -176,7 +183,7 @@ class Interface:
         # cv.tag_raise(id)
         resetCoords = cv.coords(id)
         cv.move(id, - resetCoords[0], - resetCoords[1])
-        cv.move(id, coords[0] * 20, coords[1] * 20)
+        cv.move(id, coords[0] * 12, coords[1] * 12)
 
     def skins_map_update(self, cv: Canvas, mapS, skins):
         if mapS:
@@ -184,8 +191,8 @@ class Interface:
         im = Image.open('img/fond_route.png')
         imdec = Image.open('img/decor.png')
         h, w = self.img.size
-        nim = im.resize((h * 20, w * 20), Image.ANTIALIAS)
-        nimdec = imdec.resize((h * 20, w * 20), Image.ANTIALIAS)
+        nim = im.resize((h * 12, w * 12), Image.ANTIALIAS)
+        nimdec = imdec.resize((h * 12, w * 12), Image.ANTIALIAS)
         im = ImageTk.PhotoImage(nim)
         imdec = ImageTk.PhotoImage(nimdec)
 
@@ -208,18 +215,25 @@ class Interface:
     def getWidth(self):
         return self.img.size
 
-    def addFrame(self, row, column):
-        game_frame = Frame(self.root, width=480, height=1600)
-        game_frame.grid(row=row, column=column)
+    def addFrame(self, row, column, w, h):
+        if row == 0:
+            game_frame = Frame(self.root, width=w, height=h,  background="#000000")
+            game_frame.place(relx=0.67)
+        else:
+            game_frame = Frame(self.root, width=w, height=h)
+            game_frame.grid(row=row, column=column)
 
         return game_frame
 
     def gameFini(self, team):
         font = tkFont.Font(family='Verdana', size=36, weight='bold')
-
+        if team == 0:
+            team = 'red'
+        else:
+            team = 'bleu'
         frame = Frame(self.root, width=960, height=960)
         frame.grid(row=0, column=1, sticky='N')
         label = tkinter.Label(
-            frame, text='EQUIPE ' + str(team) + ' WIN', font=font, justify='center'
+            frame, text=str(team) + ' TEAM WIN', font=font, justify='center'
         )
         label.place(anchor='n', relx=0.5, rely=0.3)

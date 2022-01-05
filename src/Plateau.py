@@ -60,8 +60,8 @@ class Plateau:
                 col = '#{:02x}{:02x}{:02x}'.format(*x)
                 c = Case(cv, ix, iy, col)
                 self.contenu.append(c)
-                ix += 20
-            iy += 20
+                ix += 12
+            iy += 12
         return cv
 
     def start(self):
