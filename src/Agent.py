@@ -428,7 +428,7 @@ class Agent:
                 else:
                     self.chooseTache(plateau)
 
-            elif self.isGonnaCharge :
+            elif self.isGonnaCharge:
                     self.moveT2()
 
             else:

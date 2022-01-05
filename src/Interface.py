@@ -17,7 +17,7 @@ def addText(team, frame):
     label.place(anchor='nw', relx=0.65, rely=0.05)
 
     equipe = tkinter.Label(
-        frame, text=team + " team", font=font, justify='center'
+        frame, text=team + " Team", font=font, justify='center'
     )
     equipe.place(anchor='nw', rely=0.01)
 
@@ -33,7 +33,7 @@ def addBoard(game_frame, agents):
     style.configure("Treeview", font=('Calibri', 11))
 
     my_game = tkinter.ttk.Treeview(game_frame, style="Treeview")
-    my_game['columns'] = ('agent_id', 'autonomie', 'position', 'score', 'tache', 'tacheAr', 'volume')
+    my_game['columns'] = ('agent_id', 'autonomie', 'position', 'score', 'tache', 'tacheAr', 'volume', 'Va charger')
 
     my_game.column("#0", width=0, stretch=NO)
     my_game.column("agent_id", anchor=CENTER, width=20)
@@ -43,6 +43,7 @@ def addBoard(game_frame, agents):
     my_game.column("tache", anchor=CENTER, width=120)
     my_game.column("tacheAr", anchor=CENTER, width=120)
     my_game.column("volume", anchor=CENTER, width=60)
+    my_game.column("Va charger", anchor=CENTER, width=60)
 
     my_game.heading("#0", text="", anchor=CENTER)
     my_game.heading("agent_id", text="ID", anchor=CENTER)
@@ -52,18 +53,19 @@ def addBoard(game_frame, agents):
     my_game.heading("tache", text="tache", anchor=CENTER)
     my_game.heading("tacheAr", text="tacheAr", anchor=CENTER)
     my_game.heading("volume", text="volume", anchor=CENTER)
+    my_game.heading("Va charger", text="Va charger", anchor=CENTER)
 
     for i in agents.keys():
         agent: Agent = agents[i]
 
         my_game.insert(parent='', index='end', iid=agent.id, text='',
                        values=(agent.id,
-                               agent.charge,
+                               agent.charge / agent.autonomie * 100,
                                0,
                                agent.score,
                                "No task",
                                "No task",
-                               0))
+                               0, '-'))
 
     my_game.place(anchor='nw', width=860, height=140, rely=0.3)
     return my_game
@@ -71,22 +73,59 @@ def addBoard(game_frame, agents):
     # def updateBoard(selfself, column):
 
 
+def createWinnerTeamTab(game_frame):
+    my_game = tkinter.ttk.Treeview(game_frame, style="Treeview")
+    my_game['columns'] = 'Equipe'
+
+    my_game.column("#0", width=0, stretch=NO)
+    my_game.column("Equipe", anchor=CENTER, width=60)
+
+    my_game.heading("#0", text="", anchor=CENTER)
+    my_game.heading("Equipe", text="Equipe Gagnante", anchor=CENTER)
+
+    my_game.insert(parent='', index='end', iid='BLUE TEAM', text='',
+                   values='-')
+
+    my_game.insert(parent='', index='end', iid='RED TEAM', text='',
+                   values='-')
+    my_game.place(anchor='nw', width=140, height=62, relx=0.3, rely=0.3)
+    return my_game
+
+
+def updateWinnerTeamTab(game_frame, winner):
+    game_frame.delete('BLUE TEAM')
+    game_frame.delete('RED TEAM')
+    if winner == 1:
+        winner = 'BLUE TEAM'
+        loser = 'RED TEAM'
+    else:
+        winner = 'RED TEAM'
+        loser = 'BLUE TEAM'
+    game_frame.insert(parent='', index=0, iid=winner, text='', values=winner)
+    game_frame.insert(parent='', index=1, iid=loser, text='', values=loser)
+
+
+
 def updateTab(my_game, agent):
     my_game.delete(agent.id)
+    if agent.isGonnaCharge:
+        charge = "Va se charger"
+    else:
+        charge = "-"
     if agent.tacheToDo is None:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
-                       values=(agent.id, agent.charge,
+                       values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
                                agent.trajet[agent.caseOfTrajet].getCoords(),
                                agent.score,
-                               "No task", "No task", agent.wearing))
+                               "No task", "No task", agent.wearing, charge))
     else:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
-                       values=(agent.id, agent.charge,
+                       values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
                                agent.trajet[agent.caseOfTrajet].getCoords(),
                                agent.score,
                                agent.tacheToDo.depart.getType(),
                                agent.tacheToDo.arrivee.getType(),
-                               agent.wearing))
+                               agent.wearing, charge))
     return my_game
 
 
