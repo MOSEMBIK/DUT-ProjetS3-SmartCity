@@ -136,6 +136,8 @@ def createImg(cv, coords, equipe):
 class Interface:
     def __init__(self, img):
         self.root = Tk()
+        self.root.resizable(False, False)
+
         self.img = Image.open('img/' + img, 'r').convert('RGB')
 
     def getPx(self):
@@ -148,12 +150,13 @@ class Interface:
     def createWindow(self):
         w_image, h_image = self.img.size
         self.root.geometry('860x' + str(h_image * 18 - 4))
+        
 
     def createCanvas(self):
         w_image, h_image = self.img.size
         # self.root.geometry('860x' + str(h_image * 18-4))
         cv = Canvas(self.root, height=h_image * 12, width=w_image * 12)
-        cv.grid(row=0, column=0, sticky="nw")
+        cv.grid(sticky="nw")
 
         # self.root.grid_columnconfigure(0, weight=1)
         # self.root.grid_columnconfigure(3, weight=1)

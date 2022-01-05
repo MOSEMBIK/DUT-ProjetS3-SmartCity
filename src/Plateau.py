@@ -36,7 +36,6 @@ class Plateau:
                     self.edges[lCC] = self.nearRoads(lCC)
                     nRC.append(lCC)
             self.edges[rCase] = nRC
-        # self.createTaches()
 
     def init_map(self):
         """
@@ -47,7 +46,7 @@ class Plateau:
         # On initialise le canvas
         self.itf.root.title(self.nom)
         self.itf.createIcon(self.icon)
-        #self.itf.createWindow()
+        self.itf.createWindow()
         cv = self.itf.createCanvas()
         px = self.itf.getPx()
         w_image, h_image = self.itf.getWidth()

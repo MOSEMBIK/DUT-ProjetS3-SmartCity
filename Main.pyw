@@ -5,9 +5,14 @@ from src.Interface import *
 
 from src.Plateau import *
 from src.Case import *
+from src.Menu import *
+
 from tkinter import *
 from PIL import ImageTk, Image
 
+def menu():
+    window = Menu
+    window.start()
 
 def main():
     sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbEquipe=2, nameEquipe="", nbAgent=2, nbTaches=50, nbTachSim=10)
@@ -57,5 +62,6 @@ def main():
     sim.plt.start()
     return None
 
-
-main()
+if __name__ == "__main__" :
+    menu()
+    main()
