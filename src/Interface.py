@@ -22,6 +22,12 @@ def addText(team, frame):
     equipe.place(anchor='nw', rely=0.01)
 
 
+def addButton(frame, x, y, text):
+    w = tkinter.Button(frame, text=text)
+    w.place(anchor="nw", rely=x, relx=y)
+    return w
+
+
 def addBoard(game_frame, agents):
     style = tkinter.ttk.Style()
     style.configure("Treeview", font=('Calibri', 11))
@@ -97,7 +103,7 @@ def createScoreValue(frame, score):
     label = tkinter.Label(
         frame, text=score, justify='left', font=font
     )
-    label.place(anchor='nw', relx=0.8, rely=0.06)
+    label.place(anchor='nw', relx=0.8, rely=0.055)
     return label
 
 
@@ -139,9 +145,13 @@ class Interface:
         """
         return self.img.load()
 
+    def createWindow(self):
+        w_image, h_image = self.img.size
+        self.root.geometry('860x' + str(h_image * 18 - 4))
+
     def createCanvas(self):
         w_image, h_image = self.img.size
-        self.root.geometry('860x' + str(h_image * 18))
+        # self.root.geometry('860x' + str(h_image * 18-4))
         cv = Canvas(self.root, height=h_image * 12, width=w_image * 12)
         cv.grid(row=0, column=0, sticky="nw")
 
@@ -217,7 +227,7 @@ class Interface:
 
     def addFrame(self, row, column, w, h):
         if row == 0:
-            game_frame = Frame(self.root, width=w, height=h,  background="#000000")
+            game_frame = Frame(self.root, width=w, height=h)
             game_frame.place(relx=0.67)
         else:
             game_frame = Frame(self.root, width=w, height=h)
@@ -228,12 +238,12 @@ class Interface:
     def gameFini(self, team):
         font = tkFont.Font(family='Verdana', size=36, weight='bold')
         if team == 0:
-            team = 'red'
+            team = 'RED'
         else:
-            team = 'bleu'
+            team = 'BLUE'
         frame = Frame(self.root, width=960, height=960)
         frame.grid(row=0, column=1, sticky='N')
         label = tkinter.Label(
-            frame, text=str(team) + ' TEAM WIN', font=font, justify='center'
+            frame, text=team + ' TEAM WIN', font=font, justify='center'
         )
         label.place(anchor='n', relx=0.5, rely=0.3)
