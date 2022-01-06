@@ -12,7 +12,7 @@ class Equipe:
     def getAgents(self) -> dict[str,Agent]:
         return self.agents
     
-    def addAgents(self, id : str, spawn : Case, heur : int = 0) -> None:
+    def addAgents(self, id : str, spawn : Case, heur : int = 0, choixT : int = 0) -> None:
         self.agents[id] = Agent(id, spawn, heur)
         return None
     

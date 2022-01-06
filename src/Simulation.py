@@ -8,7 +8,7 @@ import random as rdm
 
 class Simulation:
 
-    def __init__(self, name: str = "", ico : str = None, nbAgentE1: int = 2, nbAgentE2: int = 2, heuristiqueE1=0, heuristiqueE2=0, nbTaches = 50, nbTachesSim = 10):
+    def __init__(self, name: str = "", ico : str = None, nbAgentE1: int = 2, nbAgentE2: int = 2, heuristiqueE1=0, heuristiqueE2=0, choixTacheE1=1, choixTacheE2=1, nbTaches = 50, nbTachesSim = 10):
         self.name = name
         self.itf = Interface('Squelette_map.png')
         self.plt: Plateau = Plateau(self.name, ico, self.itf)
@@ -25,12 +25,12 @@ class Simulation:
             if i == 0:
                 for j in range(nbAgentE1):
                     idAgent = str(i) + str(j)
-                    self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0], heuristiqueE1)
+                    self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0], heuristiqueE1, choixTacheE1)
                     self.skin[self.equipe[i].getAgents()[idAgent]] = createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
             if i == 1:
                 for j in range(nbAgentE2):
                     idAgent = str(i) + str(j)
-                    self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0], heuristiqueE2)
+                    self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0], heuristiqueE2, choixTacheE2)
                     self.skin[self.equipe[i].getAgents()[idAgent]] = createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
         
         self.layer: Layer = Layer(self.itf, self.equipe)
