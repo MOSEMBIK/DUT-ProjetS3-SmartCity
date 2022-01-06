@@ -20,12 +20,12 @@ def preMain():
 
     window = SimMenu()
     window.start()
-    
+
     return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, nbTaches, nbTacheSim
 
 def main(val):
     print(val)
-    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbAgentE1=2, nbAgentE2=2, nbTaches=50, nbTachesSim=10)
+    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbAgentE1=2, nbAgentE2=2, heuristiqueE1=1, heuristiqueE2=1, nbTaches=50, nbTachesSim=10)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
 
     sim.allGoToRandom()

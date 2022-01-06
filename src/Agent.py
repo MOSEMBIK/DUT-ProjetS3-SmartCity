@@ -10,12 +10,13 @@ class Agent:
     Agent intelligent et autonome.
     """
 
-    def __init__(self, id: str, spawn : Case):
+    def __init__(self, id: str, spawn : Case, heur):
         self.id = id
         self.spawn : Case = spawn
 
         # Parametrage de la vitesse
         self.speed = 1
+        self.heuristique = heur
 
         # Parametrage de l'autonomie
         self.autonomie = 15000
@@ -54,7 +55,7 @@ class Agent:
         # On choisit une tache au hasard dans la liste.
         self.tacheChose = rdm.choice(plateau.listeTaches)
 
-        self.trajet = self.getTrajet_aStar_Mannhattan(plateau, self.tacheChose.depart)
+        self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
         self.caseOfTrajet = 0
 
     def chooseTache(self, plateau:Plateau) -> None:
@@ -64,7 +65,7 @@ class Agent:
             for i in plateau.listeTaches:
                 if i.rentabilite > self.tacheChose.rentabilite :
                     self.tacheChose = i
-            self.trajet = self.getTrajet_aStar_Mannhattan(plateau, self.tacheChose.depart)
+            self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
             self.caseOfTrajet = 0
         else :
             self.charge = 0
@@ -72,7 +73,11 @@ class Agent:
     def takeTache(self, plateau: Plateau):
         if self.tacheChose in plateau.listeTaches:
             self.tacheToDo = self.tacheChose
-            self.trajet = self.tacheToDo.itineraire
+            print(self.id[0])
+            if self.id[0] == "0" :
+                self.trajet = self.tacheToDo.itineraireE1
+            if self.id[0] == "1" :
+                self.trajet = self.tacheToDo.itineraireE2
             self.caseOfTrajet = 0
             self.wearing = float('%.2f'%(1 + ((self.tacheToDo.volume / self.volumeMax))))
             plateau.listeTaches.pop(plateau.listeTaches.index(self.tacheChose))
@@ -99,7 +104,7 @@ class Agent:
             self.trajet = [self.trajet[self.caseOfTrajet]]
             self.caseOfTrajet = 0
 
-        t = self.getTrajet_aStar_Mannhattan(plateau, rdm.choice(plateau.getLieu('road')))
+        t = self.getTrajet_aStar(plateau, rdm.choice(plateau.getLieu('road')))
         for c in t:
             self.trajet.append(c)
 
@@ -225,6 +230,71 @@ class Agent:
         else:
             return trajet
 
+    def getTrajet_aStar_Dijkstra(self, plateau: Plateau, destination: Case) -> list:
+        """
+        Génère le trajet le plus court vers
+        une Case donnée en utilisant la methode
+        type de l'algorithme a*.
+        """
+        trajet = [self.trajet[self.caseOfTrajet]]
+        done = 0
+        if destination.isReachable():
+            if trajet[done].type != 'road':
+                trajet.append(plateau.nearRoads(trajet[done])[0])
+                done += 1
+
+            queue: list[tuple(int, Case)] = [(0, trajet[-1])]
+            cout = {}
+            cout[trajet[done]] = 0
+
+            edges = plateau.edges
+
+            # Génération plus court chemin
+            while queue:
+                # Recuperation de la case optimale
+                idx = 0
+                for i in range(1, len(queue)):
+                    if queue[idx][0] > queue[i][0]:
+                        idx = i
+                current = queue[idx][1]
+                queue.remove(queue[idx])
+
+                # Gestion de l'arrivee
+                if plateau.isEqualCase(current, destination):
+                    trajet.append(destination)
+                    break
+
+                # Generation du trajet
+                for next in edges[current]:
+                    nCout = cout[current]
+                    if next not in cout or nCout < cout[next]:
+                        cout[next] = nCout
+                        prio = nCout + 1
+                        queue.append((prio, next))
+                        trajet.append(current)
+                        done += 1
+
+            pathing: list[Case] = [trajet[len(trajet) - 1]]
+            inPath = 0
+            for i in range(len(trajet) - 2, -1, -1):
+                if trajet[i] in plateau.nearLieu(pathing[inPath]) or trajet[i] in plateau.nearRoads(pathing[inPath]):
+                    pathing.append(trajet[i])
+                    inPath += 1
+            pathing.reverse()
+
+            return pathing
+        else:
+            return trajet
+
+    def getTrajet_aStar(self, plateau: Plateau, destination: Case) -> list:
+    
+        if self.heuristique == 0:
+            return self.getTrajet_aStar_Mannhattan(plateau, destination)
+        if self.heuristique == 1:
+            return self.getTrajet_aStar_Pythagore(plateau, destination)
+        if self.heuristique == 2:
+            return self.getTrajet_aStar_Dijkstra(plateau, destination)
+
     # ~~~~~~~~~~~~      CHECKS      ~~~~~~~~~~~~~~
 
     def OLD_checkNeedCharge(self, plateau) -> bool:
@@ -247,7 +317,7 @@ class Agent:
 
             self.trajet = [self.trajet[-1]]
             self.caseOfTrajet = 0
-            destToChrage = len(self.getTrajet_aStar_Mannhattan(plateau, toGo))
+            destToChrage = len(self.getTrajet_aStar(plateau, toGo))
             self.trajet = tempTrj
             self.caseOfTrajet = tempCoT
 
@@ -320,7 +390,7 @@ class Agent:
         Zcharge :list[Case] = plateau.getLieu('Zone de recharge')
         toGo = None
         for zch in Zcharge:
-            trj = self.getTrajet_aStar_Mannhattan(plateau, zch)
+            trj = self.getTrajet_aStar(plateau, zch)
             if toGo != None :
                 if len(trj) < len(toGo) :
                     toGo = trj
@@ -356,7 +426,7 @@ class Agent:
         Gere le trajet si aucun parametre blocant.
         """
         if self.goAfterCharge:
-            self.trajet = self.getTrajet_aStar_Mannhattan(plateau, self.goAfterCharge)
+            self.trajet = self.getTrajet_aStar(plateau, self.goAfterCharge)
             self.caseOfTrajet = 0
             self.goAfterCharge = None
 
@@ -442,7 +512,7 @@ class Agent:
         """
         Envoie un agent vers une direction.
         """
-        self.setTrajet(self.getTrajet_aStar_Mannhattan(plateau, destination))
+        self.setTrajet(self.getTrajet_aStar(plateau, destination))
         return None
 
     def goToRandom(self, plateau: Plateau) -> None:
