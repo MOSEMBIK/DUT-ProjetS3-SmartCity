@@ -12,7 +12,6 @@ from PIL import ImageTk, Image
 
 
 def preMain():
-
     window = SimMenu()
     window.start()
     nbAgentE1 = window.nbAgentE1
