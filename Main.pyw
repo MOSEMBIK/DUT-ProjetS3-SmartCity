@@ -23,15 +23,6 @@ def preMain():
     choixTacheE2 = window.choixTacheE2
     nbTachesSim = 10
 
-    print("nb Agent Equipe 1 : ", nbAgentE1)
-    print("nb Agent Equipe 2 : ", nbAgentE2)
-    print("Nb de taches : ", nbTaches)
-    print("Nb de taches disponibles max : ", nbTachesSim)
-    print("Heuristique equipe 1 : ", heuristiqueE1)
-    print("Heuristique equipe 2 : ", heuristiqueE2)
-    print("Choix tache equipe 1 : ", choixTacheE1)
-    print("Choix tache equipe 2 : ", choixTacheE2)
-
     return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTachesSim
 
 
@@ -69,12 +60,6 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
         # Update du screen, affichage du design de map, pause du programme
         mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
         time.sleep(0.02)
-
-        tour+=1
-        print(tour)
-        print(len(sim.taches) > 0)
-        print(len(sim.plt.listeTaches) > 0)
-        print(len(enCours) > 0)
 
     print("END")
 
