@@ -21,7 +21,6 @@ def preMain():
     heuristiqueE2 = window.heuristiqueE2
     choixTacheE1 = window.choixTacheE1
     choixTacheE2 = window.choixTacheE2
-    print(nbTaches)
     nbTachesSim = 10
 
     return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTachesSim
@@ -59,8 +58,6 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
         mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
         
         sim.layer.sleepp()
-
-    print("END")
 
     sim.plt.delcv()
     sim.plt.itf.gameFini(sim.layer.getWinner())
