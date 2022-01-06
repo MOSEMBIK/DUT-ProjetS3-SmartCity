@@ -455,9 +455,14 @@ class Interface:
             team = 'BLUE'
         else:
             team = 'RED'
-        frame = Frame(self.root, width=500, height=200)
+        frame = Frame(self.root, width=500, height=400)
         frame.grid(row=0, column=0, sticky='NW')
         label = tkinter.Label(
             frame, text=team + ' TEAM WIN', font=font, justify='center', bg=team
         )
         label.place(anchor='nw', relx=0.1, rely=0.4)
+
+        w = tkinter.Button(frame, text='Exit', command=lambda: self.root.destroy(),
+                       height=3, width=5)
+        w.place(anchor="nw", rely=0.8, relx=0.4)
+
