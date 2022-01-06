@@ -353,7 +353,7 @@ def updateLeaderBoard(my_game, agent):
 class Interface:
     def __init__(self, img):
         self.root = Tk()
-        # self.root.resizable(False, False)
+        self.root.resizable(False, False)
 
         self.img = Image.open('img/' + img, 'r').convert('RGB')
 
