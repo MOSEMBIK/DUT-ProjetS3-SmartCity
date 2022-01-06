@@ -98,10 +98,10 @@ class SimMenu:
         label.place(anchor='nw', relx=0.2, rely=0.25)
 
         addButton(self.itf.root, 0.45, 0.27, '10', lambda: self.commandButtonTaches(10))
-        addButton(self.itf.root, 0.45, 0.37, '20', lambda: self.commandButtonTaches(20))
-        addButton(self.itf.root, 0.45, 0.47, '30', lambda: self.commandButtonTaches(30))
-        addButton(self.itf.root, 0.45, 0.57, '40', lambda: self.commandButtonTaches(40))
-        addButton(self.itf.root, 0.45, 0.67, '50', lambda: self.commandButtonTaches(50))
+        addButton(self.itf.root, 0.45, 0.37, '25', lambda: self.commandButtonTaches(25))
+        addButton(self.itf.root, 0.45, 0.47, '50', lambda: self.commandButtonTaches(50))
+        addButton(self.itf.root, 0.45, 0.57, '100', lambda: self.commandButtonTaches(100))
+        addButton(self.itf.root, 0.45, 0.67, '500', lambda: self.commandButtonTaches(500))
 
     def commandButtonTaches(self, button):
         self.nbTaches = button
