@@ -18,7 +18,7 @@ def preMain():
     nbTacheSim=10
     heuristiqueE1=0
     heuristiqueE2=0
-    
+    val = 0
     window = SimMenu ()
     window.start()
     return val
