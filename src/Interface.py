@@ -169,7 +169,7 @@ def updateTab(my_game, agent):
 
 def getStrHeuristique(heuristique):
     if heuristique == 0:
-        return "Mannathan"
+        return "Mannhattan"
     elif heuristique == 1:
         return "Pythagore"
     elif heuristique == 2:
@@ -353,7 +353,7 @@ def updateLeaderBoard(my_game, agent):
 class Interface:
     def __init__(self, img):
         self.root = Tk()
-        # self.root.resizable(False, False)
+        self.root.resizable(False, False)
 
         self.img = Image.open('img/' + img, 'r').convert('RGB')
 
