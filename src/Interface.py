@@ -95,7 +95,7 @@ def createWinnerTeamTab(game_frame):
     my_game.heading("#0", text="", anchor=CENTER)
     my_game.heading("Equipe", text="Equipe W", anchor=CENTER)
     my_game.heading("heuristique", text="Heuristique", anchor=CENTER)
-    my_game.heading("choixTache", text="choixTache", anchor=CENTER)
+    my_game.heading("choixTache", text="Choix", anchor=CENTER)
 
     my_game.insert(parent='', index='end', iid='BLUE TEAM', text='',
                    values=('-', '-', '-'))
