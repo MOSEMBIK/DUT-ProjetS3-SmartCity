@@ -80,7 +80,6 @@ class Agent:
     def chooseTache_Proximite(self, plateau:Plateau) -> None:
         # On choisit la tache la plus proche
         if plateau.listeTaches != []:
-            self.tacheChose = plateau.listeTaches[0]
             for i in plateau.listeTaches:
                 toGo = None
                 trj = self.getTrajet_aStar(plateau, i.depart)
@@ -90,6 +89,7 @@ class Agent:
                         self.tacheChose = i
                 else :
                     toGo = trj
+                    self.tacheChose = i
             self.trajet = toGo
             self.caseOfTrajet = 0
         else :

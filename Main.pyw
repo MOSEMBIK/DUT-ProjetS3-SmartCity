@@ -59,8 +59,6 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
         
         sim.layer.sleepp()
 
-    print("END")
-
     sim.plt.delcv()
     sim.plt.itf.gameFini(sim.layer.getWinner())
     sim.plt.start()

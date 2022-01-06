@@ -182,7 +182,7 @@ def getStrChoixT(choix):
     elif choix == 1:
         return "Rentable"
     else:
-        return "proximité"
+        return "Proximité"
 
 
 def getScore(my_game):
