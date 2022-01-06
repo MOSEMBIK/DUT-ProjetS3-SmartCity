@@ -21,7 +21,7 @@ class Plateau:
         self.contenu: list[Case] = []
         self.canvas = Plateau.init_map(self)
         self.setPortes()
-        self.listeTaches = []
+        self.listeTaches : list[Tache] = []
 
         self.img = 0
 
