@@ -1,4 +1,5 @@
 from src.Interface import *
+import time
 
 
 class Layer:
@@ -20,6 +21,9 @@ class Layer:
         self.score1 = 0
         self.score2 = 0
 
+        ##
+        self.sleep = 0.02
+
         # Taches restantes et disponibls restantes
         self.showtacheRestantes = createTacheValue(self.frame3, len(taches) + 10)
         self.showtachesDispoRestantes = createTacheDispoValue(self.frame3, len(listTache))
@@ -28,8 +32,9 @@ class Layer:
         self.label1 = createScoreValue(self.frame1, self.score1)
         self.label2 = createScoreValue(self.frame2, self.score2)
 
-        self.accelerate = addButton(self.frame3, 0.90, 0.5, '>>', lambda: print('pause'))
-        self.pause = addButton(self.frame3, 0.90, 0.4, "II", lambda: print("acceleration"))
+        self.pause = addButton(self.frame3, 0.90, 0.4, "II", lambda: self.setupSleep(50))
+        self.play = addButton(self.frame3, 0.90, 0.5, 'P', lambda: self.setupSleep(0.02))
+        self.accelerate = addButton(self.frame3, 0.90, 0.6, '>>', lambda: self.setupSleepAccelerate())
 
         # Ajout widgets
         addText('BLUE', self.frame1)
@@ -37,6 +42,25 @@ class Layer:
         addSmartCorp(self.frame3)
         showTaches(self.frame3, len(taches) + 10, len(listTache))
         self.winnerTab = createWinnerTeamTab(self.frame3)
+
+    def setupSleep(self, sec):
+        self.sleep = sec
+
+    def setupSleepAccelerate(self):
+        if self.sleep == 1:
+            self.sleep = 0.02
+        else:
+            if self.sleep == 0.5:
+                self.sleep = 1
+
+            if self.sleep == 0.2:
+                self.sleep = 0.5
+
+            if self.sleep == 0.02:
+                self.sleep = 0.2
+
+    def sleepp(self):
+        time.sleep(self.sleep)
 
     def updateScore(self):
         self.score1 = getScore(self.tab1)
@@ -46,7 +70,7 @@ class Layer:
         updateWinnerTeamTab(self.winnerTab, self.getWinner(), self.equipe)
 
     def updateTache(self, taches, tachesDispo):
-        self.showtacheRestantes.config(text=taches + 10)
+        self.showtacheRestantes.config(text=taches)
         self.showtachesDispoRestantes.config(text=tachesDispo)
 
     def updateTab(self, agent):
