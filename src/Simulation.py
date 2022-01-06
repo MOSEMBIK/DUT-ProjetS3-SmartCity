@@ -35,6 +35,8 @@ class Simulation:
                     self.skin[self.equipe[i].getAgents()[idAgent]] = createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
         
         self.layer: Layer = Layer(self.itf, self.equipe)
+        
+        self.itf.root.title(self.name+" - MARS (Simulation running)")
 
     # Déplacement
     def agentMoveSimple(self, idE: int, idA: str) -> None:
