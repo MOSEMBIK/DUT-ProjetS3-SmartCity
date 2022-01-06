@@ -34,7 +34,7 @@ class Layer:
 
         self.pause = addButton(self.frame3, 0.90, 0.25, "II", lambda: self.setupSleep(20))
         self.play = addButton(self.frame3, 0.90, 0.35, 'P', lambda: self.setupSleep(0.02))
-        self.accelerate = addButton(self.frame3, 0.90, 0.45, 'Vitesse', lambda: self.setupSleepAccelerate())
+        self.accelerate = addButton(self.frame3, 0.90, 0.45, 'x1', lambda: self.setupSleepAccelerate())
 
         # Ajout widgets
         addText('BLUE', self.frame1)
@@ -50,15 +50,20 @@ class Layer:
         # 0.5
         if self.sleep == 0:
             self.sleep = 0.8
+            self.accelerate.configure(text='x0.5')
+
         else:
             if self.sleep == 0.1:
+                self.accelerate.configure(text='x3')
                 self.sleep = 0
 
             if self.sleep == 0.4:
                 self.sleep = 0.1
+                self.accelerate.configure(text='x2')
 
             if self.sleep == 0.8:
                 self.sleep = 0.4
+                self.accelerate.configure(text='x1')
 
     def sleepp(self):
         time.sleep(self.sleep)
