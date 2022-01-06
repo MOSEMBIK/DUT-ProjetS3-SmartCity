@@ -277,7 +277,6 @@ class Agent:
             
         # L'agent calcule la batterie à l'arrivée, si elle est < 30%, il passera se charger pendant sa tâche
         elif self.tacheToDo and ((self.charge - self.tacheToDo.chargeNeeded) < self.autonomie*0.3):
-                print (self.id + "n'aura pas assez de batterie, il va se recharger")
                 return True
 
         elif self.charge <= self.autonomie*0.3:

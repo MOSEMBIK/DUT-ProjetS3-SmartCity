@@ -33,15 +33,15 @@ def addBoard(game_frame, agents):
     style.configure("Treeview", font=('Calibri', 11))
 
     my_game = tkinter.ttk.Treeview(game_frame, style="Treeview")
-    my_game['columns'] = ('agent_id', 'autonomie', 'position', 'score', 'tache', 'tacheAr', 'volume', 'Va charger')
+    my_game['columns'] = ('agent_id', 'autonomie', 'position', 'score', 'Départ', 'Arrivée', 'volume', 'Va charger')
 
     my_game.column("#0", width=0, stretch=NO)
     my_game.column("agent_id", anchor=CENTER, width=20)
     my_game.column("autonomie", anchor=CENTER, width=60)
     my_game.column("position", anchor=CENTER, width=60)
     my_game.column("score", anchor=CENTER, width=60)
-    my_game.column("tache", anchor=CENTER, width=120)
-    my_game.column("tacheAr", anchor=CENTER, width=120)
+    my_game.column("Départ", anchor=CENTER, width=120)
+    my_game.column("Arrivée", anchor=CENTER, width=120)
     my_game.column("volume", anchor=CENTER, width=60)
     my_game.column("Va charger", anchor=CENTER, width=60)
 
@@ -49,10 +49,10 @@ def addBoard(game_frame, agents):
     my_game.heading("agent_id", text="ID", anchor=CENTER)
     my_game.heading("autonomie", text="Charge", anchor=CENTER)
     my_game.heading("position", text="Position", anchor=CENTER)
-    my_game.heading("score", text="score", anchor=CENTER)
-    my_game.heading("tache", text="tache", anchor=CENTER)
-    my_game.heading("tacheAr", text="tacheAr", anchor=CENTER)
-    my_game.heading("volume", text="volume", anchor=CENTER)
+    my_game.heading("score", text="Score", anchor=CENTER)
+    my_game.heading("Départ", text="Départ", anchor=CENTER)
+    my_game.heading("Arrivée", text="Arrivée", anchor=CENTER)
+    my_game.heading("volume", text="Volume", anchor=CENTER)
     my_game.heading("Va charger", text="Va charger", anchor=CENTER)
 
     for i in agents.keys():
@@ -63,8 +63,8 @@ def addBoard(game_frame, agents):
                                agent.charge / agent.autonomie * 100,
                                0,
                                agent.score,
-                               "No task",
-                               "No task",
+                               "-",
+                               "-",
                                0, '-'))
 
     my_game.place(anchor='nw', width=860, height=140, rely=0.3)
@@ -105,7 +105,6 @@ def updateWinnerTeamTab(game_frame, winner):
     game_frame.insert(parent='', index=1, iid=loser, text='', values=loser)
 
 
-
 def updateTab(my_game, agent):
     my_game.delete(agent.id)
     if agent.isGonnaCharge:
@@ -117,7 +116,7 @@ def updateTab(my_game, agent):
                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
                                agent.trajet[agent.caseOfTrajet].getCoords(),
                                agent.score,
-                               "No task", "No task", agent.wearing, charge))
+                               "-", "-", agent.wearing, charge))
     else:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
@@ -189,7 +188,6 @@ class Interface:
     def createWindow(self):
         w_image, h_image = self.img.size
         self.root.geometry('860x' + str(h_image * 18 - 4))
-        
 
     def createCanvas(self):
         w_image, h_image = self.img.size
