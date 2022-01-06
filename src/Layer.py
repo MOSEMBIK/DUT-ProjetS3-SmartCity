@@ -46,7 +46,7 @@ class Layer:
         updateWinnerTeamTab(self.winnerTab, self.getWinner(), self.equipe)
 
     def updateTache(self, taches, tachesDispo):
-        self.showtacheRestantes.config(text=taches + 10)
+        self.showtacheRestantes.config(text=taches)
         self.showtachesDispoRestantes.config(text=tachesDispo)
 
     def updateTab(self, agent):
