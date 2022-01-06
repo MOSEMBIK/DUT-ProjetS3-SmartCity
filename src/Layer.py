@@ -4,7 +4,6 @@ from src.Interface import *
 class Layer:
     def __init__(self, interface, equipe):
         self.itf: Interface = interface
-
         self.equipe = equipe
         # Creation des frames
         self.frame1 = self.itf.addFrame(1, 0, 860, 140)
@@ -30,7 +29,7 @@ class Layer:
         # Ajout widgets
         addText('BLUE', self.frame1)
         addText('RED', self.frame2)
-
+        addSmartCorp(self.frame3)
         self.winnerTab = createWinnerTeamTab(self.frame3)
 
     def updateScore(self):
