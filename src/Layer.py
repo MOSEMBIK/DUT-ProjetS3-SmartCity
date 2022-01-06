@@ -1,4 +1,5 @@
 from src.Interface import *
+import time
 
 
 class Layer:
@@ -20,6 +21,9 @@ class Layer:
         self.score1 = 0
         self.score2 = 0
 
+        ##
+        self.sleep = 0.4
+
         # Taches restantes et disponibls restantes
         self.showtacheRestantes = createTacheValue(self.frame3, len(taches) + 10)
         self.showtachesDispoRestantes = createTacheDispoValue(self.frame3, len(listTache))
@@ -28,8 +32,9 @@ class Layer:
         self.label1 = createScoreValue(self.frame1, self.score1)
         self.label2 = createScoreValue(self.frame2, self.score2)
 
-        self.accelerate = addButton(self.frame3, 0.90, 0.5, '>>', lambda: print('pause'))
-        self.pause = addButton(self.frame3, 0.90, 0.4, "II", lambda: print("acceleration"))
+        self.pause = addButton(self.frame3, 0.90, 0.4, "II", lambda: self.setupSleep(20))
+        self.play = addButton(self.frame3, 0.90, 0.5, 'P', lambda: self.setupSleep(0.02))
+        self.accelerate = addButton(self.frame3, 0.90, 0.6, 'Vitesse', lambda: self.setupSleepAccelerate())
 
         # Ajout widgets
         addText('BLUE', self.frame1)
@@ -37,6 +42,27 @@ class Layer:
         addSmartCorp(self.frame3)
         showTaches(self.frame3, len(taches) + 10, len(listTache))
         self.winnerTab = createWinnerTeamTab(self.frame3)
+
+    def setupSleep(self, sec):
+        self.sleep = sec
+
+    def setupSleepAccelerate(self):
+        # 0.5
+        if self.sleep == 0:
+            self.sleep = 0.8
+        else:
+            if self.sleep == 0.1:
+                self.sleep = 0
+
+            if self.sleep == 0.4:
+                self.sleep = 0.1
+
+            if self.sleep == 0.8:
+                self.sleep = 0.4
+        print(self.sleep)
+
+    def sleepp(self):
+        time.sleep(self.sleep)
 
     def updateScore(self):
         self.score1 = getScore(self.tab1)

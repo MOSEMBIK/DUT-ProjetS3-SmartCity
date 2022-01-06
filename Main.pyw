@@ -58,7 +58,7 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
         # Update du screen, affichage du design de map, pause du programme
         mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
         
-        time.sleep(0.02)
+        sim.layer.sleepp()
 
     print("END")
 
