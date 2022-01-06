@@ -136,7 +136,7 @@ class SimMenu:
         label.place(anchor='nw', relx=0.6, rely=0.6)
 
         addButton(self.itf.root, 0.66, 0.52, 'Manhattan', lambda: self.commandButtonHE2(0))
-        addButton(self.itf.root, 0.66, 0.645, 'Pythagore', lambda: self.commandButtonHE2(1))
+        addButton(self.itf.root, 0.66, 0.64, 'Pythagore', lambda: self.commandButtonHE2(1))
         addButton(self.itf.root, 0.66, 0.755, 'Dijkstra', lambda: self.commandButtonHE2(2))
 
     def commandButtonHE1(self, button):
