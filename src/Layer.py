@@ -14,6 +14,8 @@ class Layer:
         self.tab1 = addBoard(self.frame1, equipe[0].getAgents())
         self.tab2 = addBoard(self.frame2, equipe[1].getAgents())
 
+        self.leaderboard = createLeaderBoard(self.frame3, equipe[0].getAgents(), equipe[1].getAgents())
+
         # Score equipe 1 et 2
         self.score1 = 0
         self.score2 = 0
@@ -44,10 +46,11 @@ class Layer:
         updateWinnerTeamTab(self.winnerTab, self.getWinner(), self.equipe)
 
     def updateTache(self, taches, tachesDispo):
-        self.showtacheRestantes.config(text=taches+10)
+        self.showtacheRestantes.config(text=taches + 10)
         self.showtachesDispoRestantes.config(text=tachesDispo)
 
     def updateTab(self, agent):
+        updateLeaderBoard(self.leaderboard, agent)
         if int(agent.id) < 10:
             self.tab1 = updateTab(self.tab1, agent)
         else:

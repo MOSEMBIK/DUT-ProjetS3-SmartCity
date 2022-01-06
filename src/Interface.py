@@ -72,6 +72,13 @@ def addBoard(game_frame, agents):
 
 
 def createWinnerTeamTab(game_frame):
+    font = tkFont.Font(family='Verdana', size=12, weight='bold')
+    label = tkinter.Label(
+        game_frame, text="Equipe gagnante :"
+        , font=font, justify='center'
+    )
+    label.place(anchor='nw', relx=0.23, rely=0.30)
+
     style = tkinter.ttk.Style()
     style.configure("Treeview.Heading", font=(None, 9))
 
@@ -95,7 +102,7 @@ def createWinnerTeamTab(game_frame):
 
     my_game.insert(parent='', index='end', iid='RED TEAM', text='',
                    values=('-', '-', '-'))
-    my_game.place(anchor='nw', width=300, height=62, relx=0, rely=0.4)
+    my_game.place(anchor='nw', width=300, height=62, relx=0, rely=0.35)
     return my_game
 
 
@@ -245,8 +252,7 @@ def showTaches(frame, taches, tachesDispo):
         frame, text="Nombre de taches dispos :"
         , font=font, justify='center'
     )
-    label.place(anchor='nw', relx=0.03, rely=0.3)
-
+    label.place(anchor='nw', relx=0.03, rely=0.25)
 
     font = tkFont.Font(family='Verdana', size=10)
     label = tkinter.Label(
@@ -258,9 +264,7 @@ def showTaches(frame, taches, tachesDispo):
     label = tkinter.Label(
         frame, text="/ " + str(tachesDispo), justify='center', font=font
     )
-    label.place(anchor='nw', relx=0.77, rely=0.305)
-
-
+    label.place(anchor='nw', relx=0.77, rely=0.255)
 
     # Taches choisises
 
@@ -279,8 +283,71 @@ def createTacheDispoValue(frame, taches):
     label = tkinter.Label(
         frame, text=taches, justify='center', font=font
     )
-    label.place(anchor='nw', relx=0.71, rely=0.305)
+    label.place(anchor='nw', relx=0.71, rely=0.255)
     return label
+
+
+def createLeaderBoard(game_frame, agents0, agents1):
+    font = tkFont.Font(family='Verdana', size=12, weight='bold')
+    label = tkinter.Label(
+        game_frame, text="Classement :"
+        , font=font, justify='center'
+    )
+    label.place(anchor='nw', relx=0.29, rely=0.47)
+
+    style = tkinter.ttk.Style()
+    style.configure("Treeview.Heading", font=(None, 9))
+
+    style.configure("Treeview", font=('Calibri', 9))
+
+    my_game = tkinter.ttk.Treeview(game_frame, style="Treeview")
+    my_game['columns'] = ('id', 'equipe', 'score')
+
+    my_game.column("#0", width=0, stretch=NO)
+    my_game.column("id", anchor=CENTER, width=40)
+    my_game.column("equipe", anchor=CENTER, width=40)
+    my_game.column("score", anchor=CENTER, width=40)
+
+    my_game.heading("#0", text="", anchor=CENTER)
+    my_game.heading("id", text="ID", anchor=CENTER)
+    my_game.heading("equipe", text="Equipe", anchor=CENTER)
+    my_game.heading("score", text="Points", anchor=CENTER)
+
+    for i in agents0.keys():
+        agent: Agent = agents0[i]
+
+        my_game.insert(parent='', index='end', iid=agent.id, text='',
+                       values=(agent.id, 'blue', agent.score))
+    for i in agents1.keys():
+        agent: Agent = agents1[i]
+
+        my_game.insert(parent='', index='end', iid=agent.id, text='',
+                       values=(agent.id, 'red', agent.score))
+    my_game.place(anchor='nw', width=300, height=180, rely=0.52)
+    return my_game
+
+
+def updateLeaderBoard(my_game, agent):
+    my_game.delete(agent.id)
+    lstId = list(agent.id)
+    children = my_game.get_children()
+    scoreAgent = []
+    for i in children:
+        scoreAgent.append(my_game.item(i)['values'][2])
+    scoreAgent = sorted(scoreAgent, reverse=True)
+    index = len(scoreAgent)+1
+    for i in range(len(scoreAgent)):
+        if agent.score > scoreAgent[i]:
+            index = i
+            break
+
+    if lstId[0] == '0':
+        team = 'BLUE'
+    else:
+        team = 'RED'
+    my_game.insert(parent='', index=index, iid=agent.id, text='',
+                   values=(agent.id, team, agent.score))
+    return my_game
 
 
 class Interface:
@@ -306,7 +373,7 @@ class Interface:
         cv = Canvas(self.root, height=h_image * 12, width=w_image * 12)
         cv.grid(sticky="nw")
         cv.update()
-        
+
         return cv
 
     @staticmethod
@@ -393,4 +460,4 @@ class Interface:
         label = tkinter.Label(
             frame, text=team + ' TEAM WIN', font=font, justify='center'
         )
-        label.place(anchor='n', relx=0.5, rely=0.3)
+        label.grid(row = 0, column = 0)
