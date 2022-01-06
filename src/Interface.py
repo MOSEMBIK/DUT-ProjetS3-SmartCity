@@ -7,8 +7,6 @@ import tkinter.font as tkFont
 from src.Agent import *
 
 
-# root = Tk()
-# root1 = tkinter.Tk()
 def addText(team, frame):
     font = tkFont.Font(family='Verdana', size=18, weight='bold')
     label = tkinter.Label(

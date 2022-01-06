@@ -80,6 +80,6 @@ class Simulation:
             arv = rdm.choice(portes2)
             volume = randint(10,100)
             tache = Tache(dpt, arv, volume, self.plt)
-            # createTaskIcon(self.canvas, dpt)
+            
             self.taches.append(tache)
         return None

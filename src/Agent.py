@@ -69,17 +69,6 @@ class Agent:
         else :
             self.charge = 0
 
-    # def chooseTacheOpti2(self, pl:Plateau) -> None:
-    #     # On choisit la tache la plus proche possible
-    #     proche = 1000
-    #     for tache in pl.listeTaches :
-    #         distance = len(getTrajet_aStar_Mannhattan(self, pl, tache.depart);
-    #         if (len(getTrajet_aStar_Mannhattan(self, pl, tache.depart)) < proche):
-    #             if (checkNeedCharge(self)):
-    #                 proche = distance
-    #                 self.tacheChose = tache
-    #     return None
-
     def takeTache(self, plateau: Plateau):
         if self.tacheChose in plateau.listeTaches:
             self.tacheToDo = self.tacheChose
