@@ -20,8 +20,8 @@ def addText(team, frame):
     equipe.place(anchor='nw', rely=0.01)
 
 
-def addButton(frame, x, y, text):
-    w = tkinter.Button(frame, text=text)
+def addButton(frame, x, y, text, callback):
+    w = tkinter.Button(frame, text=text, command=callback)
     w.place(anchor="nw", rely=x, relx=y)
     return w
 
@@ -185,7 +185,7 @@ class Interface:
 
     def createWindow(self):
         w_image, h_image = self.img.size
-        self.root.geometry('860x' + str(h_image * 18 - 4))
+        self.root.geometry('860x860')
 
     def createCanvas(self):
         w_image, h_image = self.img.size

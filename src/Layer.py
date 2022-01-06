@@ -23,8 +23,8 @@ class Layer:
         self.label1 = createScoreValue(self.frame1, self.score1)
         self.label2 = createScoreValue(self.frame2, self.score2)
 
-        self.accelerate = addButton(self.frame3, 0.8, 0.5, '>>')
-        self.pause = addButton(self.frame3, 0.8, 0.4, "II")
+        self.accelerate = addButton(self.frame3, 0.8, 0.5, '>>', lambda : print('pause'))
+        self.pause = addButton(self.frame3, 0.8, 0.4, "II", lambda : print("acceleration"))
 
         # Ajout widgets
         addText('BLUE', self.frame1)

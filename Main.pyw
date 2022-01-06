@@ -10,26 +10,40 @@ from src.SimMenu import *
 from tkinter import *
 from PIL import ImageTk, Image
 
+
 def preMain():
-    nbAgentE1 = 1
-    nbAgentE2 = 1
-    heuristiqueE1 = 0
-    heuristiqueE2 = 0
+    # 0 = manathan
+    # 1 = pythagore
+    # 2 = dijkstra
 
-    choixTacheE1 = 0
-    choixTacheE2 = 0
-
-    nbTaches = 50
-    nbTacheSim = 10
+    # 0 = random
+    # 1 = rentable
 
     window = SimMenu()
     window.start()
+    nbAgentE1 = window.nbAgentE1
+    nbAgentE2 = window.nbAgentE2
+    nbTaches = window.nbTaches
+    heuristiqueE1 = window.heuristiqueE1
+    heuristiqueE2 = window.heuristiqueE2
+    choixTacheE1 = window.choixTacheE1
+    choixTacheE2 = window.choixTacheE2
 
-    return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, nbTaches, nbTacheSim
+    print("nb Agent Equipe 1 : ", nbAgentE1)
+    print("nb Agent Equipe 2 : ", nbAgentE2)
+    print("Nb de taches : ", nbTaches)
+    print("Heuristique equipe 1 : ", heuristiqueE1)
+    print("Heuristique equipe 2 : ", heuristiqueE2)
+    print("Choix tache equipe 1 : ", choixTacheE1)
+    print("Choix tache equipe 2 : ", choixTacheE2)
+
+    return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, nbTaches, choixTacheE1, choixTacheE2
+
 
 def main(val):
     print(val)
-    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbAgentE1=2, nbAgentE2=2, heuristiqueE1=0, heuristiqueE2=1, nbTaches=50, nbTachesSim=10)
+    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbAgentE1=2, nbAgentE2=2,
+                                 heuristiqueE1=0, heuristiqueE2=1, nbTaches=50, nbTachesSim=10)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
 
     sim.allGoToRandom()
@@ -47,7 +61,7 @@ def main(val):
                     t = sim.taches[0]
                     sim.plt.listeTaches.append(t)
                     sim.taches.pop(0)
-                
+
         skins = []
 
         sim.allMove()
@@ -62,10 +76,10 @@ def main(val):
                 # sim.plt.itf.moveSkin(sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                 # print("E :", sim.equipe[e].id, "A :", 1 + ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
 
-                if ag.tacheToDo :
-                    if ag.tacheToDo.enCours :
+                if ag.tacheToDo:
+                    if ag.tacheToDo.enCours:
                         allDone = False
-                    else :
+                    else:
                         allDone = True
 
         # Update du screen, affichage du design de map, pause du programme
@@ -81,7 +95,7 @@ def main(val):
     return None
 
 
-if __name__ == "__main__" :
+if __name__ == "__main__":
     val = 0
     preMain()
     main(val)
