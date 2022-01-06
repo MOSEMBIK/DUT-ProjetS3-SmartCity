@@ -38,9 +38,9 @@ def addBoard(game_frame, agents):
     my_game.column("autonomie", anchor=CENTER, width=60)
     my_game.column("position", anchor=CENTER, width=60)
     my_game.column("score", anchor=CENTER, width=60)
-    my_game.column("Départ", anchor=CENTER, width=120)
-    my_game.column("Arrivée", anchor=CENTER, width=120)
-    my_game.column("volume", anchor=CENTER, width=60)
+    my_game.column("Départ", anchor=CENTER, width=130)
+    my_game.column("Arrivée", anchor=CENTER, width=130)
+    my_game.column("volume", anchor=CENTER, width=40)
     my_game.column("Va charger", anchor=CENTER, width=60)
 
     my_game.heading("#0", text="", anchor=CENTER)
