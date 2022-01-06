@@ -106,7 +106,7 @@ def updateWinnerTeamTab(game_frame, winner):
 def updateTab(my_game, agent):
     my_game.delete(agent.id)
     if agent.isGonnaCharge:
-        charge = "Va se charger"
+        charge = "X"
     else:
         charge = "-"
     if agent.tacheToDo is None:
