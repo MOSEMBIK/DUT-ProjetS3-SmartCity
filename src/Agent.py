@@ -10,13 +10,15 @@ class Agent:
     Agent intelligent et autonome.
     """
 
-    def __init__(self, id: str, spawn : Case, heur):
+    def __init__(self, id: str, spawn : Case, heur, choixT):
         self.id = id
         self.spawn : Case = spawn
 
         # Parametrage de la vitesse
         self.speed = 1
+
         self.heuristique = heur
+        self.choixT = choixT
 
         # Parametrage de l'autonomie
         self.autonomie = 30000
@@ -51,14 +53,14 @@ class Agent:
 
     # ~~~~~~~~~~~~~      TACHES      ~~~~~~~~~~~~~~~
 
-    def randomChooseTache(self, plateau:Plateau) -> None:
+    def chooseTache_Random(self, plateau:Plateau) -> None:
         # On choisit une tache au hasard dans la liste.
         self.tacheChose = rdm.choice(plateau.listeTaches)
 
         self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
         self.caseOfTrajet = 0
 
-    def chooseTache(self, plateau:Plateau) -> None:
+    def chooseTache_Rentable(self, plateau:Plateau) -> None:
         # On choisit la tache la plus rentable
         if plateau.listeTaches != []:
             self.tacheChose = plateau.listeTaches[0]
@@ -69,6 +71,12 @@ class Agent:
             self.caseOfTrajet = 0
         else :
             self.charge = 0
+    
+    def chooseTache(self, plateau:Plateau) -> None:
+        if self.choixT == 0 :
+            self.chooseTache_Random(plateau)
+        if self.choixT == 1 :
+            self.chooseTache_Rentable(plateau)
 
     def takeTache(self, plateau: Plateau):
         if self.tacheChose in plateau.listeTaches:
@@ -519,7 +527,7 @@ class Agent:
         Envoie un agent vers une direction.
         """
         self.setRandomTrajet(plateau)
-        self.randomChooseTache(plateau)
+        self.chooseTache_Random(plateau)
         return None
 
     # ~~~~~~~~~~      CHARGEMENT      ~~~~~~~~~~~~
