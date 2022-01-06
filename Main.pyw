@@ -68,6 +68,7 @@ def main(val):
         mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
         time.sleep(0.02)
 
+    time.sleep(5)
     print("END")
 
     sim.plt.delcv()
