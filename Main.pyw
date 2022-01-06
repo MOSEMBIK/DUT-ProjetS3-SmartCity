@@ -29,7 +29,7 @@ def preMain():
 
 def main(val):
     print(val)
-    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbAgentE1=2, nbAgentE2=2, heuristiqueE1=0, heuristiqueE2=1, choixTacheE1=1, choixTacheE2=1, nbTaches=50, nbTachesSim=10)
+    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbAgentE1=1, nbAgentE2=1, heuristiqueE1=0, heuristiqueE2=1, choixTacheE1=1, choixTacheE2=1, nbTaches=5, nbTachesSim=1)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
 
     sim.allGoToRandom()
