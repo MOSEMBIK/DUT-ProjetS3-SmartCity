@@ -73,34 +73,53 @@ def addBoard(game_frame, agents):
 
 def createWinnerTeamTab(game_frame):
     my_game = tkinter.ttk.Treeview(game_frame, style="Treeview")
-    my_game['columns'] = 'Equipe'
+    my_game['columns'] = ('Equipe', 'heuristique', 'choixTache')
 
     my_game.column("#0", width=0, stretch=NO)
-    my_game.column("Equipe", anchor=CENTER, width=60)
+    my_game.column("Equipe", anchor=CENTER, width=40)
+    my_game.column("heuristique", anchor=CENTER, width=40)
+    my_game.column("choixTache", anchor=CENTER, width=40)
 
     my_game.heading("#0", text="", anchor=CENTER)
-    my_game.heading("Equipe", text="Equipe Gagnante", anchor=CENTER)
+    my_game.heading("Equipe", text="Equipe W", anchor=CENTER)
+    my_game.heading("heuristique", text="Heuristique", anchor=CENTER)
+    my_game.heading("choixTache", text="choixTache", anchor=CENTER)
 
     my_game.insert(parent='', index='end', iid='BLUE TEAM', text='',
-                   values='-')
+                   values=('-', '-', '-'))
 
     my_game.insert(parent='', index='end', iid='RED TEAM', text='',
-                   values='-')
-    my_game.place(anchor='nw', width=140, height=62, relx=0.3, rely=0.3)
+                   values=('-', '-', '-'))
+    my_game.place(anchor='nw', width=300, height=62, relx=0, rely=0.3)
     return my_game
 
 
-def updateWinnerTeamTab(game_frame, winner, score):
+def updateWinnerTeamTab(game_frame, winner, equipe):
     game_frame.delete('BLUE TEAM')
     game_frame.delete('RED TEAM')
+
     if winner == 1:
+        equipeW = equipe[0]
+        equipeL = equipe[1]
         winner = 'BLUE TEAM'
         loser = 'RED TEAM'
     else:
+        equipeW = equipe[1]
+        equipeL = equipe[0]
         winner = 'RED TEAM'
         loser = 'BLUE TEAM'
-    game_frame.insert(parent='', index=0, iid=winner, text='', values=winner)
-    game_frame.insert(parent='', index=1, iid=loser, text='', values=loser)
+    equipeWHeuristique = getStrHeuristique(list(equipeW.getAgents().values())[0].heuristique)
+    equipeWChoixT = getStrChoixT(list(equipeW.getAgents().values())[0].choixT)
+    equipeLHeuristique = getStrHeuristique(list(equipeL.getAgents().values())[0].heuristique)
+    equipeLChoixT = getStrChoixT(list(equipeL.getAgents().values())[0].choixT)
+
+    game_frame.insert(parent='', index=0, iid=winner, text='',
+                      values=(winner,
+                              equipeWHeuristique,
+                              equipeWChoixT))
+    game_frame.insert(parent='', index=1, iid=loser, text='',
+                      values=(loser, equipeLHeuristique,
+                              equipeLChoixT))
 
 
 def updateTab(my_game, agent):
@@ -112,18 +131,36 @@ def updateTab(my_game, agent):
     if agent.tacheToDo is None:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
-                               str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0]))+" "+str(int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
+                               str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0])) + " " + str(
+                                   int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
                                agent.score,
                                "-", "-", agent.wearing, charge))
     else:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
-                               str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0]))+" "+str(int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
+                               str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0])) + " " + str(
+                                   int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
                                agent.score,
                                agent.tacheToDo.depart.getType(),
                                agent.tacheToDo.arrivee.getType(),
                                agent.wearing, charge))
     return my_game
+
+
+def getStrHeuristique(heuristique):
+    if heuristique == 0:
+        return "Mannathan"
+    elif heuristique == 1:
+        return "Pythagore"
+    elif heuristique == 2:
+        return "Dijsktra"
+
+
+def getStrChoixT(choix):
+    if choix == 0:
+        return "Aleatoire"
+    else:
+        return "Rentable"
 
 
 def getScore(my_game):
@@ -275,7 +312,7 @@ class Interface:
 
     def gameFini(self, team):
         font = tkFont.Font(family='Verdana', size=36, weight='bold')
-        if team == 0:
+        if team == 1:
             team = 'RED'
         else:
             team = 'BLUE'
