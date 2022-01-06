@@ -88,6 +88,7 @@ class Agent:
                         self.tacheChose = i
                 else :
                     toGo = trj
+            self.trajet = toGo
             self.caseOfTrajet = 0
         else :
             self.charge = 0

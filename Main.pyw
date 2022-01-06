@@ -32,7 +32,7 @@ def preMain():
     print("Choix tache equipe 1 : ", choixTacheE1)
     print("Choix tache equipe 2 : ", choixTacheE2)
 
-    return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTachesSim
+    return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, 2, choixTacheE2, nbTaches, nbTachesSim
 
 
 def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTacheSim):
