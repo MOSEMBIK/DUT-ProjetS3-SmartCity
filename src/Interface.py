@@ -7,8 +7,6 @@ import tkinter.font as tkFont
 from src.Agent import *
 
 
-# root = Tk()
-# root1 = tkinter.Tk()
 def addText(team, frame):
     font = tkFont.Font(family='Verdana', size=18, weight='bold')
     label = tkinter.Label(
@@ -40,9 +38,9 @@ def addBoard(game_frame, agents):
     my_game.column("autonomie", anchor=CENTER, width=60)
     my_game.column("position", anchor=CENTER, width=60)
     my_game.column("score", anchor=CENTER, width=60)
-    my_game.column("Départ", anchor=CENTER, width=120)
-    my_game.column("Arrivée", anchor=CENTER, width=120)
-    my_game.column("volume", anchor=CENTER, width=60)
+    my_game.column("Départ", anchor=CENTER, width=130)
+    my_game.column("Arrivée", anchor=CENTER, width=130)
+    my_game.column("volume", anchor=CENTER, width=40)
     my_game.column("Va charger", anchor=CENTER, width=60)
 
     my_game.heading("#0", text="", anchor=CENTER)
@@ -108,19 +106,19 @@ def updateWinnerTeamTab(game_frame, winner, score):
 def updateTab(my_game, agent):
     my_game.delete(agent.id)
     if agent.isGonnaCharge:
-        charge = "Va se charger"
+        charge = "X"
     else:
         charge = "-"
     if agent.tacheToDo is None:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
-                               agent.trajet[agent.caseOfTrajet].getCoords(),
+                               str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0]))+" "+str(int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
                                agent.score,
                                "-", "-", agent.wearing, charge))
     else:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
-                               agent.trajet[agent.caseOfTrajet].getCoords(),
+                               str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0]))+" "+str(int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
                                agent.score,
                                agent.tacheToDo.depart.getType(),
                                agent.tacheToDo.arrivee.getType(),

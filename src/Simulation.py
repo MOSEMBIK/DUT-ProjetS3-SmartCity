@@ -8,14 +8,14 @@ import random as rdm
 
 class Simulation:
 
-    def __init__(self, name: str = "", ico : str = None, nbAgentE1: int = 2, nbAgentE2: int = 2, nbTaches = 50, nbTachesSim = 10):
+    def __init__(self, name: str = "", ico : str = None, nbAgentE1: int = 2, nbAgentE2: int = 2, heuristiqueE1=0, heuristiqueE2=0, nbTaches = 50, nbTachesSim = 10):
         self.name = name
         self.itf = Interface('Squelette_map.png')
         self.plt: Plateau = Plateau(self.name, ico, self.itf)
         self.skin = {}
         self.equipe: list[Equipe] = []
         self.taches: list[Tache] = []
-        self.createTaches(nbTaches)
+        self.createTaches(nbTaches, heuristiqueE1, heuristiqueE2)
         for i in range(nbTachesSim):
             t = rdm.choice(self.taches)
             self.plt.listeTaches.append(t)
@@ -25,12 +25,12 @@ class Simulation:
             if i == 0:
                 for j in range(nbAgentE1):
                     idAgent = str(i) + str(j)
-                    self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0])
+                    self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0], heuristiqueE1)
                     self.skin[self.equipe[i].getAgents()[idAgent]] = createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
             if i == 1:
                 for j in range(nbAgentE2):
                     idAgent = str(i) + str(j)
-                    self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0])
+                    self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0], heuristiqueE2)
                     self.skin[self.equipe[i].getAgents()[idAgent]] = createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
         
         self.layer: Layer = Layer(self.itf, self.equipe)
@@ -72,14 +72,14 @@ class Simulation:
         self.equipe[idE].agentGoTo(idA, self.plt, case)
         return None
 
-    def createTaches(self, nbTaches):
+    def createTaches(self, nbTaches, heuristiqueE1, heuristiqueE2):
         for i in range(nbTaches):
             portes2 = self.plt.getPortes()
             dpt = rdm.choice(portes2)
             portes2.pop(portes2.index(dpt))
             arv = rdm.choice(portes2)
             volume = randint(10,100)
-            tache = Tache(dpt, arv, volume, self.plt)
-            # createTaskIcon(self.canvas, dpt)
+            tache = Tache(dpt, arv, volume, self.plt, heuristiqueE1, heuristiqueE2)
+            
             self.taches.append(tache)
         return None
