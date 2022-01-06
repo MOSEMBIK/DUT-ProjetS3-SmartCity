@@ -32,9 +32,9 @@ class Layer:
         self.label1 = createScoreValue(self.frame1, self.score1)
         self.label2 = createScoreValue(self.frame2, self.score2)
 
-        self.pause = addButton(self.frame3, 0.90, 0.4, "II", lambda: self.setupSleep(20))
-        self.play = addButton(self.frame3, 0.90, 0.5, 'P', lambda: self.setupSleep(0.02))
-        self.accelerate = addButton(self.frame3, 0.90, 0.6, 'Vitesse', lambda: self.setupSleepAccelerate())
+        self.pause = addButton(self.frame3, 0.90, 0.25, "II", lambda: self.setupSleep(20))
+        self.play = addButton(self.frame3, 0.90, 0.35, 'P', lambda: self.setupSleep(0.02))
+        self.accelerate = addButton(self.frame3, 0.90, 0.45, 'Vitesse', lambda: self.setupSleepAccelerate())
 
         # Ajout widgets
         addText('BLUE', self.frame1)
@@ -59,7 +59,6 @@ class Layer:
 
             if self.sleep == 0.8:
                 self.sleep = 0.4
-        print(self.sleep)
 
     def sleepp(self):
         time.sleep(self.sleep)

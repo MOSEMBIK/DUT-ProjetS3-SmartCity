@@ -21,7 +21,6 @@ def preMain():
     heuristiqueE2 = window.heuristiqueE2
     choixTacheE1 = window.choixTacheE1
     choixTacheE2 = window.choixTacheE2
-    print(nbTaches)
     nbTachesSim = 10
 
     return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTachesSim

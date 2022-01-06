@@ -14,7 +14,7 @@ class SimMenu:
         self.nbAgentE1 = 2
         self.nbAgentE2 = 2
 
-        self.nbTaches = 30
+        self.nbTaches = 25
 
         self.choixTacheE1 = 0
         self.choixTacheE2 = 0

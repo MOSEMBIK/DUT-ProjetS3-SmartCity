@@ -353,7 +353,7 @@ def updateLeaderBoard(my_game, agent):
 class Interface:
     def __init__(self, img):
         self.root = Tk()
-        self.root.resizable(False, False)
+        # self.root.resizable(False, False)
 
         self.img = Image.open('img/' + img, 'r').convert('RGB')
 
@@ -452,12 +452,12 @@ class Interface:
     def gameFini(self, team):
         font = tkFont.Font(family='Verdana', size=36, weight='bold')
         if team == 1:
-            team = 'RED'
-        else:
             team = 'BLUE'
-        frame = Frame(self.root, width=960, height=960)
-        frame.grid(row=0, column=1, sticky='N')
+        else:
+            team = 'RED'
+        frame = Frame(self.root, width=500, height=200)
+        frame.grid(row=0, column=0, sticky='NW')
         label = tkinter.Label(
-            frame, text=team + ' TEAM WIN', font=font, justify='center'
+            frame, text=team + ' TEAM WIN', font=font, justify='center', bg=team
         )
-        label.grid(row = 0, column = 0)
+        label.place(anchor='nw', relx=0.1, rely=0.4)
