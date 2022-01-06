@@ -20,7 +20,7 @@ class Simulation:
             t = rdm.choice(self.taches)
             self.plt.listeTaches.append(t)
             self.taches.pop(self.taches.index(t))
-        for i in range(1):
+        for i in range(2):
             self.equipe.append(Equipe(i))
             if i == 0:
                 for j in range(nbAgentE1):
@@ -32,7 +32,7 @@ class Simulation:
                     idAgent = str(i) + str(j)
                     self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0])
                     self.skin[self.equipe[i].getAgents()[idAgent]] = createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
-
+        
         self.layer: Layer = Layer(self.itf, self.equipe)
 
     # Déplacement
