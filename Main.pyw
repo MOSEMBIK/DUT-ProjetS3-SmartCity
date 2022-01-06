@@ -42,7 +42,7 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
 
     allDone = False
     tour = 1
-    while len(sim.taches) > 0 or len(sim.plt.listeTaches) > 0 or allDone:
+    while len(sim.taches) > 0 or len(sim.plt.listeTaches) > 0 or not(allDone):
         if len(sim.plt.listeTaches) <= nbTacheSim:
             while len(sim.plt.listeTaches) != nbTacheSim and len(sim.taches) > 0 :
                 if len(sim.plt.listeTaches) >= 1:
