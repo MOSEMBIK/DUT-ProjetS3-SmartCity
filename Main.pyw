@@ -41,9 +41,9 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
 
     sim.allGoToRandom()
 
-    allDone = False
+    enCours = []
     tour = 1
-    while len(sim.taches) > 0 or len(sim.plt.listeTaches) > 0 or not(allDone):
+    while len(sim.taches) > 0 or len(sim.plt.listeTaches) > 0 or len(enCours) > 0:
         if len(sim.plt.listeTaches) <= nbTacheSim:
             while len(sim.plt.listeTaches) != nbTacheSim and len(sim.taches) > 0 :
                 if len(sim.plt.listeTaches) >= 1:
@@ -52,6 +52,7 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
                     sim.taches.pop(sim.taches.index(t))
 
         skins = []
+        enCours = []
         sim.allMove()
         for e in range(len(sim.equipe)):
             for a in sim.equipe[e].getAgents():
@@ -62,10 +63,8 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
                 Interface.imageMove(sim.plt.canvas, sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                 skins.append(sim.skin.get(ag))
 
-                allDone = True
                 if ag.tacheToDo :
-                    if ag.tacheToDo.enCours :
-                        allDone = False
+                    enCours.append(ag)
 
         # Update du screen, affichage du design de map, pause du programme
         mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
@@ -75,7 +74,7 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
         print(tour)
         print(len(sim.taches) > 0)
         print(len(sim.plt.listeTaches) > 0)
-        print(not(allDone))
+        print(len(enCours) > 0)
 
     print("END")
 

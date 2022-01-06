@@ -129,12 +129,20 @@ def updateTab(my_game, agent):
     else:
         charge = "-"
     if agent.tacheToDo is None:
-        my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
-                       values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
-                               str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0])) + " " + str(
-                                   int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
-                               agent.score,
-                               agent.tacheChose.depart.getType(), "-", agent.wearing, charge))
+        if agent.tacheChose is None :
+            my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
+                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
+                                str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0])) + " " + str(
+                                    int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
+                                agent.score,
+                                "-", "-", agent.wearing, charge))
+        else :
+            my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
+                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
+                                str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0])) + " " + str(
+                                    int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
+                                agent.score,
+                                agent.tacheChose.depart.getType(), "-", agent.wearing, charge))
     else:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
