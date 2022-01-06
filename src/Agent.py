@@ -74,12 +74,31 @@ class Agent:
             self.caseOfTrajet = 0
         else :
             self.charge = 0
-    
+
+    def chooseTache_Proximite(self, plateau:Plateau) -> None:
+        # On choisit la tache la plus proche
+        if plateau.listeTaches != []:
+            self.tacheChose = plateau.listeTaches[0]
+            for i in plateau.listeTaches:
+                toGo = None
+                trj = self.getTrajet_aStar(plateau, i.depart)
+                if toGo != None :
+                    if len(trj) < len(toGo) :
+                        toGo = trj
+                        self.tacheChose = i
+                else :
+                    toGo = trj
+            self.caseOfTrajet = 0
+        else :
+            self.charge = 0
+
     def chooseTache(self, plateau:Plateau) -> None:
         if self.choixT == 0 :
             self.chooseTache_Random(plateau)
         if self.choixT == 1 :
             self.chooseTache_Rentable(plateau)
+        if self.choixT == 2 :
+            self.chooseTache_Proximite(plateau)
 
     def takeTache(self, plateau: Plateau):
         if self.tacheChose in plateau.listeTaches:

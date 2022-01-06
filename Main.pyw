@@ -26,6 +26,7 @@ def preMain():
     print("nb Agent Equipe 1 : ", nbAgentE1)
     print("nb Agent Equipe 2 : ", nbAgentE2)
     print("Nb de taches : ", nbTaches)
+    print("Nb de taches disponibles max : ", nbTachesSim)
     print("Heuristique equipe 1 : ", heuristiqueE1)
     print("Heuristique equipe 2 : ", heuristiqueE2)
     print("Choix tache equipe 1 : ", choixTacheE1)
@@ -51,7 +52,6 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
                     sim.taches.pop(sim.taches.index(t))
 
         skins = []
-
         sim.allMove()
         for e in range(len(sim.equipe)):
             for a in sim.equipe[e].getAgents():
@@ -61,8 +61,6 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
 
                 Interface.imageMove(sim.plt.canvas, sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                 skins.append(sim.skin.get(ag))
-                # sim.plt.itf.moveSkin(sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
-                # print("E :", sim.equipe[e].id, "A :", 1 + ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
 
                 allDone = True
                 if ag.tacheToDo :
