@@ -159,9 +159,10 @@ def getStrHeuristique(heuristique):
 def getStrChoixT(choix):
     if choix == 0:
         return "Aleatoire"
-    else:
+    elif choix == 1:
         return "Rentable"
-
+    else:
+        return "proximité"
 
 def getScore(my_game):
     children = my_game.get_children()
@@ -204,6 +205,15 @@ def createImg(cv, coords, equipe):
     # cv.create_rectangle(500, 500, 800, 800, fill='white')
     # cv.update()
     return skin
+
+
+def addSmartCorp(frame):
+    font = tkFont.Font(family='Verdana', size=16, weight='bold')
+    label = tkinter.Label(
+        frame, text="Simulation Smart Corp"
+        , font=font, justify='center'
+    )
+    label.place(anchor='nw', relx=0.01, rely=0.1)
 
 
 class Interface:
@@ -322,3 +332,4 @@ class Interface:
             frame, text=team + ' TEAM WIN', font=font, justify='center'
         )
         label.place(anchor='n', relx=0.5, rely=0.3)
+

@@ -161,8 +161,9 @@ class SimMenu:
         )
         label.place(anchor='nw', relx=0.2, rely=0.8)
 
-        addButton(self.itf.root, 0.86, 0.15, 'Aléatoire', lambda: self.commandChoixTacheE1(0))
-        addButton(self.itf.root, 0.86, 0.27, 'Rentable', lambda: self.commandChoixTacheE1(1))
+        addButton(self.itf.root, 0.86, 0.11, 'Aléatoire', lambda: self.commandChoixTacheE1(0))
+        addButton(self.itf.root, 0.86, 0.21, 'Rentable', lambda: self.commandChoixTacheE1(1))
+        addButton(self.itf.root, 0.86, 0.31, 'Proximité', lambda: self.commandChoixTacheE1(2))
 
     def chooseChoixTachesE2(self):
         font = tkFont.Font(family='Verdana', size=18, weight='bold')
@@ -172,8 +173,9 @@ class SimMenu:
         )
         label.place(anchor='nw', relx=0.6, rely=0.8)
 
-        addButton(self.itf.root, 0.86, 0.56, 'Aléatoire', lambda: self.commandChoixTacheE2(0))
-        addButton(self.itf.root, 0.86, 0.68, 'Rentable', lambda: self.commandChoixTacheE2(1))
+        addButton(self.itf.root, 0.86, 0.53, 'Aléatoire', lambda: self.commandChoixTacheE2(0))
+        addButton(self.itf.root, 0.86, 0.63, 'Rentable', lambda: self.commandChoixTacheE2(1))
+        addButton(self.itf.root, 0.86, 0.73, 'Proximité', lambda: self.commandChoixTacheE2(2))
 
     def commandChoixTacheE1(self, button):
         self.choixTacheE1 = button
