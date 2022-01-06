@@ -19,7 +19,7 @@ class Agent:
         self.heuristique = heur
 
         # Parametrage de l'autonomie
-        self.autonomie = 15000
+        self.autonomie = 30000
         # Setup de la charge à autonomie
         self.charge = self.autonomie
         self.isGonnaCharge: bool = False
@@ -73,7 +73,6 @@ class Agent:
     def takeTache(self, plateau: Plateau):
         if self.tacheChose in plateau.listeTaches:
             self.tacheToDo = self.tacheChose
-            print(self.id[0])
             if self.id[0] == "0" :
                 self.trajet = self.tacheToDo.itineraireE1
             if self.id[0] == "1" :
@@ -335,10 +334,10 @@ class Agent:
             return False
             
         # L'agent calcule la batterie à l'arrivée, si elle est < 30%, il passera se charger pendant sa tâche
-        elif self.tacheToDo and ((self.charge - self.tacheToDo.chargeNeeded) < self.autonomie*0.3):
+        elif self.tacheToDo and ((self.charge - self.tacheToDo.chargeNeeded) < self.autonomie*0.2):
                 return True
 
-        elif self.charge <= self.autonomie*0.3:
+        elif self.charge <= self.autonomie*0.2:
             return True
 
 
