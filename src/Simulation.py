@@ -33,7 +33,7 @@ class Simulation:
                     self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0], heuristiqueE2, choixTacheE2)
                     self.skin[self.equipe[i].getAgents()[idAgent]] = createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
         
-        self.layer: Layer = Layer(self.itf, self.equipe)
+        self.layer: Layer = Layer(self.itf, self.equipe, self.taches, self.plt.listeTaches)
 
     # Déplacement
     def agentMoveSimple(self, idE: int, idA: str) -> None:

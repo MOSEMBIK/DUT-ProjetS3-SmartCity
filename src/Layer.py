@@ -2,7 +2,7 @@ from src.Interface import *
 
 
 class Layer:
-    def __init__(self, interface, equipe):
+    def __init__(self, interface, equipe, taches, listTache):
         self.itf: Interface = interface
         self.equipe = equipe
         # Creation des frames
@@ -18,18 +18,22 @@ class Layer:
         self.score1 = 0
         self.score2 = 0
 
+        # Taches restantes et disponibls restantes
+        self.showtacheRestantes = createTacheValue(self.frame3, len(taches) + 10)
+        self.showtachesDispoRestantes = createTacheDispoValue(self.frame3, len(listTache))
         # Label score 1 et 2 touchez pas c dla merde mais osef
 
         self.label1 = createScoreValue(self.frame1, self.score1)
         self.label2 = createScoreValue(self.frame2, self.score2)
 
-        self.accelerate = addButton(self.frame3, 0.8, 0.5, '>>', lambda: print('pause'))
-        self.pause = addButton(self.frame3, 0.8, 0.4, "II", lambda: print("acceleration"))
+        self.accelerate = addButton(self.frame3, 0.90, 0.5, '>>', lambda: print('pause'))
+        self.pause = addButton(self.frame3, 0.90, 0.4, "II", lambda: print("acceleration"))
 
         # Ajout widgets
         addText('BLUE', self.frame1)
         addText('RED', self.frame2)
         addSmartCorp(self.frame3)
+        showTaches(self.frame3, len(taches) + 10, len(listTache))
         self.winnerTab = createWinnerTeamTab(self.frame3)
 
     def updateScore(self):
@@ -38,6 +42,10 @@ class Layer:
         updateScoreValue(self.label1, self.score1)
         updateScoreValue(self.label2, self.score2)
         updateWinnerTeamTab(self.winnerTab, self.getWinner(), self.equipe)
+
+    def updateTache(self, taches, tachesDispo):
+        self.showtacheRestantes.config(text=taches+10)
+        self.showtachesDispoRestantes.config(text=tachesDispo)
 
     def updateTab(self, agent):
         if int(agent.id) < 10:
@@ -50,4 +58,4 @@ class Layer:
             return 1
         return 2
 
-    #def nbTaches(self, disp, ):
+    # def nbTaches(self, disp, ):

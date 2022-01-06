@@ -72,6 +72,11 @@ def addBoard(game_frame, agents):
 
 
 def createWinnerTeamTab(game_frame):
+    style = tkinter.ttk.Style()
+    style.configure("Treeview.Heading", font=(None, 9))
+
+    style.configure("Treeview", font=('Calibri', 9))
+
     my_game = tkinter.ttk.Treeview(game_frame, style="Treeview")
     my_game['columns'] = ('Equipe', 'heuristique', 'choixTache')
 
@@ -90,7 +95,7 @@ def createWinnerTeamTab(game_frame):
 
     my_game.insert(parent='', index='end', iid='RED TEAM', text='',
                    values=('-', '-', '-'))
-    my_game.place(anchor='nw', width=300, height=62, relx=0, rely=0.3)
+    my_game.place(anchor='nw', width=300, height=62, relx=0, rely=0.4)
     return my_game
 
 
@@ -129,20 +134,20 @@ def updateTab(my_game, agent):
     else:
         charge = "-"
     if agent.tacheToDo is None:
-        if agent.tacheChose is None :
+        if agent.tacheChose is None:
             my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
-                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
-                                str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0])) + " " + str(
-                                    int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
-                                agent.score,
-                                "-", "-", agent.wearing, charge))
-        else :
+                           values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
+                                   str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0])) + " " + str(
+                                       int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
+                                   agent.score,
+                                   "-", "-", agent.wearing, charge))
+        else:
             my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
-                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
-                                str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0])) + " " + str(
-                                    int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
-                                agent.score,
-                                agent.tacheChose.depart.getType(), "-", agent.wearing, charge))
+                           values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
+                                   str(int(agent.trajet[agent.caseOfTrajet].getCoords()[0])) + " " + str(
+                                       int(agent.trajet[agent.caseOfTrajet].getCoords()[1])),
+                                   agent.score,
+                                   agent.tacheChose.depart.getType(), "-", agent.wearing, charge))
     else:
         my_game.insert(parent='', index=agent.id, iid=agent.id, text='',
                        values=(agent.id, str(int(agent.charge / agent.autonomie * 100)) + "%",
@@ -171,6 +176,7 @@ def getStrChoixT(choix):
         return "Rentable"
     else:
         return "proximité"
+
 
 def getScore(my_game):
     children = my_game.get_children()
@@ -221,13 +227,66 @@ def addSmartCorp(frame):
         frame, text="Simulation Smart Corp"
         , font=font, justify='center'
     )
-    label.place(anchor='nw', relx=0.01, rely=0.1)
+    label.place(anchor='nw', relx=0.01, rely=0.05)
+
+
+def showTaches(frame, taches, tachesDispo):
+    ######################
+    ######## H1 ##########
+    ######################
+    font = tkFont.Font(family='Verdana', size=12)
+    label = tkinter.Label(
+        frame, text="Nombre de taches :"
+        , font=font, justify='center'
+    )
+    label.place(anchor='nw', relx=0.03, rely=0.2)
+
+    label = tkinter.Label(
+        frame, text="Nombre de taches dispos :"
+        , font=font, justify='center'
+    )
+    label.place(anchor='nw', relx=0.03, rely=0.3)
+
+
+    font = tkFont.Font(family='Verdana', size=10)
+    label = tkinter.Label(
+        frame, text="/ " + str(taches), justify='center', font=font
+    )
+    label.place(anchor='nw', relx=0.62, rely=0.205)
+
+    font = tkFont.Font(family='Verdana', size=10)
+    label = tkinter.Label(
+        frame, text="/ " + str(tachesDispo), justify='center', font=font
+    )
+    label.place(anchor='nw', relx=0.77, rely=0.305)
+
+
+
+    # Taches choisises
+
+
+def createTacheValue(frame, taches):
+    font = tkFont.Font(family='Verdana', size=10)
+    label = tkinter.Label(
+        frame, text=taches, justify='center', font=font
+    )
+    label.place(anchor='nw', relx=0.55, rely=0.205)
+    return label
+
+
+def createTacheDispoValue(frame, taches):
+    font = tkFont.Font(family='Verdana', size=10)
+    label = tkinter.Label(
+        frame, text=taches, justify='center', font=font
+    )
+    label.place(anchor='nw', relx=0.71, rely=0.305)
+    return label
 
 
 class Interface:
     def __init__(self, img):
         self.root = Tk()
-        self.root.resizable(False, False)
+        # self.root.resizable(False, False)
 
         self.img = Image.open('img/' + img, 'r').convert('RGB')
 
@@ -340,4 +399,3 @@ class Interface:
             frame, text=team + ' TEAM WIN', font=font, justify='center'
         )
         label.place(anchor='n', relx=0.5, rely=0.3)
-

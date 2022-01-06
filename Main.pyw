@@ -21,6 +21,7 @@ def preMain():
     heuristiqueE2 = window.heuristiqueE2
     choixTacheE1 = window.choixTacheE1
     choixTacheE2 = window.choixTacheE2
+    print(nbTaches)
     nbTachesSim = 10
 
     return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTachesSim
@@ -50,6 +51,7 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
                 ag: Agent = sim.equipe[e].getAgents()[a]
                 sim.layer.updateTab(ag)
                 sim.layer.updateScore()
+                sim.layer.updateTache(len(sim.taches), len(sim.plt.listeTaches))
 
                 Interface.imageMove(sim.plt.canvas, sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                 skins.append(sim.skin.get(ag))
