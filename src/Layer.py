@@ -32,7 +32,7 @@ class Layer:
         self.label1 = createScoreValue(self.frame1, self.score1)
         self.label2 = createScoreValue(self.frame2, self.score2)
 
-        self.pause = addButton(self.frame3, 0.90, 0.25, "II", lambda: self.setupSleep(20))
+        self.pause = addButton(self.frame3, 0.90, 0.25, "II", lambda: self.setupSleep(10))
         self.play = addButton(self.frame3, 0.90, 0.35, 'P', lambda: self.setupSleep(0.02))
         self.accelerate = addButton(self.frame3, 0.90, 0.45, 'x1', lambda: self.setupSleepAccelerate())
 
