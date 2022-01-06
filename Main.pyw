@@ -73,8 +73,6 @@ def main(val):
     return None
 
 
-if __name__ == "__main__":
-    val = preMain()
 if __name__ == "__main__" :
     val = 0
     preMain()
