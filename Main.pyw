@@ -11,17 +11,17 @@ from tkinter import *
 from PIL import ImageTk, Image
 
 def preMain():
-    nbEquipe = 2
     nbAgentE1 = 1
     nbAgentE2 = 1
-    nbTaches = 50
-    nbTacheSim = 10
     heuristiqueE1 = 0
     heuristiqueE2 = 0
-    val = 0
+    nbTaches = 50
+    nbTacheSim = 10
+
     window = SimMenu()
     window.start()
-    return val
+    
+    return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, nbTaches, nbTacheSim
 
 def main(val):
     print(val)
