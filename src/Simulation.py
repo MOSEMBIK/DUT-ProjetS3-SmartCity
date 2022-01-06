@@ -8,9 +8,10 @@ import random as rdm
 
 class Simulation:
 
-    def __init__(self, name: str = "", ico : str = None, nbAgentE1: int = 2, nbAgentE2: int = 2, heuristiqueE1=0, heuristiqueE2=0, choixTacheE1=1, choixTacheE2=1, nbTaches = 50, nbTachesSim = 10):
+    def __init__(self, name: str = "", ico : str = None, srcMap = "", nbAgentE1: int = 2, nbAgentE2: int = 2, heuristiqueE1=0, heuristiqueE2=0, choixTacheE1=1, choixTacheE2=1, nbTaches = 50, nbTachesSim = 10):
         self.name = name
-        self.itf = Interface('Squelette_map.png')
+        self.itf = Interface(srcMap)
+
         self.plt: Plateau = Plateau(self.name, ico, self.itf)
         self.skin = {}
         self.equipe: list[Equipe] = []
@@ -33,7 +34,9 @@ class Simulation:
                     self.equipe[i].addAgents(idAgent, self.plt.getLieu('Spawn')[0], heuristiqueE2, choixTacheE2)
                     self.skin[self.equipe[i].getAgents()[idAgent]] = createImg(self.plt.canvas, self.equipe[i].getAgents()[idAgent].spawn.getCoords(), i)
         
-        self.layer: Layer = Layer(self.itf, self.equipe, self.taches, self.plt.listeTaches)
+        self.layer: Layer = Layer(self.itf, self.equipe)
+        
+        self.itf.root.title(self.name+" - MARS (Simulation running)")
 
     # Déplacement
     def agentMoveSimple(self, idE: int, idA: str) -> None:

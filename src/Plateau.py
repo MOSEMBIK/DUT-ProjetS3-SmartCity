@@ -1,4 +1,5 @@
 import random as rd
+import time
 from src.Interface import *
 from src.Case import *
 from src.Tache import *
@@ -19,6 +20,7 @@ class Plateau:
         self.icon = ico
         self.itf = interface
         self.contenu: list[Case] = []
+
         self.canvas = Plateau.init_map(self)
         self.setPortes()
         self.listeTaches : list[Tache] = []
@@ -44,7 +46,7 @@ class Plateau:
         :return: canvas crée
         """
         # On initialise le canvas
-        self.itf.root.title(self.nom)
+        self.itf.root.title(self.nom+" - MARS (Loading ...)")
         self.itf.createIcon(self.icon)
         self.itf.createWindow()
         cv = self.itf.createCanvas()

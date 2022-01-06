@@ -303,14 +303,10 @@ class Interface:
 
     def createCanvas(self):
         w_image, h_image = self.img.size
-        # self.root.geometry('860x' + str(h_image * 18-4))
         cv = Canvas(self.root, height=h_image * 12, width=w_image * 12)
         cv.grid(sticky="nw")
-
-        # self.root.grid_columnconfigure(0, weight=1)
-        # self.root.grid_columnconfigure(3, weight=1)
-        # self.root.update_idletasks()
         cv.update()
+        
         return cv
 
     @staticmethod
@@ -365,9 +361,8 @@ class Interface:
                 cv.tag_raise(skins[i])
 
         mapS = cv.create_image(0, 0, image=imdec, anchor=NW, disabledimage=imdec)
-
-        # cv.create_rectangle(0, 0, h*20, w*20, fill='white')
         cv.update()
+
         return mapS
 
     def createIcon(self, icon):
