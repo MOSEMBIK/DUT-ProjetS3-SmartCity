@@ -1,4 +1,5 @@
 import random as rd
+import time
 from src.Interface import *
 from src.Case import *
 from src.Tache import *
@@ -19,6 +20,7 @@ class Plateau:
         self.icon = ico
         self.itf = interface
         self.contenu: list[Case] = []
+
         self.canvas = Plateau.init_map(self)
         self.setPortes()
         self.listeTaches : list[Tache] = []

@@ -25,15 +25,11 @@ def preMain():
 
     return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTachesSim
 
-
 def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTacheSim):
     sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbAgentE1=nbAgentE1, nbAgentE2=nbAgentE2, heuristiqueE1=heuristiqueE1, heuristiqueE2=heuristiqueE2, choixTacheE1=choixTacheE1, choixTacheE2=choixTacheE2, nbTaches=nbTaches, nbTachesSim=nbTacheSim)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
-
     sim.allGoToRandom()
 
-    enCours = []
-    tour = 1
     while len(sim.taches) > 0 or len(sim.plt.listeTaches) > 0 or len(enCours) > 0:
         if len(sim.plt.listeTaches) <= nbTacheSim:
             while len(sim.plt.listeTaches) != nbTacheSim and len(sim.taches) > 0 :
@@ -59,6 +55,7 @@ def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choix
 
         # Update du screen, affichage du design de map, pause du programme
         mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, mapS, skins)
+        
         time.sleep(0.02)
 
     print("END")
