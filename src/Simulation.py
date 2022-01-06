@@ -8,9 +8,9 @@ import random as rdm
 
 class Simulation:
 
-    def __init__(self, name: str = "", ico : str = None, nbAgentE1: int = 2, nbAgentE2: int = 2, heuristiqueE1=0, heuristiqueE2=0, choixTacheE1=1, choixTacheE2=1, nbTaches = 50, nbTachesSim = 10):
+    def __init__(self, name: str = "", ico : str = None, srcMap = "", nbAgentE1: int = 2, nbAgentE2: int = 2, heuristiqueE1=0, heuristiqueE2=0, choixTacheE1=1, choixTacheE2=1, nbTaches = 50, nbTachesSim = 10):
         self.name = name
-        self.itf = Interface('Squelette_map.png')
+        self.itf = Interface(srcMap)
 
         self.plt: Plateau = Plateau(self.name, ico, self.itf)
         self.skin = {}

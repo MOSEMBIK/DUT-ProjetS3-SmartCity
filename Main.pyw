@@ -26,7 +26,7 @@ def preMain():
     return nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTachesSim
 
 def main(nbAgentE1, nbAgentE2, heuristiqueE1, heuristiqueE2, choixTacheE1, choixTacheE2, nbTaches, nbTacheSim):
-    sim: Simulation = Simulation(name="SmartCity", ico='img/logo/smartCorp.png', nbAgentE1=nbAgentE1, nbAgentE2=nbAgentE2, heuristiqueE1=heuristiqueE1, heuristiqueE2=heuristiqueE2, choixTacheE1=choixTacheE1, choixTacheE2=choixTacheE2, nbTaches=nbTaches, nbTachesSim=nbTacheSim)
+    sim: Simulation = Simulation(name="SmartCity", ico='img/logo/smartCorp.png', srcMap='Squelette_map.png', nbAgentE1=nbAgentE1, nbAgentE2=nbAgentE2, heuristiqueE1=heuristiqueE1, heuristiqueE2=heuristiqueE2, choixTacheE1=choixTacheE1, choixTacheE2=choixTacheE2, nbTaches=nbTaches, nbTachesSim=nbTacheSim)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
     sim.allGoToRandom()
 

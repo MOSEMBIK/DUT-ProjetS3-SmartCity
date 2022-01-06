@@ -1,13 +1,12 @@
 from src.Interface import *
 
-
 class SimMenu:
     def __init__(self):
         self.itf = Interface('menu.png')
-        self.team = []
-        
         self.itf.root.title("SmartCity - Menu")
         self.itf.createIcon('img/logo/smartCorp.png')
+
+        self.team = []
 
         self.heuristiqueE1 = 0
         self.heuristiqueE2 = 0
