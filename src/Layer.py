@@ -37,7 +37,7 @@ class Layer:
         self.score2 = getScore(self.tab2)
         updateScoreValue(self.label1, self.score1)
         updateScoreValue(self.label2, self.score2)
-        updateWinnerTeamTab(self.winnerTab, self.getWinner())
+        updateWinnerTeamTab(self.winnerTab, self.getWinner(), [self.score1, self.score2])
 
     def updateTab(self, agent):
         if int(agent.id) < 10:

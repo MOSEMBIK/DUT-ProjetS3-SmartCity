@@ -92,7 +92,7 @@ def createWinnerTeamTab(game_frame):
     return my_game
 
 
-def updateWinnerTeamTab(game_frame, winner):
+def updateWinnerTeamTab(game_frame, winner, score):
     game_frame.delete('BLUE TEAM')
     game_frame.delete('RED TEAM')
     if winner == 1:
