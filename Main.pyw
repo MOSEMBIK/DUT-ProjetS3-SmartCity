@@ -15,20 +15,18 @@ def preMain():
     nbEquipe = 2
     nbAgentE1 = 1
     nbAgentE2 = 1
-    nbTaches = 50
-    nbTacheSim = 10
-    heuristiqueE1 = 0
-    heuristiqueE2 = 0
-
-    window = SimMenu()
+    nbTaches=50
+    nbTacheSim=10
+    heuristiqueE1=0
+    heuristiqueE2=0
+    val = 0
+    window = SimMenu ()
     window.start()
     return val
 
-
 def main(val):
     print(val)
-    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbEquipe=2, nbAgent=2,
-                                 nbTaches=50, nbTachesSim=10)
+    sim: Simulation = Simulation(name="SmartCity - MARS", ico='img/logo/smartCorp.png', nbEquipe=2, nbAgent=2, nbTaches=50, nbTachesSim=10)
     mapS = sim.plt.itf.skins_map_update(sim.plt.canvas, None, None)
 
     sim.allGoToRandom()
@@ -42,7 +40,7 @@ def main(val):
                     t = rdm.choice(sim.taches)
                     sim.plt.listeTaches.append(t)
                     sim.taches.pop(sim.taches.index(t))
-
+                
         skins = []
 
         sim.allMove()
@@ -57,10 +55,10 @@ def main(val):
                 # sim.plt.itf.moveSkin(sim.skin.get(ag), ag.trajet[ag.caseOfTrajet].getCoords())
                 # print("E :", sim.equipe[e].id, "A :", 1 + ag.id, ag.trajet[ag.caseOfTrajet].getCoords())
 
-                if ag.tacheToDo:
-                    if ag.tacheToDo.enCours:
+                if ag.tacheToDo :
+                    if ag.tacheToDo.enCours :
                         allDone = False
-                    else:
+                    else :
                         allDone = True
 
         # Update du screen, affichage du design de map, pause du programme
@@ -75,7 +73,6 @@ def main(val):
     sim.plt.start()
     return None
 
-
-if __name__ == "__main__":
+if __name__ == "__main__" :
     val = preMain()
     main(val)
