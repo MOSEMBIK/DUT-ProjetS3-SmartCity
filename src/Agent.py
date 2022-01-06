@@ -55,10 +55,13 @@ class Agent:
 
     def chooseTache_Random(self, plateau:Plateau) -> None:
         # On choisit une tache au hasard dans la liste.
-        self.tacheChose = rdm.choice(plateau.listeTaches)
+        if plateau.listeTaches != []:
+            self.tacheChose = rdm.choice(plateau.listeTaches)
 
-        self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
-        self.caseOfTrajet = 0
+            self.trajet = self.getTrajet_aStar(plateau, self.tacheChose.depart)
+            self.caseOfTrajet = 0
+        else :
+            self.charge = 0
 
     def chooseTache_Rentable(self, plateau:Plateau) -> None:
         # On choisit la tache la plus rentable
