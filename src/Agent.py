@@ -62,6 +62,7 @@ class Agent:
             self.caseOfTrajet = 0
         else :
             self.charge = 0
+            self.tacheChose = None
 
     def chooseTache_Rentable(self, plateau:Plateau) -> None:
         # On choisit la tache la plus rentable
@@ -74,6 +75,7 @@ class Agent:
             self.caseOfTrajet = 0
         else :
             self.charge = 0
+            self.tacheChose = None
 
     def chooseTache_Proximite(self, plateau:Plateau) -> None:
         # On choisit la tache la plus proche
@@ -92,6 +94,7 @@ class Agent:
             self.caseOfTrajet = 0
         else :
             self.charge = 0
+            self.tacheChose = None
 
     def chooseTache(self, plateau:Plateau) -> None:
         if self.choixT == 0 :
