@@ -169,7 +169,7 @@ def updateTab(my_game, agent):
 
 def getStrHeuristique(heuristique):
     if heuristique == 0:
-        return "Mannathan"
+        return "Mannhattan"
     elif heuristique == 1:
         return "Pythagore"
     elif heuristique == 2:
