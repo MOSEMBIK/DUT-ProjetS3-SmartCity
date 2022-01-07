@@ -2,7 +2,7 @@
 
 ### Projet Python 3.9
 
-### Veillez à bien avoir installé les dépendance suivantes :
+### Veillez à bien avoir installé les dépendances suivantes :
 
 #### tkinter
 #### pillow
