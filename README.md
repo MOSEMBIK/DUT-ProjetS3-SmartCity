@@ -10,9 +10,8 @@ https://user-images.githubusercontent.com/91618198/149364537-0eb833b1-1a2b-4ead-
 
 ## Pour lancer le programme
 ### Veillez à bien avoir installé les dépendances suivantes :
-
-#### tkinter
-#### pillow
+      - tkinter
+      - pillow
 
 # -------------------------------------------------
 
