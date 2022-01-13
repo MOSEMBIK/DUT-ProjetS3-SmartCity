@@ -9,12 +9,11 @@ https://user-images.githubusercontent.com/91618198/149364537-0eb833b1-1a2b-4ead-
 
 
 ## Pour lancer le programme
-### Veillez à bien avoir installé les dépendances suivantes :
+### 1) - Veillez à bien avoir installé Python3 sur votre machine
+### 2) - Veillez à bien avoir installé les dépendances suivantes :
       - tkinter
       - pillow
+### 3) - Lancez Main.pyw
 
-# -------------------------------------------------
-
-## Merci de lancer Main.pyw
-
-## Le code et tkinter étant optimisé pour linux, il se peut que des bugs d'affichage apparaissent sur un OS différent.
+### /!\ Attention !
+##### Le code du projet étant optimisé pour linux, il se peut que des bugs d'affichage apparaissent sur un OS différent.
